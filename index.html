@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nilayo Sports Management — Africa's Sports Authority</title>
+  <meta name="description" content="Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/nav.js"></script>
+  <style>
+    /* ── HERO ──────────────────────────────── */
+    .hero {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      padding: 8rem 1.5rem 5rem;
+    }
+
+    /* Crop to athletes on the right — hides the brand image text on the left */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/brand-hero.jpg') 72% center / cover no-repeat;
+      opacity: 0.55;
+      will-change: transform;
+    }
+
+    /* Dark gradient from left — keeps text readable, fades to reveal athletes on right */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,
+          rgba(13,31,60,1)    0%,
+          rgba(13,31,60,0.97) 30%,
+          rgba(13,31,60,0.7)  55%,
+          rgba(13,31,60,0.2)  80%,
+          rgba(13,31,60,0.08) 100%),
+        linear-gradient(to bottom,
+          rgba(13,31,60,0.6) 0%,
+          transparent 20%,
+          transparent 80%,
+          rgba(13,31,60,0.8) 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 72rem;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Text lives in the left half — clean dark zone */
+    .hero-content {
+      max-width: 52rem;
+    }
+
+    .hero-eyebrow {
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+
+    .hero-h1 {
+      font-family: var(--font-d);
+      font-size: clamp(2.25rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: #ffffff;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(2.25rem);
+    }
+
+    .hero-h1 .hi { color: var(--green); }
+
+    .hero-p {
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      color: rgba(255,255,255,0.68);
+      max-width: 36rem;
+      margin-bottom: 2.75rem;
+      line-height: 1.75;
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 0.875rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+
+    .hero-trust {
+      margin-top: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .trust-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-right: 0.25rem;
+    }
+
+    .trust-item {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+    }
+
+    .trust-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      flex-shrink: 0;
+    }
+
+    /* ── WHO WE ARE ─────────────────────────── */
+    .teaser {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .teaser-text .section-tag { margin-bottom: 1.5rem; }
+    .teaser-text .sec-h2 { margin-bottom: 1.25rem; }
+
+    .teaser-text p {
+      font-size: 1.0625rem;
+      color: var(--text-sub);
+      line-height: 1.8;
+      margin-bottom: 2.25rem;
+      max-width: 34rem;
+    }
+
+    /* Right side: stacked metric cards */
+    .teaser-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+    }
+
+    .metric {
+      padding: 0.25rem;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-lg);
+      transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+
+    .metric:hover {
+      border-color: var(--green);
+      box-shadow: 0 4px 20px rgba(26,184,60,0.1);
+    }
+
+    .metric-inner {
+      background: var(--surface);
+      border-radius: calc(var(--r-lg) - 0.25rem);
+      padding: 1.625rem 1.375rem;
+    }
+
+    .metric-val {
+      font-family: var(--font-d);
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-accent { color: var(--green); font-size: 0.7em; }
+    .metric-lbl {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* ── STATS STRIP ─────────────────────────── */
+    /* Handled by .stats-strip in styles.css */
+
+    /* ── FEATURED PROPERTIES ─────────────────── */
+    .feat-section {
+      padding: 6rem 1.5rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feat-section-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* Large featured card: Lagos Marathon spans 2 cols */
+    .feat-grid .prop-card-lg {
+      grid-column: span 2;
+    }
+
+    .prop-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .prop-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 8px 32px rgba(26,184,60,0.12);
+      transform: translateY(-3px);
+    }
+
+    .prop-img-wrap {
+      overflow: hidden;
+      height: 200px;
+    }
+
+    .prop-card-lg .prop-img-wrap {
+      height: 260px;
+    }
+
+    .prop-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.06) brightness(0.97);
+      transition: transform 0.75s var(--ease), filter 0.75s var(--ease);
+      display: block;
+    }
+
+    .prop-card:hover .prop-img {
+      transform: scale(1.05);
+      filter: saturate(1.1) contrast(1.08);
+    }
+
+    .prop-body { padding: 1.5rem; }
+
+    .prop-tag {
+      display: inline-block;
+      background: var(--accent-glow);
+      color: var(--green);
+      border: 1px solid var(--accent-ring);
+      border-radius: 9999px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .prop-title {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .prop-card-lg .prop-title {
+      font-size: 1.25rem;
+    }
+
+    .prop-desc {
+      font-size: 0.8125rem;
+      color: var(--text-sub);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .prop-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--green);
+      color: #ffffff;
+      border-radius: 9999px;
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.875rem;
+      z-index: 2;
+    }
+
+    /* ── CTA BAND ────────────────────────────── */
+    .cta-band {
+      background: var(--navy);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/brand-hero.jpg') 70% center / cover no-repeat;
+      opacity: 0.12;
+    }
+
+    .cta-band-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 3rem;
+      position: relative;
+    }
+
+    .cta-band h2 {
+      font-family: var(--font-d);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      color: #ffffff;
+    }
+
+    .cta-band h2 em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .cta-band p {
+      font-size: 1.0625rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.875rem;
+      max-width: 38rem;
+      line-height: 1.7;
+    }
+
+    .cta-band-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #ffffff;
+      color: var(--navy);
+      font-family: var(--font-b);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 9999px;
+      padding: 0.9375rem 1.375rem 0.9375rem 1.875rem;
+      transition: all 0.4s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn-white:hover {
+      background: var(--green);
+      color: #ffffff;
+      transform: scale(0.97);
+    }
+
+    .btn-white:hover .btn-icon { transform: translate(2px,-2px) scale(1.1); }
+
+    .btn-ghost-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-family: var(--font-b);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.75rem 1.5rem;
+      transition: all 0.4s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn-ghost-white:hover {
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 1024px) {
+      .teaser { grid-template-columns: 1fr; gap: 3rem; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
+      .feat-grid .prop-card-lg { grid-column: span 2; }
+      .cta-band-inner { grid-template-columns: 1fr; }
+      .cta-band-btns { flex-direction: row; align-items: flex-start; }
+    }
+
+    @media (max-width: 768px) {
+      .hero { align-items: flex-start; padding: 6.5rem 1.25rem 3.5rem; }
+      .hero-bg { background-position: 80% center; }
+      .hero-content { max-width: 100%; }
+      .hero-trust { gap: 0.625rem; }
+
+      .feat-grid { grid-template-columns: 1fr; }
+      .feat-grid .prop-card-lg { grid-column: span 1; }
+      .prop-card-lg .prop-img-wrap { height: 200px; }
+      .teaser-metrics { grid-template-columns: 1fr 1fr; }
+
+      .cta-band-inner { padding: 4rem 1.25rem; grid-template-columns: 1fr; gap: 2rem; }
+      .cta-band-btns { flex-direction: column; align-items: flex-start; }
+      .cta-band h2 { font-size: clamp(1.625rem, 7vw, 2.5rem); }
+    }
+
+    /* ── HOME NEWS CARDS ─────────────────── */
+    .home-news-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      display: block;
+      text-decoration: none;
+      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .home-news-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 6px 24px rgba(26,184,60,0.1);
+      transform: translateY(-3px);
+    }
+
+    .home-news-card:hover img { transform: scale(1.05) !important; filter: saturate(1.1) contrast(1.08) !important; }
+
+    @media (max-width: 768px) {
+      #homeNewsGrid { grid-template-columns: 1fr !important; }
+    }
+
+    @media (max-width: 480px) {
+      .teaser-metrics { grid-template-columns: 1fr 1fr; }
+      .metric-val { font-size: 1.75rem; }
+      .hero-trust { display: none; }
+      .feat-section { padding: 3.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div id="nav-root"></div>
+
+  <!-- ── HERO ─────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="eyebrow-pill hero-eyebrow" id="heroEyebrow">
+          <span class="eyebrow-dot"></span>
+          World Athletics Certified — Africa's Strongest Marathon Brand 2025
+        </div>
+        <h1 class="hero-h1">
+          <span class="hero-line" id="hl1">Africa's Strongest</span>
+          <span class="hero-line" id="hl2">Force in <span class="hi">Sports</span></span>
+        </h1>
+        <p class="hero-p" id="heroP">
+          Sports marketing, brand management and procurement that elevates athletes, brands and communities from grassroots to global recognition.
+        </p>
+        <div class="hero-btns" id="heroBtns">
+          <a href="contact.html" class="btn btn-fill">
+            <span>Partner With Us</span>
+            <span class="btn-icon">↗</span>
+          </a>
+          <a href="properties.html" class="btn btn-outline-white">Explore Properties</a>
+        </div>
+        <div class="hero-trust" id="heroTrust">
+          <span class="trust-label">Trusted by</span>
+          <span class="trust-item">World Athletics</span><span class="trust-sep"></span>
+          <span class="trust-item">NFF</span><span class="trust-sep"></span>
+          <span class="trust-item">CAA</span><span class="trust-sep"></span>
+          <span class="trust-item">AFN</span><span class="trust-sep"></span>
+          <span class="trust-item">Access Bank</span><span class="trust-sep"></span>
+          <span class="trust-item">Airtel Nigeria</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TICKER ────────────────────────────── -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <div class="ticker-set">
+        <span class="tick hi">Lagos City Marathon</span><span class="tick-dot"></span>
+        <span class="tick">440,000+ Participants</span><span class="tick-dot"></span>
+        <span class="tick hi">World Athletics Certified</span><span class="tick-dot"></span>
+        <span class="tick">Africa's Strongest Marathon Brand 2025</span><span class="tick-dot"></span>
+        <span class="tick hi">Abuja City Marathon</span><span class="tick-dot"></span>
+        <span class="tick">Copa Lagos Beach Soccer</span><span class="tick-dot"></span>
+        <span class="tick hi">Abeokuta 10KM Race</span><span class="tick-dot"></span>
+        <span class="tick">Enugu City Marathon</span><span class="tick-dot"></span>
+        <span class="tick hi">Stormers Sports Club</span><span class="tick-dot"></span>
+        <span class="tick">IAU African Championship</span><span class="tick-dot"></span>
+        <span class="tick hi">National Sports Festival</span><span class="tick-dot"></span>
+      </div>
+      <div class="ticker-set" aria-hidden="true">
+        <span class="tick hi">Lagos City Marathon</span><span class="tick-dot"></span>
+        <span class="tick">440,000+ Participants</span><span class="tick-dot"></span>
+        <span class="tick hi">World Athletics Certified</span><span class="tick-dot"></span>
+        <span class="tick">Africa's Strongest Marathon Brand 2025</span><span class="tick-dot"></span>
+        <span class="tick hi">Abuja City Marathon</span><span class="tick-dot"></span>
+        <span class="tick">Copa Lagos Beach Soccer</span><span class="tick-dot"></span>
+        <span class="tick hi">Abeokuta 10KM Race</span><span class="tick-dot"></span>
+        <span class="tick">Enugu City Marathon</span><span class="tick-dot"></span>
+        <span class="tick hi">Stormers Sports Club</span><span class="tick-dot"></span>
+        <span class="tick">IAU African Championship</span><span class="tick-dot"></span>
+        <span class="tick hi">National Sports Festival</span><span class="tick-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WHO WE ARE ─────────────────────────── -->
+  <div class="section-wrap">
+    <div class="teaser">
+      <div class="teaser-text">
+        <div class="section-tag">Who We Are</div>
+        <h2 class="sec-h2">Transforming Sports<br>Across <span class="hi">Africa</span></h2>
+        <p>We are a sports marketing, brand management, and procurement agency that thrives on dynamism and innovation. With deep relationships with World Athletics, NFF, CAA, and AFN, we promote sporting activities from grassroots to international fame — creating lasting legacies that inspire generations.</p>
+        <a href="about.html" class="btn btn-fill btn-sm">
+          <span>Our Story</span>
+          <span class="btn-icon">↗</span>
+        </a>
+      </div>
+      <div class="teaser-metrics">
+        <div class="metric">
+          <div class="metric-inner">
+            <div class="metric-val">440K<span class="metric-accent">+</span></div>
+            <div class="metric-lbl">Marathon participants across all events</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-inner">
+            <div class="metric-val">₦3B<span class="metric-accent">+</span></div>
+            <div class="metric-lbl">Raised annually from private sector</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-inner">
+            <div class="metric-val">12<span class="metric-accent">+</span></div>
+            <div class="metric-lbl">Major sporting properties managed</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-inner">
+            <div class="metric-val">54</div>
+            <div class="metric-lbl">African nations reached through events</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STATS STRIP ────────────────────────── -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat" data-count="9" data-suffix=" Years">
+        <div class="stat-val"><span class="count-num">0</span><span class="stat-suffix">&nbsp;Years</span></div>
+        <div class="stat-lbl">Delivering world-class sporting events</div>
+      </div>
+      <div class="stat" data-count="30" data-suffix="+">
+        <div class="stat-val"><span class="count-num">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-lbl">National and global brand sponsors</div>
+      </div>
+      <div class="stat" data-count="10000" data-suffix="+">
+        <div class="stat-val"><span class="count-num">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-lbl">Athletes at single-event peak</div>
+      </div>
+      <div class="stat" data-count="6" data-suffix=" Cities">
+        <div class="stat-val"><span class="count-num">0</span><span class="stat-suffix">&nbsp;Cities</span></div>
+        <div class="stat-lbl">Active event footprint across Nigeria</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FEATURED PROPERTIES ──────────────────── -->
+  <div class="feat-section">
+    <div class="feat-section-inner">
+      <div class="split-header">
+        <div>
+          <div class="section-tag">Featured Properties</div>
+          <h2 class="sec-h2">Flagship <span class="hi">Events</span></h2>
+        </div>
+        <a href="properties.html" class="btn btn-outline btn-sm">View All</a>
+      </div>
+      <div class="feat-grid">
+
+        <!-- Lagos City Marathon — featured wide card -->
+        <div class="prop-card prop-card-lg" data-reveal>
+          <span class="prop-badge">World Athletics</span>
+          <div class="prop-img-wrap">
+            <img class="prop-img" src="https://images.unsplash.com/photo-1594882645126-14ac19a5a2f3?w=1200&q=85&auto=format&fit=crop" alt="Access Bank Lagos City Marathon runners" loading="lazy">
+          </div>
+          <div class="prop-body">
+            <div class="prop-tag">Flagship Property</div>
+            <div class="prop-title">Access Bank Lagos City Marathon</div>
+            <div class="prop-desc">Africa's Strongest Marathon Brand 2025 — a World Athletics Global Certification. 10th anniversary edition delivered in 2025 with 440,000+ participants since 2016, raising over ₦3 billion annually from the private sector.</div>
+            <a href="properties.html" class="btn btn-fill btn-sm">
+              <span>View Property</span>
+              <span class="btn-icon">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right column: two stacked cards -->
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          <div class="prop-card" data-reveal>
+            <span class="prop-badge" style="background:var(--navy);">Upcoming</span>
+            <div class="prop-img-wrap">
+              <img class="prop-img" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=840&q=80&auto=format&fit=crop" alt="Copa Lagos Beach Soccer" loading="lazy">
+            </div>
+            <div class="prop-body">
+              <div class="prop-tag">Lifestyle + Sports</div>
+              <div class="prop-title">Copa Lagos Beach Soccer</div>
+              <div class="prop-desc">Nigeria's premier beach football and lifestyle festival returns to Eko Atlantic City. 20,000+ expected. December 2026.</div>
+              <a href="properties.html" class="btn btn-fill btn-sm">
+                <span>View Property</span>
+                <span class="btn-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="prop-card" data-reveal>
+            <div class="prop-img-wrap">
+              <img class="prop-img" src="https://images.unsplash.com/photo-1594882645126-14ac19a5a2f3?w=840&q=80&auto=format&fit=crop" alt="PremiumTrust Bank Abuja City Marathon" loading="lazy">
+            </div>
+            <div class="prop-body">
+              <div class="prop-tag">International</div>
+              <div class="prop-title">PremiumTrust Bank Abuja City Marathon</div>
+              <div class="prop-desc">50,000+ participants. First World Athletics-supervised half marathon in Nigeria's capital. Next edition November 2026.</div>
+              <a href="properties.html" class="btn btn-fill btn-sm">
+                <span>View Property</span>
+                <span class="btn-icon">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FEATURED NEWS ────────────────────────────── -->
+  <div class="section-wrap">
+    <div class="split-header">
+      <div>
+        <div class="section-tag">Latest News</div>
+        <h2 class="sec-h2">From the <span class="hi">Frontlines</span></h2>
+      </div>
+      <a href="news.html" class="btn btn-outline btn-sm">All News</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;" id="homeNewsGrid">
+
+      <a href="article.html" class="home-news-card" data-reveal>
+        <div style="overflow:hidden;height:190px;border-radius:var(--r-lg) var(--r-lg) 0 0;">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=840&q=80&auto=format&fit=crop"
+               alt="Lagos City Marathon" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.06) brightness(0.97);transition:transform 0.7s cubic-bezier(0.32,0.72,0,1),filter 0.7s cubic-bezier(0.32,0.72,0,1);">
+        </div>
+        <div style="padding:1.375rem;">
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.875rem;">
+            <span style="background:var(--accent-glow);color:var(--green-dark);border:1px solid var(--accent-ring);border-radius:9999px;font-size:0.5875rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.75rem;">Events</span>
+            <span style="font-size:0.8125rem;color:var(--text-muted);">May 2025</span>
+          </div>
+          <div style="font-family:var(--font-d);font-size:1rem;font-weight:700;letter-spacing:-0.02em;line-height:1.3;color:var(--navy);margin-bottom:0.625rem;">Lagos City Marathon Earns World Athletics "Strongest Marathon Brand in Africa" Title</div>
+          <span style="font-size:0.875rem;font-weight:600;color:var(--green-dark);display:inline-flex;align-items:center;gap:0.375rem;transition:gap 0.3s;">Read More <span style="transition:transform 0.3s;">↗</span></span>
+        </div>
+      </a>
+
+      <a href="article.html" class="home-news-card" data-reveal>
+        <div style="overflow:hidden;height:190px;border-radius:var(--r-lg) var(--r-lg) 0 0;">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=840&q=80&auto=format&fit=crop"
+               alt="Copa Lagos" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.06) brightness(0.97);transition:transform 0.7s cubic-bezier(0.32,0.72,0,1),filter 0.7s cubic-bezier(0.32,0.72,0,1);">
+        </div>
+        <div style="padding:1.375rem;">
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.875rem;">
+            <span style="background:var(--accent-glow);color:var(--green-dark);border:1px solid var(--accent-ring);border-radius:9999px;font-size:0.5875rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.75rem;">Events</span>
+            <span style="font-size:0.8125rem;color:var(--text-muted);">April 2025</span>
+          </div>
+          <div style="font-family:var(--font-d);font-size:1rem;font-weight:700;letter-spacing:-0.02em;line-height:1.3;color:var(--navy);margin-bottom:0.625rem;">Copa Lagos Beach Soccer Returns to Eko Atlantic City — December 2026</div>
+          <span style="font-size:0.875rem;font-weight:600;color:var(--green-dark);display:inline-flex;align-items:center;gap:0.375rem;transition:gap 0.3s;">Read More <span style="transition:transform 0.3s;">↗</span></span>
+        </div>
+      </a>
+
+      <a href="article.html" class="home-news-card" data-reveal>
+        <div style="overflow:hidden;height:190px;border-radius:var(--r-lg) var(--r-lg) 0 0;">
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=840&q=80&auto=format&fit=crop"
+               alt="Stormers Sports Club" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.06) brightness(0.97);transition:transform 0.7s cubic-bezier(0.32,0.72,0,1),filter 0.7s cubic-bezier(0.32,0.72,0,1);">
+        </div>
+        <div style="padding:1.375rem;">
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.875rem;">
+            <span style="background:var(--accent-glow);color:var(--green-dark);border:1px solid var(--accent-ring);border-radius:9999px;font-size:0.5875rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.75rem;">Club News</span>
+            <span style="font-size:0.8125rem;color:var(--text-muted);">March 2025</span>
+          </div>
+          <div style="font-family:var(--font-d);font-size:1rem;font-weight:700;letter-spacing:-0.02em;line-height:1.3;color:var(--navy);margin-bottom:0.625rem;">Stormers Sports Club Earns NNL Promotion — Back-to-Back Lisabi Cup Champions</div>
+          <span style="font-size:0.875rem;font-weight:600;color:var(--green-dark);display:inline-flex;align-items:center;gap:0.375rem;transition:gap 0.3s;">Read More <span style="transition:transform 0.3s;">↗</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ── CTA BAND ──────────────────────────────── -->
+  <div class="cta-band">
+    <div class="cta-band-bg"></div>
+    <div class="cta-band-inner">
+      <div data-reveal>
+        <h2>Ready to build something <em>legendary</em> together?</h2>
+        <p>When you partner with NSML, your brand connects with millions of athletes, fans, and communities across Africa. More than visibility — your brand stands alongside inspiring stories of people pushing limits.</p>
+      </div>
+      <div class="cta-band-btns" data-reveal>
+        <a href="contact.html" class="btn-white">
+          <span>Start a Conversation</span>
+          <span class="btn-icon">↗</span>
+        </a>
+        <a href="services.html" class="btn-ghost-white">Our Services</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PARTNERS ───────────────────────────────── -->
+  <div class="partners">
+    <div class="partners-lbl">Trusted Partners &amp; Affiliations</div>
+    <div class="partners-track">
+      <div class="partners-set">
+        <span class="partner">World Athletics</span>
+        <span class="partner">Access Bank</span>
+        <span class="partner">CAA</span>
+        <span class="partner">Airtel Nigeria</span>
+        <span class="partner">NFF</span>
+        <span class="partner">KIA Motors</span>
+        <span class="partner">Seven Up</span>
+        <span class="partner">PremiumTrust Bank</span>
+        <span class="partner">AFN</span>
+        <span class="partner">Lotus Bank</span>
+        <span class="partner">Air Peace</span>
+        <span class="partner">Aquafina</span>
+        <span class="partner">Pinnacle Oil</span>
+        <span class="partner">Dana Airlines</span>
+        <span class="partner">Zenith Bank</span>
+        <span class="partner">NPFL</span>
+      </div>
+      <div class="partners-set" aria-hidden="true">
+        <span class="partner">World Athletics</span>
+        <span class="partner">Access Bank</span>
+        <span class="partner">CAA</span>
+        <span class="partner">Airtel Nigeria</span>
+        <span class="partner">NFF</span>
+        <span class="partner">KIA Motors</span>
+        <span class="partner">Seven Up</span>
+        <span class="partner">PremiumTrust Bank</span>
+        <span class="partner">AFN</span>
+        <span class="partner">Lotus Bank</span>
+        <span class="partner">Air Peace</span>
+        <span class="partner">Aquafina</span>
+        <span class="partner">Pinnacle Oil</span>
+        <span class="partner">Dana Airlines</span>
+        <span class="partner">Zenith Bank</span>
+        <span class="partner">NPFL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.</div>
+        </div>
+        <div>
+          <div class="f-col-title">Navigate</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-col-title">Properties</div>
+          <ul class="f-links">
+            <li><a href="properties.html">Lagos City Marathon</a></li>
+            <li><a href="properties.html">Abuja City Marathon</a></li>
+            <li><a href="properties.html">Abeokuta 10KM Race</a></li>
+            <li><a href="properties.html">Copa Lagos Beach Soccer</a></li>
+            <li><a href="properties.html">Enugu City Marathon</a></li>
+            <li><a href="properties.html">Stormers Sports Club</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
+        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ── HERO ENTRANCE ──────────────────────── */
+    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    heroTl
+      .to('#heroEyebrow', { opacity: 1, y: 0, duration: 0.7,  delay: 0.2 })
+      .to('#hl1',         { opacity: 1, y: 0, duration: 0.85 }, '-=0.3')
+      .to('#hl2',         { opacity: 1, y: 0, duration: 0.85 }, '-=0.65')
+      .to('#heroP',       { opacity: 1, y: 0, duration: 0.75 }, '-=0.45')
+      .to('#heroBtns',    { opacity: 1, y: 0, duration: 0.75 }, '-=0.45')
+      .to('#heroTrust',   { opacity: 1,       duration: 0.6  }, '-=0.3');
+
+    /* ── HERO PARALLAX ──────────────────────── */
+    gsap.to('#heroBg', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    /* ── SCROLL REVEALS ─────────────────────── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const delay = i * 90;
+        setTimeout(() => {
+          el.style.transition = `opacity 0.75s cubic-bezier(0.32,0.72,0,1) ${delay}ms,
+                                  transform 0.75s cubic-bezier(0.32,0.72,0,1) ${delay}ms`;
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }, 0);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    /* ── STATS COUNT-UP ─────────────────────── */
+    const statIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el     = entry.target;
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        const numEl  = el.querySelector('.count-num');
+        const dur    = 1600;
+        const t0     = performance.now();
+
+        el.style.transition = 'opacity 0.7s cubic-bezier(0.32,0.72,0,1), transform 0.7s cubic-bezier(0.32,0.72,0,1)';
+        el.style.opacity    = '1';
+        el.style.transform  = 'none';
+
+        (function tick(now) {
+          const p    = Math.min((now - t0) / dur, 1);
+          const ease = 1 - Math.pow(1 - p, 4);
+          const val  = Math.floor(ease * target);
+          numEl.textContent = (target >= 1000) ? val.toLocaleString() : val;
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+
+        statIo.unobserve(el);
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.stat').forEach(el => statIo.observe(el));
+
+    /* ── NAV SCROLL STATE ───────────────────── */
+    const navPill = document.getElementById('navPill');
+    if (navPill) {
+      window.addEventListener('scroll', () => {
+        navPill.classList.toggle('scrolled', window.scrollY > 60);
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

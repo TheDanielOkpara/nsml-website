@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Nilayo Sports Management</title>
+  <meta name="description" content="Partner with Nilayo Sports Management — sponsorships, event management, brand partnerships and more across Africa's sporting landscape.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/nav.js"></script>
+  <style>
+    /* ── CONTACT LAYOUT ───────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    /* ── CONTACT INFO PANEL ───────────────── */
+    .info-panel {}
+
+    .info-tagline {
+      font-family: var(--font-d);
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-tagline .hi { color: var(--accent); }
+
+    .info-body {
+      font-size: 1rem;
+      color: var(--text-sub);
+      line-height: 1.75;
+      max-width: 36rem;
+      margin-bottom: 3rem;
+    }
+
+    .info-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info-item {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+
+    .info-item-inner {
+      background: var(--surface-2);
+      border-radius: calc(var(--r-lg) - 0.25rem);
+      padding: 1.25rem 1.5rem;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.03);
+      display: flex;
+      align-items: center;
+      gap: 1.125rem;
+    }
+
+    .info-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-ring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+
+    .info-label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .info-value { font-size: 0.9375rem; color: var(--text); font-weight: 500; }
+
+    /* ── FORM PANEL ───────────────────────── */
+    .form-panel {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+
+    .form-panel-inner {
+      background: var(--surface-2);
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 2.5rem;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.04);
+    }
+
+    .form-title {
+      font-family: var(--font-d);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-sub { font-size: 0.875rem; color: var(--text-sub); margin-bottom: 2rem; line-height: 1.65; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+
+    .field label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background: var(--bg);
+      border: 1px solid var(--border-hi);
+      border-radius: var(--r-md);
+      padding: 0.875rem 1rem;
+      font-family: var(--font-b);
+      font-size: 0.9375rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+      width: 100%;
+      resize: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--text-muted); }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--accent-ring);
+      box-shadow: 0 0 0 3px rgba(200, 245, 60, 0.08);
+    }
+
+    .field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236a7868' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .field select option { background: var(--surface-2); color: var(--text); }
+
+    .btn-submit {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: var(--accent);
+      color: #0c0e0d;
+      font-family: var(--font-b);
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover { background: var(--text); transform: scale(0.98); }
+    .btn-submit:active { transform: scale(0.95); }
+
+    .btn-submit .btn-icon { background: rgba(0,0,0,0.13); transition: transform 0.4s var(--ease); }
+    .btn-submit:hover .btn-icon { transform: translate(2px, -2px) scale(1.1); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+
+    /* ── VALIDATION STATES ───────────────── */
+    .field input.valid,
+    .field select.valid,
+    .field textarea.valid {
+      border-color: var(--green);
+      background: rgba(26,184,60,0.03);
+    }
+
+    .field input.invalid,
+    .field select.invalid,
+    .field textarea.invalid {
+      border-color: #e53935;
+      background: rgba(229,57,53,0.03);
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: #e53935;
+      font-weight: 500;
+      min-height: 1rem;
+      display: block;
+      margin-top: -0.25rem;
+    }
+
+    .field-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: -0.25rem;
+    }
+
+    /* Character counter */
+    .char-count {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: -0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .char-count.near { color: var(--amber, #f5a228); }
+    .char-count.over { color: #e53935; }
+
+    /* Success state */
+    .form-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      gap: 1.25rem;
+    }
+
+    .success-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: rgba(26,184,60,0.12);
+      border: 2px solid var(--accent-ring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--green-dark);
+      animation: popIn 0.5s cubic-bezier(0.34,1.3,0.64,1) forwards;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.4); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .success-title {
+      font-family: var(--font-d);
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+
+    .success-body {
+      font-size: 0.9375rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+      max-width: 26rem;
+    }
+
+    /* ── PARTNERSHIP OPTIONS ──────────────── */
+    .partner-types {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .pt {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .pt:hover { border-color: var(--border-hi); transform: translateY(-2px) !important; }
+
+    .pt-inner {
+      background: var(--surface-2);
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 2rem;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.03);
+    }
+
+    .pt-num {
+      font-family: var(--font-d);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .pt-title {
+      font-family: var(--font-d);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.625rem;
+    }
+
+    .pt-desc { font-size: 0.875rem; color: var(--text-sub); line-height: 1.7; }
+
+    @media (max-width: 1024px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .partner-types { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .partner-types { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div id="nav-root"></div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1920&q=80&auto=format&fit=crop')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-inner">
+      <div class="page-hero-label">Get In Touch</div>
+      <h1 class="page-hero-h1">Build Something<br><span class="hi">Legendary</span></h1>
+      <p class="page-hero-p">When you partner with NSML, your brand connects with millions of athletes, fans, and communities across Africa. More than visibility — your brand stands alongside inspiring stories of people pushing limits.</p>
+    </div>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <div class="section-wrap">
+    <div class="contact-grid">
+      <!-- LEFT: INFO -->
+      <div class="info-panel">
+        <h2 class="info-tagline">Let's create something <span class="hi">impactful</span> together.</h2>
+        <p class="info-body">Whether you're a brand looking for a meaningful sports partnership, an athlete seeking representation, or an organisation planning a world-class event — we want to hear from you.</p>
+        <div class="info-items">
+          <div class="info-item" data-reveal>
+            <div class="info-item-inner">
+              <div class="info-icon">✉</div>
+              <div>
+                <div class="info-label">Email</div>
+                <div class="info-value">info@nilayosportsmanagement.com</div>
+              </div>
+            </div>
+          </div>
+          <div class="info-item" data-reveal>
+            <div class="info-item-inner">
+              <div class="info-icon">📍</div>
+              <div>
+                <div class="info-label">Location</div>
+                <div class="info-value">Lagos, Nigeria — Serving Africa &amp; Beyond</div>
+              </div>
+            </div>
+          </div>
+          <div class="info-item" data-reveal>
+            <div class="info-item-inner">
+              <div class="info-icon">🏅</div>
+              <div>
+                <div class="info-label">Certification</div>
+                <div class="info-value">World Athletics — Africa's Strongest Marathon Brand 2025</div>
+              </div>
+            </div>
+          </div>
+          <div class="info-item" data-reveal>
+            <div class="info-item-inner">
+              <div class="info-icon">⚡</div>
+              <div>
+                <div class="info-label">Response Time</div>
+                <div class="info-value">We respond to all enquiries within 48 hours</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="form-panel" data-reveal>
+        <div class="form-panel-inner">
+          <div class="form-title">Send Us a Message</div>
+          <div class="form-sub">Fill in the details below and a member of our team will be in touch within 48 hours.</div>
+
+          <!-- SUCCESS STATE (shown after submit) -->
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">✓</div>
+            <div class="success-title">Message Received</div>
+            <p class="success-body">Thank you for reaching out. A member of the NSML team will review your enquiry and be in touch within 48 hours.</p>
+            <a href="index.html" class="btn btn-fill btn-sm">
+              <span>Back to Home</span>
+              <span class="btn-icon">↗</span>
+            </a>
+          </div>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="field" id="field-fname">
+                <label for="fname">First Name <span style="color:#e53935">*</span></label>
+                <input type="text" id="fname" name="fname" placeholder="Your first name" autocomplete="given-name">
+                <span class="field-error" id="err-fname"></span>
+              </div>
+              <div class="field" id="field-lname">
+                <label for="lname">Last Name <span style="color:#e53935">*</span></label>
+                <input type="text" id="lname" name="lname" placeholder="Your last name" autocomplete="family-name">
+                <span class="field-error" id="err-lname"></span>
+              </div>
+            </div>
+            <div class="field" id="field-email">
+              <label for="email">Email Address <span style="color:#e53935">*</span></label>
+              <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email">
+              <span class="field-error" id="err-email"></span>
+            </div>
+            <div class="field" id="field-phone">
+              <label for="phone">Phone Number <span class="field-hint" style="display:inline;margin:0;font-size:0.7rem;color:var(--text-muted);font-weight:400;letter-spacing:0">(optional)</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="+234 800 000 0000" autocomplete="tel">
+              <span class="field-error" id="err-phone"></span>
+            </div>
+            <div class="field" id="field-org">
+              <label for="org">Organisation / Brand <span class="field-hint" style="display:inline;margin:0;font-size:0.7rem;color:var(--text-muted);font-weight:400;letter-spacing:0">(optional)</span></label>
+              <input type="text" id="org" name="org" placeholder="Company or organisation name" autocomplete="organization">
+            </div>
+            <div class="field" id="field-interest">
+              <label for="interest">Area of Interest <span style="color:#e53935">*</span></label>
+              <select id="interest" name="interest">
+                <option value="" disabled selected>Select an option</option>
+                <option value="sponsorship">Event Sponsorship</option>
+                <option value="brand">Brand Management</option>
+                <option value="marketing">Sports Marketing</option>
+                <option value="contracts">Contract Negotiations</option>
+                <option value="consulting">Sponsorship Consulting</option>
+                <option value="procurement">Sports Procurement</option>
+                <option value="project">Project Management</option>
+                <option value="general">General Enquiry</option>
+              </select>
+              <span class="field-error" id="err-interest"></span>
+            </div>
+            <div class="field" id="field-message">
+              <label for="message">Message <span style="color:#e53935">*</span></label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell us about your goals, your brand, and how we can help..."></textarea>
+              <div class="char-count" id="msgCount">0 / 500</div>
+              <span class="field-error" id="err-message"></span>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span id="submitLabel">Send Message</span>
+              <span class="btn-icon" style="width:2rem;height:2rem;border-radius:50%;background:rgba(0,0,0,0.13);display:flex;align-items:center;justify-content:center">↗</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNERSHIP TYPES -->
+  <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section-wrap">
+      <div class="section-tag">How We Partner</div>
+      <h2 class="sec-h2">Partnership <span class="hi">Options</span></h2>
+      <div class="partner-types">
+        <div class="pt" data-reveal>
+          <div class="pt-inner">
+            <div class="pt-num">Sponsorship</div>
+            <div class="pt-title">Event Sponsorship</div>
+            <div class="pt-desc">Associate your brand with Africa's biggest marathon races and sporting festivals. Reach millions of engaged fans, athletes, and communities across Nigeria and the continent.</div>
+          </div>
+        </div>
+        <div class="pt" data-reveal>
+          <div class="pt-inner">
+            <div class="pt-num">Representation</div>
+            <div class="pt-title">Athlete &amp; Club Representation</div>
+            <div class="pt-desc">Let us represent your sporting career or club. From contract negotiations to brand building, we handle every commercial dimension of your professional life in sport.</div>
+          </div>
+        </div>
+        <div class="pt" data-reveal>
+          <div class="pt-inner">
+            <div class="pt-num">Consulting</div>
+            <div class="pt-title">Event Consulting</div>
+            <div class="pt-desc">Planning a sporting event or festival? Bring us in as technical consultants. We have delivered national and continental-level events with 10,000+ competing athletes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNERS -->
+  <div class="partners">
+    <div class="partners-lbl">Our Existing Partners</div>
+    <div class="partners-track">
+      <div class="partners-set">
+        <span class="partner">World Athletics</span><span class="partner">Access Bank</span>
+        <span class="partner">Airtel Nigeria</span><span class="partner">KIA Motors</span>
+        <span class="partner">Seven Up</span><span class="partner">PremiumTrust Bank</span>
+        <span class="partner">Lotus Bank</span><span class="partner">Air Peace</span>
+        <span class="partner">Aquafina</span><span class="partner">Pinnacle Oil</span>
+        <span class="partner">Dana Airlines</span><span class="partner">Zenith Bank</span>
+      </div>
+      <div class="partners-set" aria-hidden="true">
+        <span class="partner">World Athletics</span><span class="partner">Access Bank</span>
+        <span class="partner">Airtel Nigeria</span><span class="partner">KIA Motors</span>
+        <span class="partner">Seven Up</span><span class="partner">PremiumTrust Bank</span>
+        <span class="partner">Lotus Bank</span><span class="partner">Air Peace</span>
+        <span class="partner">Aquafina</span><span class="partner">Pinnacle Oil</span>
+        <span class="partner">Dana Airlines</span><span class="partner">Zenith Bank</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+        </div>
+        <div>
+          <div class="f-col-title">Navigate</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-col-title">Properties</div>
+          <ul class="f-links">
+            <li><a href="properties.html">Lagos City Marathon</a></li>
+            <li><a href="properties.html">Abuja City Marathon</a></li>
+            <li><a href="properties.html">Abeokuta 10KM Race</a></li>
+            <li><a href="properties.html">Copa Lagos Beach Soccer</a></li>
+            <li><a href="properties.html">Stormers Sports Club</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="f-copy">2025 Nilayo Sports Management Ltd. All rights reserved.</div>
+        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── SCROLL REVEALS ──────────────────────── */
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.75s cubic-bezier(0.32,0.72,0,1), transform 0.75s cubic-bezier(0.32,0.72,0,1)';
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }, i * 85);
+        revealIO.unobserve(el);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => revealIO.observe(el));
+
+    /* ── FORM VALIDATION ─────────────────────── */
+    const form      = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Validators
+    const validators = {
+      fname:    v => v.trim().length >= 2   ? '' : 'Please enter your first name (at least 2 characters).',
+      lname:    v => v.trim().length >= 2   ? '' : 'Please enter your last name (at least 2 characters).',
+      email:    v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Please enter a valid email address.',
+      phone:    v => {
+        if (!v.trim()) return ''; // optional
+        return /^[\+\d][\d\s\-\(\)]{6,}$/.test(v.trim()) ? '' : 'Please enter a valid phone number.';
+      },
+      interest: v => v ? '' : 'Please select an area of interest.',
+      message:  v => {
+        const len = v.trim().length;
+        if (len < 20)  return `Message is too short — please add a bit more detail (${20 - len} more characters needed).`;
+        if (len > 500) return `Message is too long — please keep it under 500 characters.`;
+        return '';
+      }
+    };
+
+    // Set field state
+    function setFieldState(id, errorMsg) {
+      const input = document.getElementById(id);
+      const err   = document.getElementById('err-' + id);
+      if (!input) return;
+
+      if (errorMsg) {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+        if (err) err.textContent = errorMsg;
+      } else {
+        input.classList.remove('invalid');
+        // Only mark valid if field has a value
+        if (input.value.trim() || id === 'interest') {
+          input.classList.add('valid');
+        }
+        if (err) err.textContent = '';
+      }
+    }
+
+    // Validate a single field
+    function validateField(id) {
+      const input = document.getElementById(id);
+      if (!input) return true;
+      const error = validators[id] ? validators[id](input.value) : '';
+      setFieldState(id, error);
+      return !error;
+    }
+
+    // Attach live validation on blur (not on every keystroke — less annoying)
+    ['fname','lname','email','phone','interest','message'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      el.addEventListener('blur', () => validateField(id));
+
+      // For inputs that already have content, validate on input too
+      el.addEventListener('input', () => {
+        if (el.classList.contains('invalid')) validateField(id);
+      });
+    });
+
+    // Character counter for message
+    const msgArea   = document.getElementById('message');
+    const msgCount  = document.getElementById('msgCount');
+
+    if (msgArea && msgCount) {
+      msgArea.addEventListener('input', () => {
+        const len = msgArea.value.length;
+        msgCount.textContent = `${len} / 500`;
+        msgCount.className   = 'char-count' + (len > 500 ? ' over' : len > 400 ? ' near' : '');
+      });
+    }
+
+    // Full form validation on submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const fields  = ['fname','lname','email','phone','interest','message'];
+      const results = fields.map(id => validateField(id));
+      const allValid = results.every(Boolean);
+
+      if (!allValid) {
+        // Scroll to first invalid field
+        const firstInvalid = form.querySelector('.invalid');
+        if (firstInvalid) {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstInvalid.focus();
+        }
+        return;
+      }
+
+      // Simulate submission
+      submitBtn.disabled = true;
+      const label = document.getElementById('submitLabel');
+      label.textContent = 'Sending…';
+
+      setTimeout(() => {
+        // Hide form, show success
+        form.style.display = 'none';
+        document.querySelector('.form-title').style.display = 'none';
+        document.querySelector('.form-sub').style.display   = 'none';
+        const success = document.getElementById('formSuccess');
+        success.style.display = 'flex';
+      }, 1200);
+    });
+
+    /* ── NAV SCROLL STATE ──────────────────── */
+    const navPill = document.getElementById('navPill');
+    if (navPill) {
+      window.addEventListener('scroll', () => {
+        navPill.classList.toggle('scrolled', window.scrollY > 60);
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

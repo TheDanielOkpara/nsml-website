@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Properties — Nilayo Sports Management</title>
+  <meta name="description" content="NSML's portfolio of world-class sporting events across Africa — Lagos City Marathon, Abuja City Marathon, Copa Lagos Beach Soccer, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/nav.js"></script>
+  <style>
+    /* ── PROPERTIES GRID ──────────────────── */
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .pcard {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      position: relative;
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: border-color 0.4s var(--ease);
+    }
+
+    .pcard:hover { border-color: var(--border-hi); }
+
+    .pcard-inner {
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .pcard-img-wrap { overflow: hidden; height: 220px; }
+
+    .pcard-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.4) contrast(1.08);
+      transition: transform 0.75s var(--ease), filter 0.75s var(--ease);
+      display: block;
+    }
+
+    .pcard:hover .pcard-img { transform: scale(1.05); filter: grayscale(0.1) contrast(1.1); }
+
+    .pcard-body { padding: 1.75rem; }
+
+    .pcard-tag {
+      display: inline-block;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid var(--accent-ring);
+      border-radius: 9999px;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.875rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .pcard-title {
+      font-family: var(--font-d);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 0.625rem;
+    }
+
+    .pcard-desc {
+      font-size: 0.8125rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .pcard-stats {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    .pcard-stat-val {
+      font-family: var(--font-d);
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    .pcard-stat-lbl { font-size: 0.6875rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+    .pcard-badge {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: var(--accent);
+      color: #0c0e0d;
+      border-radius: 9999px;
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.875rem;
+      z-index: 2;
+    }
+
+    /* ── FEATURED (WIDE CARD) ─────────────── */
+    .pcard.featured {
+      grid-column: span 3;
+    }
+
+    .pcard.featured .pcard-inner {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+    }
+
+    .pcard.featured .pcard-img-wrap { height: 100%; min-height: 300px; }
+
+    .pcard.featured .pcard-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .pcard.featured .pcard-title { font-size: 1.375rem; }
+
+    /* ── UPCOMING BAND ────────────────────── */
+    .upcoming-band {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 6rem 1.5rem;
+    }
+
+    .upcoming-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .upcoming-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .uc {
+      padding: 0.25rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: border-color 0.4s var(--ease);
+    }
+
+    .uc:hover { border-color: var(--border-hi); }
+
+    .uc-inner {
+      background: var(--surface-2);
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 2rem;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.03);
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .uc-date {
+      font-family: var(--font-d);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+
+    .uc-title {
+      font-family: var(--font-d);
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .uc-desc { font-size: 0.875rem; color: var(--text-sub); line-height: 1.7; }
+
+    /* ── CONSULTATIONS GRID ───────────────── */
+    .consult-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .consult-card {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: border-color 0.4s var(--ease);
+    }
+
+    .consult-card:hover { border-color: var(--border-hi); }
+
+    .consult-inner {
+      background: var(--surface-2);
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 1.75rem;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.03);
+    }
+
+    .consult-type {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .consult-title {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .consult-desc { font-size: 0.8125rem; color: var(--text-sub); line-height: 1.65; }
+
+    @media (max-width: 1024px) {
+      .props-grid { grid-template-columns: repeat(2, 1fr); }
+      .pcard.featured { grid-column: span 2; }
+      .consult-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .props-grid { grid-template-columns: 1fr; }
+      .pcard.featured { grid-column: span 1; }
+      .pcard.featured .pcard-inner { grid-template-columns: 1fr; }
+      .pcard.featured .pcard-img-wrap { min-height: 200px; }
+      .upcoming-grid { grid-template-columns: 1fr; }
+      .consult-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div id="nav-root"></div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=80&auto=format&fit=crop')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-inner">
+      <div class="page-hero-label">Our Portfolio</div>
+      <h1 class="page-hero-h1">World-Class Events<br>Across <span class="hi">Africa</span></h1>
+      <p class="page-hero-p">From the continent's strongest marathon brand to beach football and heritage races — NSML owns, manages, and grows Africa's most impactful sporting properties.</p>
+    </div>
+  </div>
+
+  <!-- MAIN PROPERTIES -->
+  <div class="section-wrap">
+    <div class="section-tag">Active Properties</div>
+    <h2 class="sec-h2">Our <span class="hi">Events</span></h2>
+    <div class="props-grid" style="margin-top:3rem">
+
+      <!-- Lagos — FEATURED -->
+      <div class="pcard featured" data-prop>
+        <span class="pcard-badge">World Athletics</span>
+        <div class="pcard-inner">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&auto=format&fit=crop" alt="Access Bank Lagos City Marathon" loading="lazy">
+          </div>
+          <div class="pcard-body">
+            <div class="pcard-tag">Flagship Property</div>
+            <div class="pcard-title">Access Bank Lagos City Marathon</div>
+            <div class="pcard-desc">Africa's Strongest Marathon Brand 2025 — a World Athletics Global Certification. The 10th anniversary edition delivered in 2025 drew participation from across the globe, backed by Access Bank, KIA Motors, Seven Up, Aquafina, and Airtel. Raises over ₦3 billion annually from the private sector since its inception in 2016.</div>
+            <div class="pcard-stats">
+              <div><div class="pcard-stat-val">440K+</div><div class="pcard-stat-lbl">Participants since 2016</div></div>
+              <div><div class="pcard-stat-val">₦3B+</div><div class="pcard-stat-lbl">Raised annually</div></div>
+              <div><div class="pcard-stat-val">Feb 2027</div><div class="pcard-stat-lbl">Next edition</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Abuja -->
+      <div class="pcard" data-prop>
+        <div class="pcard-inner">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://images.unsplash.com/photo-1594882645126-14ac19a5a2f3?w=840&q=80&auto=format&fit=crop" alt="Abuja City Marathon" loading="lazy">
+          </div>
+          <div class="pcard-body">
+            <div class="pcard-tag">International</div>
+            <div class="pcard-title">PremiumTrust Bank Abuja City International Half Marathon</div>
+            <div class="pcard-desc">The capital's premier long-distance race. Inaugural edition April 2024 with 50,000+ participants. Backed by PremiumTrust Bank, Dana Airlines, Seven Up, Aquafina, and the AFN.</div>
+            <div class="pcard-stats">
+              <div><div class="pcard-stat-val">50K+</div><div class="pcard-stat-lbl">Participants</div></div>
+              <div><div class="pcard-stat-val">Nov 2026</div><div class="pcard-stat-lbl">Next edition</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Abeokuta -->
+      <div class="pcard" data-prop>
+        <div class="pcard-inner">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=840&q=80&auto=format&fit=crop" alt="Abeokuta 10KM Race" loading="lazy">
+          </div>
+          <div class="pcard-body">
+            <div class="pcard-tag">Heritage Race</div>
+            <div class="pcard-title">Abeokuta 10KM Race</div>
+            <div class="pcard-desc">A race rich in cultural significance since 2019. Long-term commitments from Lotus Bank, Access Bank, Rite Foods, JAC Motors, Airtel, Trophy, Lafarge, and more.</div>
+            <div class="pcard-stats">
+              <div><div class="pcard-stat-val">120K+</div><div class="pcard-stat-lbl">Participants</div></div>
+              <div><div class="pcard-stat-val">Sept 2025</div><div class="pcard-stat-lbl">Next edition</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enugu -->
+      <div class="pcard" data-prop>
+        <div class="pcard-inner">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=840&q=80&auto=format&fit=crop" alt="Enugu City Marathon" loading="lazy">
+          </div>
+          <div class="pcard-body">
+            <div class="pcard-tag">New Property</div>
+            <div class="pcard-title">Enugu City International Marathon</div>
+            <div class="pcard-desc">Maiden edition May 2025 with 13,000+ runners. Backed by Pinnacle Oil, Air Peace, World Athletics, Three Crowns, RC Cola, and the Athletics Federation of Nigeria.</div>
+            <div class="pcard-stats">
+              <div><div class="pcard-stat-val">13K+</div><div class="pcard-stat-lbl">Debut runners</div></div>
+              <div><div class="pcard-stat-val">2026</div><div class="pcard-stat-lbl">Next edition</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stormers -->
+      <div class="pcard" data-prop>
+        <div class="pcard-inner">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=840&q=80&auto=format&fit=crop" alt="Stormers Sports Club" loading="lazy">
+          </div>
+          <div class="pcard-body">
+            <div class="pcard-tag">Sports Club</div>
+            <div class="pcard-title">Stormers Sports Club</div>
+            <div class="pcard-desc">Back-to-back Lisabi Cup Champions 2024 and 2025. Academy built from Baptist Boys High School talent under long-term contracts. Senior team newly promoted to Nigeria's NNL.</div>
+            <div class="pcard-stats">
+              <div><div class="pcard-stat-val">2x</div><div class="pcard-stat-lbl">Lisabi Champions</div></div>
+              <div><div class="pcard-stat-val">NNL</div><div class="pcard-stat-lbl">Promoted</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ijebu -->
+      <div class="pcard" data-prop>
+        <div class="pcard-inner">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://images.unsplash.com/photo-1600679472829-3044539ce405?w=840&q=80&auto=format&fit=crop" alt="Ijebu Heritage Half Marathon" loading="lazy">
+          </div>
+          <div class="pcard-body">
+            <div class="pcard-tag">Heritage Race</div>
+            <div class="pcard-title">Ijebu Heritage Half Marathon</div>
+            <div class="pcard-desc">A race steeped in cultural significance, delivered in collaboration with Airtel Nigeria. Maiden edition held 17 July 2021 with 5,000+ runners and spectators.</div>
+            <div class="pcard-stats">
+              <div><div class="pcard-stat-val">5K+</div><div class="pcard-stat-lbl">Participants</div></div>
+              <div><div class="pcard-stat-val">2021</div><div class="pcard-stat-lbl">Maiden edition</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- UPCOMING PROJECTS -->
+  <div class="upcoming-band">
+    <div class="upcoming-inner">
+      <div class="section-tag">Upcoming</div>
+      <h2 class="sec-h2">Coming <span class="hi">Soon</span></h2>
+      <div class="upcoming-grid">
+        <div class="uc" data-reveal>
+          <div class="uc-inner">
+            <div class="uc-date">Dec 2026</div>
+            <div>
+              <div class="uc-title">Copa Lagos Beach Soccer</div>
+              <div class="uc-desc">Nigeria's premier beach football and lifestyle event returns to Eko Atlantic City. A three-day high-energy weekend drawing 20,000+ fans, athletes, and lifestyle enthusiasts. Licensee granted by Kinetic Sports — first return since the 2019 edition.</div>
+            </div>
+          </div>
+        </div>
+        <div class="uc" data-reveal>
+          <div class="uc-inner">
+            <div class="uc-date">2026</div>
+            <div>
+              <div class="uc-title">Yenagoa City International 10KM Race</div>
+              <div class="uc-desc">The first World Athletics-supervised marathon in Southern Nigeria. Inaugural edition drew 5,000+ runners in 2026, with long-term state government commitments secured. First edition in the South-South geopolitical zone.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSULTATIONS -->
+  <div class="section-wrap">
+    <div class="section-tag">Consultations</div>
+    <h2 class="sec-h2">Projects We've <span class="hi">Shaped</span></h2>
+    <p class="sec-p">Beyond our owned properties, NSML has served as technical consultant and brand management partner on some of Africa's largest sporting events.</p>
+    <div class="consult-grid">
+      <div class="consult-card" data-reveal>
+        <div class="consult-inner">
+          <div class="consult-type">Technical Consultant</div>
+          <div class="consult-title">National Sports Festival Delta 2022</div>
+          <div class="consult-desc">Partnered to help the state win the pitch and execute a top-level sporting festival. 10,000+ athletes across all states of the federation. 8 days in Asaba, Delta State.</div>
+        </div>
+      </div>
+      <div class="consult-card" data-reveal>
+        <div class="consult-inner">
+          <div class="consult-type">Technical Consultant</div>
+          <div class="consult-title">Niger Delta Sports Festival</div>
+          <div class="consult-desc">Helped the organising committee execute a top-level sporting festival involving all Niger Delta states. 3,000+ competing athletes over 8 days in Uyo, Akwa Ibom State.</div>
+        </div>
+      </div>
+      <div class="consult-card" data-reveal>
+        <div class="consult-inner">
+          <div class="consult-type">Sponsorship Consultant</div>
+          <div class="consult-title">Asaba 2018 African Senior Athletics Championship</div>
+          <div class="consult-desc">5,000+ athletes from 54 African countries. Secured commitments from Zenith Bank, GAC Motors, Rite Foods, Ericsson, Gree Electric, and Lontor.</div>
+        </div>
+      </div>
+      <div class="consult-card" data-reveal>
+        <div class="consult-inner">
+          <div class="consult-type">Project Consultant</div>
+          <div class="consult-title">Kaduna Marathon</div>
+          <div class="consult-desc">7,000+ runners in 2021 for its first edition. First World Athletics-supervised marathon in Northern Nigeria, with long-term state government and strategic partner commitments.</div>
+        </div>
+      </div>
+      <div class="consult-card" data-reveal>
+        <div class="consult-inner">
+          <div class="consult-type">Project &amp; Sponsorship Consultant</div>
+          <div class="consult-title">F5WC Football Five World Championship</div>
+          <div class="consult-desc">Nigeria representative for the world's first 5-A-Side amateur tournament. 1M+ players across 48 countries. Raised over ₦20M from the private sector locally.</div>
+        </div>
+      </div>
+      <div class="consult-card" data-reveal>
+        <div class="consult-inner">
+          <div class="consult-type">Sponsorship Consultant</div>
+          <div class="consult-title">IAU African Championship Remo 2019</div>
+          <div class="consult-desc">5,000+ participants. Secured backing from Value Jet Airline, Keystone Bank, Bet9ja, Seven Up, Heritage Bank, and Airtel for the inaugural edition.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNERS -->
+  <div class="partners">
+    <div class="partners-lbl">Event Partners &amp; Sponsors</div>
+    <div class="partners-track">
+      <div class="partners-set">
+        <span class="partner">World Athletics</span><span class="partner">Access Bank</span>
+        <span class="partner">CAA</span><span class="partner">Airtel Nigeria</span>
+        <span class="partner">KIA Motors</span><span class="partner">Seven Up</span>
+        <span class="partner">PremiumTrust Bank</span><span class="partner">AFN</span>
+        <span class="partner">Lotus Bank</span><span class="partner">Air Peace</span>
+        <span class="partner">Aquafina</span><span class="partner">Pinnacle Oil</span>
+        <span class="partner">Dana Airlines</span><span class="partner">Zenith Bank</span>
+        <span class="partner">Rite Foods</span><span class="partner">Three Crowns</span>
+      </div>
+      <div class="partners-set" aria-hidden="true">
+        <span class="partner">World Athletics</span><span class="partner">Access Bank</span>
+        <span class="partner">CAA</span><span class="partner">Airtel Nigeria</span>
+        <span class="partner">KIA Motors</span><span class="partner">Seven Up</span>
+        <span class="partner">PremiumTrust Bank</span><span class="partner">AFN</span>
+        <span class="partner">Lotus Bank</span><span class="partner">Air Peace</span>
+        <span class="partner">Aquafina</span><span class="partner">Pinnacle Oil</span>
+        <span class="partner">Dana Airlines</span><span class="partner">Zenith Bank</span>
+        <span class="partner">Rite Foods</span><span class="partner">Three Crowns</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+        </div>
+        <div>
+          <div class="f-col-title">Navigate</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-col-title">Properties</div>
+          <ul class="f-links">
+            <li><a href="properties.html">Lagos City Marathon</a></li>
+            <li><a href="properties.html">Abuja City Marathon</a></li>
+            <li><a href="properties.html">Abeokuta 10KM Race</a></li>
+            <li><a href="properties.html">Copa Lagos Beach Soccer</a></li>
+            <li><a href="properties.html">Stormers Sports Club</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="f-copy">2025 Nilayo Sports Management Ltd. All rights reserved.</div>
+        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.8s cubic-bezier(0.32,0.72,0,1), transform 0.8s cubic-bezier(0.32,0.72,0,1)';
+          el.style.opacity = '1'; el.style.transform = 'none';
+        }, i * 80);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('[data-prop], [data-reveal], .consult-card').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Nilayo Sports Management</title>
+  <meta name="description" content="Learn about Nilayo Sports Management — our vision, mission, values, and the team driving Africa's sports industry forward.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/nav.js"></script>
+  <style>
+    /* ── MANIFESTO ────────────────────────── */
+    .manifesto-body {
+      font-family: var(--font-d);
+      font-size: clamp(1.65rem, 3.2vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.28;
+      letter-spacing: -0.025em;
+      max-width: 54rem;
+    }
+
+    .manifesto-body .word { display: inline; opacity: 0.1; }
+
+    /* ── VMV CARDS ────────────────────────── */
+    .vmv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 5rem;
+    }
+
+    .vmv-card {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: border-color 0.4s var(--ease);
+    }
+
+    .vmv-card:hover { border-color: var(--border-hi); }
+
+    .vmv-card-inner {
+      background: var(--surface-2);
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 2rem;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.035);
+      height: 100%;
+    }
+
+    .vmv-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .vmv-text { font-size: 0.9375rem; color: var(--text-sub); line-height: 1.75; }
+
+    /* ── VALUES ROW ───────────────────────── */
+    .values-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .value-item {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+
+    .value-item-inner {
+      background: var(--surface-2);
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 2.5rem 2rem;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.035);
+      text-align: center;
+    }
+
+    .value-num {
+      font-family: var(--font-d);
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--accent);
+      opacity: 0.2;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .value-name {
+      font-family: var(--font-d);
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .value-desc { font-size: 0.875rem; color: var(--text-sub); line-height: 1.7; }
+
+    /* ── TEAM ─────────────────────────────── */
+
+    /* ── CEO FEATURED CARD ─────────────────
+       Full-width horizontal layout:
+       photo on left, details on right
+    ──────────────────────────────────────── */
+    .team-ceo {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      background: var(--navy);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-top: 3rem;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: box-shadow 0.4s var(--ease);
+    }
+
+    .team-ceo:hover {
+      box-shadow: 0 12px 40px rgba(13,31,60,0.2);
+    }
+
+    .ceo-photo-wrap {
+      position: relative;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    .ceo-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      min-height: 320px;
+    }
+
+    /* Initials fallback — shows when no photo */
+    .ceo-initials {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-d);
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--green);
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3460 100%);
+      letter-spacing: -0.04em;
+    }
+
+    /* Hide initials when photo loads */
+    .ceo-photo-wrap:has(.ceo-photo[src]:not([src=""])) .ceo-initials {
+      display: none;
+    }
+
+    .ceo-details {
+      padding: 2.5rem 2.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .ceo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      background: rgba(23,188,56,0.12);
+      border: 1px solid rgba(23,188,56,0.28);
+      border-radius: 9999px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--green);
+      padding: 0.25rem 0.875rem;
+      width: fit-content;
+      margin-bottom: 0.75rem;
+    }
+
+    .ceo-name {
+      font-family: var(--font-d);
+      font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .ceo-role {
+      font-size: 0.9375rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .ceo-bio {
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      max-width: 34rem;
+    }
+
+    /* ── TEAM PORTRAIT GRID ────────────────
+       3-column portrait cards for the rest
+    ──────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .tm {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .tm:hover {
+      border-color: var(--green);
+      box-shadow: 0 8px 28px rgba(23,188,56,0.1);
+      transform: translateY(-3px) !important;
+    }
+
+    /* Portrait photo wrapper */
+    .tm-photo-wrap {
+      position: relative;
+      height: 220px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    .tm-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.32,0.72,0,1);
+    }
+
+    .tm:hover .tm-photo { transform: scale(1.04); }
+
+    /* Initials shown when no photo */
+    .tm-initials {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-d);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--green);
+      background: linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+      letter-spacing: -0.04em;
+    }
+
+    /* Green bottom accent bar on photo */
+    .tm-photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--green);
+      opacity: 0;
+      transition: opacity 0.35s var(--ease);
+    }
+
+    .tm:hover .tm-photo-wrap::after { opacity: 1; }
+
+    /* Card body */
+    .tm-body {
+      padding: 1.375rem 1.5rem 1.5rem;
+    }
+
+    .tm-name {
+      font-family: var(--font-d);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+
+    .tm-role {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1024px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-ceo { grid-template-columns: 240px 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .vmv-grid { grid-template-columns: 1fr; }
+      .values-row { grid-template-columns: 1fr; }
+      .team-ceo {
+        grid-template-columns: 1fr;
+      }
+      .ceo-photo { min-height: 280px; }
+      .ceo-details { padding: 2rem 1.75rem; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div id="nav-root"></div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1552674605-db5fecabfe68?w=1920&q=80&auto=format&fit=crop')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-inner">
+      <div class="page-hero-label">Our Story</div>
+      <h1 class="page-hero-h1">Driving Sports<br><span class="hi">Excellence</span></h1>
+      <p class="page-hero-p">A sports marketing, brand management, and procurement agency built on dynamism, innovation, and a relentless commitment to elevating the business of sports across Africa.</p>
+    </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <div class="section-wrap">
+    <div class="section-tag">Who We Are</div>
+    <p class="manifesto-body" id="manifestoText">
+      We are a sports marketing, brand management, and procurement agency that thrives on dynamism and innovation in the business of sports management. With a history of working relationships with prominent players in the world of sports, we specialize in promoting sporting activities from grassroots level to international fame.
+    </p>
+    <div class="vmv-grid">
+      <div class="vmv-card" data-reveal>
+        <div class="vmv-card-inner">
+          <div class="vmv-label">Vision</div>
+          <div class="vmv-text">To be the leading force in transforming the sports industry across Africa and beyond, creating unparalleled value for athletes, brands, and communities, while leveraging on strategic partnerships.</div>
+        </div>
+      </div>
+      <div class="vmv-card" data-reveal>
+        <div class="vmv-card-inner">
+          <div class="vmv-label">Mission</div>
+          <div class="vmv-text">To deliver innovative, impactful, and sustainable sports management solutions, leveraging our expertise in marketing, brand development, and strategic partnerships to elevate sporting activities from grassroots to global recognition.</div>
+        </div>
+      </div>
+      <div class="vmv-card" data-reveal>
+        <div class="vmv-card-inner">
+          <div class="vmv-label">Commitment</div>
+          <div class="vmv-text">We are committed to fostering talent, driving economic growth through sports, and building lasting legacies that inspire generations. From a single athlete to a continental event, we bring the same standard of excellence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORE VALUES -->
+  <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section-wrap">
+      <div class="section-tag">Core Values</div>
+      <h2 class="sec-h2">What We Stand <span class="hi">For</span></h2>
+      <div class="values-row">
+        <div class="value-item" data-reveal>
+          <div class="value-item-inner">
+            <div class="value-num">01</div>
+            <div class="value-name">Professionalism</div>
+            <div class="value-desc">We hold ourselves to the highest standards in every engagement. Excellence is not occasional — it is our baseline.</div>
+          </div>
+        </div>
+        <div class="value-item" data-reveal>
+          <div class="value-item-inner">
+            <div class="value-num">02</div>
+            <div class="value-name">Transparency</div>
+            <div class="value-desc">Open and honest in all dealings. Our partners always know exactly what we are doing, why, and to what effect.</div>
+          </div>
+        </div>
+        <div class="value-item" data-reveal>
+          <div class="value-item-inner">
+            <div class="value-num">03</div>
+            <div class="value-name">Integrity</div>
+            <div class="value-desc">We do what we say. Every commitment, every agreement, every relationship is built on the foundation of trust earned through action.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="section-wrap">
+    <div class="section-tag">The Team</div>
+    <h2 class="sec-h2">Led by <span class="hi">Excellence</span></h2>
+
+    <!-- ── CEO FEATURED CARD ──────────────────────────────────────────
+         Photo: images/team/yetunde.jpg
+         Swap src="" to the real path once photo is available.
+         The initials "OY" show as fallback until the image is added.
+    ───────────────────────────────────────────────────────────────── -->
+    <div class="team-ceo" data-reveal>
+      <div class="ceo-photo-wrap">
+        <!-- ADD PHOTO: src="images/team/yetunde.jpg" -->
+        <img class="ceo-photo" src="" alt="Olopade Yetunde — MD/CEO" onerror="this.style.display='none'">
+        <div class="ceo-initials">OY</div>
+      </div>
+      <div class="ceo-details">
+        <div class="ceo-badge">
+          <span class="eyebrow-dot"></span>
+          Managing Director
+        </div>
+        <div class="ceo-name">Olopade Yetunde</div>
+        <div class="ceo-role">Chief Executive Officer</div>
+        <p class="ceo-bio">Driving Africa's sports industry forward with strategic vision, deep institutional relationships, and a relentless commitment to excellence. Under her leadership, NSML has delivered Africa's Strongest Marathon Brand and built a continental footprint spanning 6 cities and 54 nations.</p>
+      </div>
+    </div>
+
+    <!-- ── TEAM PORTRAIT GRID ────────────────────────────────────────
+         Photos: images/team/<firstname>.jpg
+         Swap each src="" once photos are ready.
+         Initials show as fallback.
+    ───────────────────────────────────────────────────────────────── -->
+    <div class="team-grid">
+
+      <div class="tm" data-reveal>
+        <div class="tm-photo-wrap">
+          <!-- ADD PHOTO: src="images/team/adenike.jpg" -->
+          <img class="tm-photo" src="" alt="Olopade Adenike" onerror="this.style.display='none'">
+          <div class="tm-initials">OA</div>
+        </div>
+        <div class="tm-body">
+          <div class="tm-name">Olopade Adenike</div>
+          <div class="tm-role">Chief Operating Officer</div>
+        </div>
+      </div>
+
+      <div class="tm" data-reveal>
+        <div class="tm-photo-wrap">
+          <!-- ADD PHOTO: src="images/team/emmanuel.jpg" -->
+          <img class="tm-photo" src="" alt="Odeh Emmanuel" onerror="this.style.display='none'">
+          <div class="tm-initials">OE</div>
+        </div>
+        <div class="tm-body">
+          <div class="tm-name">Odeh Emmanuel</div>
+          <div class="tm-role">Project Manager</div>
+        </div>
+      </div>
+
+      <div class="tm" data-reveal>
+        <div class="tm-photo-wrap">
+          <!-- ADD PHOTO: src="images/team/bolaji.jpg" -->
+          <img class="tm-photo" src="" alt="Adekite Bolaji" onerror="this.style.display='none'">
+          <div class="tm-initials">AB</div>
+        </div>
+        <div class="tm-body">
+          <div class="tm-name">Adekite Bolaji</div>
+          <div class="tm-role">Admin Manager</div>
+        </div>
+      </div>
+
+      <div class="tm" data-reveal>
+        <div class="tm-photo-wrap">
+          <!-- ADD PHOTO: src="images/team/jide.jpg" -->
+          <img class="tm-photo" src="" alt="Odi Jide" onerror="this.style.display='none'">
+          <div class="tm-initials">OJ</div>
+        </div>
+        <div class="tm-body">
+          <div class="tm-name">Odi Jide</div>
+          <div class="tm-role">Brand &amp; Communications Manager</div>
+        </div>
+      </div>
+
+      <div class="tm" data-reveal>
+        <div class="tm-photo-wrap">
+          <!-- ADD PHOTO: src="images/team/sandra.jpg" -->
+          <img class="tm-photo" src="" alt="Omoniyi Sandra" onerror="this.style.display='none'">
+          <div class="tm-initials">OS</div>
+        </div>
+        <div class="tm-body">
+          <div class="tm-name">Omoniyi Sandra</div>
+          <div class="tm-role">Business Strategist</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+        </div>
+        <div>
+          <div class="f-col-title">Navigate</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-col-title">Properties</div>
+          <ul class="f-links">
+            <li><a href="properties.html">Lagos City Marathon</a></li>
+            <li><a href="properties.html">Abuja City Marathon</a></li>
+            <li><a href="properties.html">Abeokuta 10KM Race</a></li>
+            <li><a href="properties.html">Copa Lagos Beach Soccer</a></li>
+            <li><a href="properties.html">Stormers Sports Club</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="f-copy">2025 Nilayo Sports Management Ltd. All rights reserved.</div>
+        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mEl = document.getElementById('manifestoText');
+    mEl.innerHTML = mEl.textContent.trim().split(/\s+/).map(w => `<span class="word">${w} </span>`).join('');
+
+    gsap.to('.manifesto-body .word', {
+      opacity: 1, stagger: 0.04, ease: 'none',
+      scrollTrigger: { trigger: mEl, start: 'top 78%', end: 'bottom 22%', scrub: 0.6 }
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.75s cubic-bezier(0.32,0.72,0,1), transform 0.75s cubic-bezier(0.32,0.72,0,1)';
+          el.style.opacity = '1'; el.style.transform = 'none';
+        }, i * 85);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

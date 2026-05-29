@@ -1,0 +1,6 @@
+# Large unused sports photos — add when ready to use
+images/sports-*.jpg
+
+# OS files
+.DS_Store
+Thumbs.db

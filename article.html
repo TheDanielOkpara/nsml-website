@@ -592,9 +592,24 @@
     }
 
     @media (max-width: 768px) {
-      /* Hero — keep absolute positioning but set a sensible min-height */
-      .article-hero { height: auto; min-height: 60vw; max-height: none; }
-      .article-hero-inner { padding: 0 1.25rem 1.75rem; }
+      /* Hero — switch to static flow on mobile so long titles
+         can't extend upward into the fixed nav                */
+      .article-hero {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        padding-top: 5.5rem;   /* clears the floating nav pill */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .article-hero-img { height: 200px; position: relative; flex-shrink: 0; }
+      .article-hero-overlay { display: none; }
+      .article-hero-inner {
+        position: static;
+        padding: 1.25rem 1.25rem 1.75rem;
+        background: var(--navy);
+      }
       .article-hero-title { font-size: clamp(1.375rem, 5.5vw, 2rem); }
       .article-breadcrumb { margin-bottom: 0.75rem; font-size: 0.75rem; }
 
@@ -685,10 +700,10 @@
       <!-- Share buttons — WP: pass the_permalink() to each URL -->
       <div class="share-row">
         <span class="share-label">Share</span>
-        <a href="#" class="share-btn" aria-label="Share on X (Twitter)" title="Share on X">𝕏</a>
-        <a href="#" class="share-btn" aria-label="Share on LinkedIn" title="Share on LinkedIn">in</a>
-        <a href="#" class="share-btn" aria-label="Share on WhatsApp" title="Share on WhatsApp">W</a>
-        <a href="#" class="share-btn" aria-label="Copy link" title="Copy link" id="copyLink">⎘</a>
+        <a id="shareX"  href="#" target="_blank" rel="noopener" class="share-btn" aria-label="Share on X" title="Share on X">&#x1D54F;</a>
+        <a id="shareLI" href="#" target="_blank" rel="noopener" class="share-btn" aria-label="Share on LinkedIn" title="Share on LinkedIn">in</a>
+        <a id="shareWA" href="#" target="_blank" rel="noopener" class="share-btn" aria-label="Share on WhatsApp" title="Share on WhatsApp">W</a>
+        <button class="share-btn" id="copyLink" aria-label="Copy link" title="Copy link">&#x2398;</button>
       </div>
     </div>
   </div>
@@ -1013,22 +1028,53 @@
 
     document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 
+    /* ── SHARE BUTTONS ──────────────────────── */
+    (function initShare() {
+      const pageUrl   = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title.split('—')[0].trim());
+
+      // X / Twitter
+      const btnX = document.getElementById('shareX');
+      if (btnX) btnX.href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}&via=nilayosports`;
+
+      // LinkedIn
+      const btnLI = document.getElementById('shareLI');
+      if (btnLI) btnLI.href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&source=Nilayo+Sports+Management`;
+
+      // WhatsApp
+      const btnWA = document.getElementById('shareWA');
+      if (btnWA) btnWA.href = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+    })();
+
     /* ── COPY LINK ──────────────────────────── */
     const copyBtn = document.getElementById('copyLink');
     if (copyBtn) {
-      copyBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        navigator.clipboard.writeText(window.location.href).then(() => {
-          const original = copyBtn.textContent;
-          copyBtn.textContent = '✓';
-          copyBtn.style.borderColor = 'var(--green)';
-          copyBtn.style.color = 'var(--green-dark)';
-          setTimeout(() => {
-            copyBtn.textContent = original;
-            copyBtn.style.borderColor = '';
-            copyBtn.style.color = '';
-          }, 2000);
-        });
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => {
+            const orig = copyBtn.innerHTML;
+            copyBtn.innerHTML = '&#x2713;';
+            copyBtn.style.borderColor = 'var(--green)';
+            copyBtn.style.color      = 'var(--green)';
+            setTimeout(() => {
+              copyBtn.innerHTML = orig;
+              copyBtn.style.borderColor = '';
+              copyBtn.style.color      = '';
+            }, 2200);
+          })
+          .catch(() => {
+            // Fallback for browsers without clipboard API
+            const ta = document.createElement('textarea');
+            ta.value = window.location.href;
+            ta.style.position = 'fixed';
+            ta.style.opacity  = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            copyBtn.innerHTML = '&#x2713; Copied';
+            setTimeout(() => { copyBtn.innerHTML = '&#x2398;'; }, 2200);
+          });
       });
     }
 

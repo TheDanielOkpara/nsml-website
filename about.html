@@ -34,6 +34,7 @@
     }
 
     .vmv-card {
+      min-width: 0;        /* prevents grid blowout on mobile */
       padding: 0.25rem;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -449,6 +450,11 @@
 
     @media (max-width: 480px) {
       .team-grid-outer { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .vmv-grid    { grid-template-columns: 1fr; }
+      .values-row  { grid-template-columns: 1fr; }
     }
   </style>
 </head>

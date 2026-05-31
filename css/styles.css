@@ -683,6 +683,86 @@ footer {
   flex-wrap: wrap;
 }
 
+/* ── FOOTER SOCIAL ──────────────────────── */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 2rem;
+}
+
+.footer-social-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  white-space: nowrap;
+}
+
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.32,0.72,0,1);
+  flex-shrink: 0;
+}
+
+.social-link:hover {
+  border-color: var(--green);
+  background: rgba(23,188,56,0.12);
+  color: var(--green);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.social-link svg { display: block; }
+
+/* Inline contact-page social strip */
+.contact-social {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.contact-social-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.contact-social .social-link {
+  border-color: var(--border-hi);
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.contact-social .social-link:hover {
+  border-color: var(--green);
+  background: var(--accent-glow);
+  color: var(--green);
+}
+
 .f-copy { font-size: 0.8125rem; color: rgba(255,255,255,0.35); }
 
 .f-cert-pill {

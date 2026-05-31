@@ -110,33 +110,31 @@
 
     .value-desc { font-size: 0.875rem; color: var(--text-sub); line-height: 1.7; }
 
-    /* ── TEAM ─────────────────────────────── */
+    /* ── TEAM ─────────────────────────────────────────────────
+       Interactive Bio Spotlight:
+       • CEO always-visible featured card (full-width)
+       • 5 others in portrait grid — click to expand bio below row
+    ────────────────────────────────────────────────────────── */
 
-    /* ── CEO FEATURED CARD ─────────────────
-       Full-width horizontal layout:
-       photo on left, details on right
-    ──────────────────────────────────────── */
+    /* CEO featured card */
     .team-ceo {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 320px 1fr;
       background: var(--navy);
       border-radius: var(--r-xl);
       overflow: hidden;
       margin-top: 3rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 2rem;
       opacity: 0;
       transform: translateY(2rem);
-      transition: box-shadow 0.4s var(--ease);
-    }
-
-    .team-ceo:hover {
-      box-shadow: 0 12px 40px rgba(13,31,60,0.2);
     }
 
     .ceo-photo-wrap {
       position: relative;
-      background: var(--surface-2);
       overflow: hidden;
+      min-height: 380px;
+      background: linear-gradient(160deg, #0d2545 0%, #1a3460 100%);
+      flex-shrink: 0;
     }
 
     .ceo-photo {
@@ -145,31 +143,23 @@
       object-fit: cover;
       object-position: center top;
       display: block;
-      min-height: 320px;
     }
 
-    /* Initials fallback — shows when no photo */
-    .ceo-initials {
+    .ceo-fallback {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-d);
-      font-size: 4rem;
+      font-size: 5rem;
       font-weight: 800;
       color: var(--green);
-      background: linear-gradient(135deg, var(--navy) 0%, #1a3460 100%);
       letter-spacing: -0.04em;
     }
 
-    /* Hide initials when photo loads */
-    .ceo-photo-wrap:has(.ceo-photo[src]:not([src=""])) .ceo-initials {
-      display: none;
-    }
-
     .ceo-details {
-      padding: 2.5rem 2.75rem;
+      padding: 3rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -183,70 +173,110 @@
       background: rgba(23,188,56,0.12);
       border: 1px solid rgba(23,188,56,0.28);
       border-radius: 9999px;
-      font-size: 0.6rem;
+      font-size: 0.625rem;
       font-weight: 700;
       letter-spacing: 0.13em;
       text-transform: uppercase;
       color: var(--green);
-      padding: 0.25rem 0.875rem;
+      padding: 0.3rem 0.875rem;
       width: fit-content;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.875rem;
     }
 
     .ceo-name {
       font-family: var(--font-d);
-      font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+      font-size: clamp(1.625rem, 2.5vw, 2.25rem);
       font-weight: 800;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.035em;
       color: #ffffff;
       line-height: 1.1;
+      margin-bottom: 0.25rem;
     }
 
     .ceo-role {
-      font-size: 0.9375rem;
+      font-size: 1rem;
       color: var(--green);
       font-weight: 600;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
     .ceo-bio {
       font-size: 0.9375rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.75;
-      max-width: 34rem;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.8;
+      max-width: 36rem;
     }
 
-    /* ── TEAM PORTRAIT GRID ────────────────
-       3-column portrait cards for the rest
-    ──────────────────────────────────────── */
-    .team-grid {
+    /* Portrait grid for remaining 5 */
+    .team-grid-outer {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
     }
 
-    .tm {
+    .tm-card {
       background: #ffffff;
       border: 1.5px solid var(--border);
       border-radius: var(--r-xl);
       overflow: hidden;
+      cursor: pointer;
       opacity: 0;
       transform: translateY(2rem);
-      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+      transition:
+        border-color  0.35s var(--ease),
+        box-shadow    0.35s var(--ease),
+        transform     0.4s  var(--ease);
+      position: relative;
     }
 
-    .tm:hover {
+    .tm-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s var(--ease);
+    }
+
+    .tm-card:hover,
+    .tm-card.active {
       border-color: var(--green);
-      box-shadow: 0 8px 28px rgba(23,188,56,0.1);
+      box-shadow: 0 6px 28px rgba(23,188,56,0.12);
       transform: translateY(-3px) !important;
     }
 
-    /* Portrait photo wrapper */
+    .tm-card.active::after { transform: scaleX(1); }
+
+    /* "View Bio" hint on hover */
+    .tm-card .tm-hint {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(23,188,56,0.9);
+      color: #ffffff;
+      font-size: 0.5875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+
+    .tm-card:hover .tm-hint { opacity: 1; transform: translateY(0); }
+    .tm-card.active .tm-hint { opacity: 1; transform: translateY(0); background: var(--navy); }
+
     .tm-photo-wrap {
-      position: relative;
-      height: 220px;
-      background: var(--surface-2);
+      height: 280px;
       overflow: hidden;
+      background: var(--surface-2);
+      position: relative;
     }
 
     .tm-photo {
@@ -258,9 +288,9 @@
       transition: transform 0.7s cubic-bezier(0.32,0.72,0,1);
     }
 
-    .tm:hover .tm-photo { transform: scale(1.04); }
+    .tm-card:hover .tm-photo,
+    .tm-card.active .tm-photo { transform: scale(1.04); }
 
-    /* Initials shown when no photo */
     .tm-initials {
       position: absolute;
       inset: 0;
@@ -268,29 +298,13 @@
       align-items: center;
       justify-content: center;
       font-family: var(--font-d);
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 800;
       color: var(--green);
       background: linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
       letter-spacing: -0.04em;
     }
 
-    /* Green bottom accent bar on photo */
-    .tm-photo-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--green);
-      opacity: 0;
-      transition: opacity 0.35s var(--ease);
-    }
-
-    .tm:hover .tm-photo-wrap::after { opacity: 1; }
-
-    /* Card body */
     .tm-body {
       padding: 1.375rem 1.5rem 1.5rem;
     }
@@ -311,24 +325,130 @@
       line-height: 1.45;
     }
 
+    /* Bio spotlight panel — spans all grid cols, expands below clicked row */
+    .bio-panel {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      background: var(--navy);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition:
+        max-height 0.55s cubic-bezier(0.32,0.72,0,1),
+        opacity    0.35s cubic-bezier(0.32,0.72,0,1);
+      pointer-events: none;
+    }
+
+    .bio-panel.open {
+      max-height: 440px;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .bio-panel-photo {
+      position: relative;
+      background: linear-gradient(160deg, #0d2545 0%, #1a3460 100%);
+      overflow: hidden;
+    }
+
+    .bio-panel-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .bio-panel-photo .bio-initials-fb {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-d);
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -0.04em;
+    }
+
+    .bio-panel-content {
+      padding: 2.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .bio-panel-role {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+    }
+
+    .bio-panel-name {
+      font-family: var(--font-d);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .bio-panel-text {
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.8;
+      max-width: 38rem;
+    }
+
+    .bio-panel-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.875rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .bio-panel-close:hover { background: rgba(255,255,255,0.15); color: #ffffff; }
+
+    /* Responsive */
     @media (max-width: 1024px) {
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
-      .team-ceo { grid-template-columns: 240px 1fr; }
+      .team-ceo { grid-template-columns: 260px 1fr; }
+      .bio-panel { grid-template-columns: 220px 1fr; }
     }
 
     @media (max-width: 768px) {
-      .vmv-grid { grid-template-columns: 1fr; }
-      .values-row { grid-template-columns: 1fr; }
-      .team-ceo {
-        grid-template-columns: 1fr;
-      }
-      .ceo-photo { min-height: 280px; }
+      .team-ceo { grid-template-columns: 1fr; }
+      .ceo-photo-wrap { min-height: 300px; }
       .ceo-details { padding: 2rem 1.75rem; }
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid-outer { grid-template-columns: repeat(2, 1fr); }
+      .bio-panel {
+        grid-template-columns: 1fr;
+        max-height: 0;
+      }
+      .bio-panel.open { max-height: 700px; }
+      .bio-panel-photo { height: 220px; }
+      .bio-panel-content { padding: 1.75rem; }
     }
 
     @media (max-width: 480px) {
-      .team-grid { grid-template-columns: 1fr; }
+      .team-grid-outer { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -411,16 +531,13 @@
     <div class="section-tag">The Team</div>
     <h2 class="sec-h2">Led by <span class="hi">Excellence</span></h2>
 
-    <!-- ── CEO FEATURED CARD ──────────────────────────────────────────
-         Photo: images/team/yetunde.jpg
-         Swap src="" to the real path once photo is available.
-         The initials "OY" show as fallback until the image is added.
-    ───────────────────────────────────────────────────────────────── -->
+    <!-- ── CEO FEATURED CARD (always visible) ──────────────────────── -->
     <div class="team-ceo" data-reveal>
       <div class="ceo-photo-wrap">
-        <!-- ADD PHOTO: src="images/team/yetunde.jpg" -->
-        <img class="ceo-photo" src="" alt="Olopade Yetunde — MD/CEO" onerror="this.style.display='none'">
-        <div class="ceo-initials">OY</div>
+        <img class="ceo-photo" src="images/team/yetunde.jpg"
+             alt="Olopade Yetunde — MD/CEO"
+             onerror="this.style.display='none'">
+        <div class="ceo-fallback" id="ceoFallback">OY</div>
       </div>
       <div class="ceo-details">
         <div class="ceo-badge">
@@ -429,21 +546,25 @@
         </div>
         <div class="ceo-name">Olopade Yetunde</div>
         <div class="ceo-role">Chief Executive Officer</div>
-        <p class="ceo-bio">Driving Africa's sports industry forward with strategic vision, deep institutional relationships, and a relentless commitment to excellence. Under her leadership, NSML has delivered Africa's Strongest Marathon Brand and built a continental footprint spanning 6 cities and 54 nations.</p>
+        <p class="ceo-bio">A decade building Africa's most impactful sporting events. Under her leadership, NSML secured the World Athletics certification as Africa's Strongest Marathon Brand, built partnerships spanning NFF, CAA, World Athletics, and AFN, and established a continental footprint across six Nigerian cities. Her strategic vision and industry relationships are the engine behind every NSML property.</p>
       </div>
     </div>
 
-    <!-- ── TEAM PORTRAIT GRID ────────────────────────────────────────
-         Photos: images/team/<firstname>.jpg
-         Swap each src="" once photos are ready.
-         Initials show as fallback.
-    ───────────────────────────────────────────────────────────────── -->
-    <div class="team-grid">
+    <!-- ── INTERACTIVE TEAM GRID ───────────────────────────────────────
+         Click any card to expand bio below that row.
+         Press the same card again (or the X) to close.
+    ──────────────────────────────────────────────────────────────────── -->
+    <div class="team-grid-outer" id="teamGrid">
 
-      <div class="tm" data-reveal>
+      <!-- Team data stored in data-* attributes — bio panel reads these on click -->
+      <div class="tm-card" data-reveal data-index="0"
+           data-name="Olopade Adenike"
+           data-role="Chief Operating Officer"
+           data-photo=""
+           data-initials="OA"
+           data-bio="The operational architect behind NSML's growth. Adenike ensures that every sponsorship commitment, event logistics plan, and client relationship is executed to the highest standard. She brings the same precision to a community 10KM race as to a World Athletics-certified marathon — because NSML's reputation is built on delivery, every single time.">
+        <div class="tm-hint">View Bio</div>
         <div class="tm-photo-wrap">
-          <!-- ADD PHOTO: src="images/team/adenike.jpg" -->
-          <img class="tm-photo" src="" alt="Olopade Adenike" onerror="this.style.display='none'">
           <div class="tm-initials">OA</div>
         </div>
         <div class="tm-body">
@@ -452,10 +573,17 @@
         </div>
       </div>
 
-      <div class="tm" data-reveal>
+      <div class="tm-card" data-reveal data-index="1"
+           data-name="Odeh Emmanuel"
+           data-role="Project Manager"
+           data-photo="images/team/emmanuel.jpg"
+           data-initials="OE"
+           data-bio="The execution engine. Emmanuel has managed the on-ground logistics, stakeholder coordination, and timeline management for some of Africa's largest sporting events — including festivals that brought over 10,000 athletes to Asaba and Uyo simultaneously across 8-day programmes. If NSML delivers on a promise, Emmanuel built the plan that made it possible.">
+        <div class="tm-hint">View Bio</div>
         <div class="tm-photo-wrap">
-          <!-- ADD PHOTO: src="images/team/emmanuel.jpg" -->
-          <img class="tm-photo" src="" alt="Odeh Emmanuel" onerror="this.style.display='none'">
+          <img class="tm-photo" src="images/team/emmanuel.jpg"
+               alt="Odeh Emmanuel" loading="lazy"
+               onerror="this.style.display='none'">
           <div class="tm-initials">OE</div>
         </div>
         <div class="tm-body">
@@ -464,10 +592,17 @@
         </div>
       </div>
 
-      <div class="tm" data-reveal>
+      <div class="tm-card" data-reveal data-index="2"
+           data-name="Adekite Bolaji"
+           data-role="Admin Manager"
+           data-photo="images/team/bolaji.jpg"
+           data-initials="AB"
+           data-bio="The structural foundation of NSML's operations. Bolaji builds and maintains the systems, processes, and organisational infrastructure that allow the agency to manage 12+ active sporting properties without losing precision or performance. Her work is invisible when things go right — and that is precisely the point.">
+        <div class="tm-hint">View Bio</div>
         <div class="tm-photo-wrap">
-          <!-- ADD PHOTO: src="images/team/bolaji.jpg" -->
-          <img class="tm-photo" src="" alt="Adekite Bolaji" onerror="this.style.display='none'">
+          <img class="tm-photo" src="images/team/bolaji.jpg"
+               alt="Adekite Bolaji" loading="lazy"
+               onerror="this.style.display='none'">
           <div class="tm-initials">AB</div>
         </div>
         <div class="tm-body">
@@ -476,10 +611,17 @@
         </div>
       </div>
 
-      <div class="tm" data-reveal>
+      <div class="tm-card" data-reveal data-index="3"
+           data-name="Odi Jide"
+           data-role="Brand &amp; Communications Manager"
+           data-photo="images/team/jide.jpg"
+           data-initials="OJ"
+           data-bio="The voice of NSML and its portfolio. Jide leads communications strategy, brand development, and media relationships — ensuring every event property reaches the right audiences with the right message. From Lagos City Marathon media coverage to Copa Lagos lifestyle content, Jide shapes how the world sees NSML and its events.">
+        <div class="tm-hint">View Bio</div>
         <div class="tm-photo-wrap">
-          <!-- ADD PHOTO: src="images/team/jide.jpg" -->
-          <img class="tm-photo" src="" alt="Odi Jide" onerror="this.style.display='none'">
+          <img class="tm-photo" src="images/team/jide.jpg"
+               alt="Odi Jide" loading="lazy"
+               onerror="this.style.display='none'">
           <div class="tm-initials">OJ</div>
         </div>
         <div class="tm-body">
@@ -488,10 +630,17 @@
         </div>
       </div>
 
-      <div class="tm" data-reveal>
+      <div class="tm-card" data-reveal data-index="4"
+           data-name="Omoniyi Sandra"
+           data-role="Business Strategist"
+           data-photo="images/team/sandra.jpg"
+           data-initials="OS"
+           data-bio="Identifies opportunity where others see blank space. Sandra drives NSML's commercial growth strategy, structures partnership frameworks, and keeps the agency positioned ahead of the curve in African sports business. Her analysis informs which properties NSML takes on, which partnerships make sense, and how the agency creates value that lasts beyond any single event.">
+        <div class="tm-hint">View Bio</div>
         <div class="tm-photo-wrap">
-          <!-- ADD PHOTO: src="images/team/sandra.jpg" -->
-          <img class="tm-photo" src="" alt="Omoniyi Sandra" onerror="this.style.display='none'">
+          <img class="tm-photo" src="images/team/sandra.jpg"
+               alt="Omoniyi Sandra" loading="lazy"
+               onerror="this.style.display='none'">
           <div class="tm-initials">OS</div>
         </div>
         <div class="tm-body">
@@ -500,8 +649,25 @@
         </div>
       </div>
 
+    </div><!-- /team-grid-outer -->
+
+    <!-- Bio panel template (moved into grid via JS) -->
+    <div class="bio-panel" id="bioPanelTpl" style="display:none">
+      <div class="bio-panel-photo" id="bioPanelPhoto">
+        <img id="bioPanelImg" src="" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+        <div class="bio-initials-fb" id="bioPanelInitials"></div>
+      </div>
+      <div class="bio-panel-content" style="position:relative;">
+        <button class="bio-panel-close" id="bioPanelClose" aria-label="Close bio">&#x2715;</button>
+        <div class="bio-panel-role" id="bioPanelRole"></div>
+        <div class="bio-panel-name" id="bioPanelName"></div>
+        <p class="bio-panel-text" id="bioPanelText"></p>
+      </div>
     </div>
-  </div>
+
+  </div><!-- /section-wrap -->
+
+
 
   <!-- FOOTER -->
   <footer>
@@ -564,6 +730,161 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    /* ── PHOTO FALLBACK HANDLING ─────────────────── */
+    // CEO card
+    const ceoImg = document.querySelector('.ceo-photo');
+    const ceoFb  = document.getElementById('ceoFallback');
+    if (ceoImg && ceoFb) {
+      const hideCeoFb = () => { if (ceoImg.naturalWidth > 0) ceoFb.style.display = 'none'; };
+      if (ceoImg.complete) hideCeoFb();
+      else { ceoImg.addEventListener('load', hideCeoFb); ceoImg.addEventListener('error', () => { ceoImg.style.display = 'none'; }); }
+    }
+
+    // Team portrait cards — hide initials when photo loads
+    document.querySelectorAll('.tm-photo').forEach(img => {
+      const wrap    = img.closest('.tm-photo-wrap');
+      const initials = wrap ? wrap.querySelector('.tm-initials') : null;
+      if (!img.src || img.src === window.location.href) return; // no src
+      const hideInitials = () => { if (img.naturalWidth > 0 && initials) initials.style.display = 'none'; };
+      if (img.complete) hideInitials();
+      else {
+        img.addEventListener('load',  hideInitials);
+        img.addEventListener('error', () => { img.style.display = 'none'; }); // show initials on error
+      }
+    });
+
+    /* ── INTERACTIVE BIO SPOTLIGHT ──────────────── */
+    const grid      = document.getElementById('teamGrid');
+    const panelTpl  = document.getElementById('bioPanelTpl');
+    const COLS      = () => window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+
+    let activeIndex  = -1;
+    let activePanel  = null;
+
+    function openBio(card) {
+      const idx       = parseInt(card.dataset.index);
+      const cols      = COLS();
+
+      // If same card — close
+      if (idx === activeIndex) {
+        closeBio();
+        return;
+      }
+
+      // Remove old panel if open
+      if (activePanel) {
+        activePanel.classList.remove('open');
+        setTimeout(() => { if (activePanel && activePanel.parentNode) activePanel.parentNode.removeChild(activePanel); activePanel = null; }, 300);
+      }
+
+      // Deactivate all cards
+      document.querySelectorAll('.tm-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      activeIndex = idx;
+
+      // Build panel
+      const panel = panelTpl.cloneNode(true);
+      panel.id    = 'bioPanel';
+      panel.style.display = '';
+      panel.classList.add('bio-panel');
+
+      const photo    = card.dataset.photo;
+      const name     = card.dataset.name;
+      const role     = card.dataset.role;
+      const bio      = card.dataset.bio;
+      const initials = card.dataset.initials;
+
+      const panelImg      = panel.querySelector('#bioPanelImg');
+      const panelInitials = panel.querySelector('#bioPanelInitials');
+      const panelRole     = panel.querySelector('#bioPanelRole');
+      const panelName     = panel.querySelector('#bioPanelName');
+      const panelText     = panel.querySelector('#bioPanelText');
+      const panelClose    = panel.querySelector('#bioPanelClose');
+
+      // Remove template IDs to avoid duplicates
+      [panelImg, panelInitials, panelRole, panelName, panelText, panelClose].forEach(el => { if(el) el.removeAttribute('id'); });
+
+      if (photo) {
+        panelImg.src = photo;
+        panelImg.alt = name;
+        panelImg.style.display = 'block';
+        panelInitials.style.display = 'none';
+        panelImg.onerror = () => { panelImg.style.display = 'none'; panelInitials.style.display = 'flex'; };
+      } else {
+        panelImg.style.display = 'none';
+        panelInitials.style.display = 'flex';
+      }
+
+      panelInitials.textContent = initials;
+      panelRole.textContent     = role;
+      panelName.textContent     = name;
+      panelText.textContent     = bio;
+
+      panelClose.addEventListener('click', closeBio);
+
+      // Find where to insert — after last card in same row
+      const cards    = Array.from(document.querySelectorAll('.tm-card'));
+      const rowEnd   = Math.min(Math.floor(idx / cols) * cols + cols - 1, cards.length - 1);
+      const anchor   = cards[rowEnd];
+      anchor.after(panel);
+      activePanel = panel;
+
+      // Trigger animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          panel.classList.add('open');
+          // Scroll so panel is visible
+          setTimeout(() => {
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
+        });
+      });
+    }
+
+    function closeBio() {
+      if (activePanel) {
+        activePanel.classList.remove('open');
+        setTimeout(() => {
+          if (activePanel && activePanel.parentNode) activePanel.parentNode.removeChild(activePanel);
+          activePanel = null;
+        }, 400);
+      }
+      document.querySelectorAll('.tm-card').forEach(c => c.classList.remove('active'));
+      activeIndex = -1;
+    }
+
+    document.querySelectorAll('.tm-card').forEach(card => {
+      card.addEventListener('click', () => openBio(card));
+    });
+
+    // Close bio on Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBio(); });
+
+    // Reposition panel on resize (column count may change)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (activePanel && activeIndex >= 0) {
+          const card = document.querySelector(`.tm-card[data-index="${activeIndex}"]`);
+          if (card) {
+            activePanel.parentNode.removeChild(activePanel);
+            activePanel = null;
+            const cols    = COLS();
+            const cards   = Array.from(document.querySelectorAll('.tm-card'));
+            const rowEnd  = Math.min(Math.floor(activeIndex / cols) * cols + cols - 1, cards.length - 1);
+            cards[rowEnd].after(activePanel = document.getElementById('bioPanel') || activePanel);
+          }
+        }
+      }, 200);
+    }, { passive: true });
+
+    /* ── NAV SCROLL STATE ────────────────────────── */
+    const navPill = document.getElementById('navPill');
+    if (navPill) {
+      window.addEventListener('scroll', () => navPill.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    }
   </script>
 </body>
 </html>

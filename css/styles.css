@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/nexa');
+
 /* ─────────────────────────────────────────
    NSML — Nilayo Sports Management Ltd
    Design System — Light Theme
@@ -35,7 +37,7 @@ html, body { max-width: 100%; }
   --border-hi:   #a8cca8;           /* stronger hover border */
 
   /* ── Typography ── */
-  --font-d:      'Syne', sans-serif;
+  --font-d:      'Nexa', 'Syne', sans-serif;
   --font-b:      'Outfit', sans-serif;
 
   /* ── Motion ── */

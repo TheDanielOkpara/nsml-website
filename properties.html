@@ -262,6 +262,32 @@
       .upcoming-grid { grid-template-columns: 1fr; }
       .consult-grid { grid-template-columns: 1fr; }
     }
+
+    .pcard-title-link {
+      text-decoration: none;
+    }
+
+    .pcard-title-link .pcard-title:hover {
+      color: var(--green-dark);
+    }
+
+    .pcard-view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      text-decoration: none;
+      margin-top: 1.25rem;
+      transition: gap 0.3s var(--ease), color 0.3s var(--ease);
+    }
+
+    .pcard-view-btn:hover {
+      gap: 0.625rem;
+      color: var(--navy);
+    }
+
   </style>
 </head>
 <body>
@@ -294,13 +320,14 @@
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">Flagship Property</div>
-            <div class="pcard-title">Access Bank Lagos City Marathon</div>
+            <a href="lagos-marathon.html" class="pcard-title-link"><div class="pcard-title">Access Bank Lagos City Marathon</div></a>
             <div class="pcard-desc">Africa's Strongest Marathon Brand 2025 — a World Athletics Global Certification. The 10th anniversary edition delivered in 2025 drew participation from across the globe, backed by Access Bank, KIA Motors, Seven Up, Aquafina, and Airtel. Raises over ₦3 billion annually from the private sector since its inception in 2016.</div>
             <div class="pcard-stats">
               <div><div class="pcard-stat-val">440K+</div><div class="pcard-stat-lbl">Participants since 2016</div></div>
               <div><div class="pcard-stat-val">₦3B+</div><div class="pcard-stat-lbl">Raised annually</div></div>
               <div><div class="pcard-stat-val">Feb 2027</div><div class="pcard-stat-lbl">Next edition</div></div>
             </div>
+            <a href="lagos-marathon.html" class="pcard-view-btn">View Property ↗</a>
           </div>
         </div>
       </div>
@@ -313,12 +340,13 @@
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">International</div>
-            <div class="pcard-title">PremiumTrust Bank Abuja City International Half Marathon</div>
+            <a href="abuja-marathon.html" class="pcard-title-link"><div class="pcard-title">PremiumTrust Bank Abuja City International Half Marathon</div></a>
             <div class="pcard-desc">The capital's premier long-distance race. Inaugural edition April 2024 with 50,000+ participants. Backed by PremiumTrust Bank, Dana Airlines, Seven Up, Aquafina, and the AFN.</div>
             <div class="pcard-stats">
               <div><div class="pcard-stat-val">50K+</div><div class="pcard-stat-lbl">Participants</div></div>
               <div><div class="pcard-stat-val">Nov 2026</div><div class="pcard-stat-lbl">Next edition</div></div>
             </div>
+            <a href="abuja-marathon.html" class="pcard-view-btn">View Property ↗</a>
           </div>
         </div>
       </div>
@@ -331,12 +359,13 @@
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">Heritage Race</div>
-            <div class="pcard-title">Abeokuta 10KM Race</div>
+            <a href="abeokuta-race.html" class="pcard-title-link"><div class="pcard-title">Abeokuta 10KM Race</div></a>
             <div class="pcard-desc">A race rich in cultural significance since 2019. Long-term commitments from Lotus Bank, Access Bank, Rite Foods, JAC Motors, Airtel, Trophy, Lafarge, and more.</div>
             <div class="pcard-stats">
               <div><div class="pcard-stat-val">120K+</div><div class="pcard-stat-lbl">Participants</div></div>
               <div><div class="pcard-stat-val">Sept 2025</div><div class="pcard-stat-lbl">Next edition</div></div>
             </div>
+            <a href="abeokuta-race.html" class="pcard-view-btn">View Property ↗</a>
           </div>
         </div>
       </div>
@@ -349,12 +378,13 @@
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">New Property</div>
-            <div class="pcard-title">Enugu City International Marathon</div>
+            <a href="enugu-marathon.html" class="pcard-title-link"><div class="pcard-title">Enugu City International Marathon</div></a>
             <div class="pcard-desc">Maiden edition May 2025 with 13,000+ runners. Backed by Pinnacle Oil, Air Peace, World Athletics, Three Crowns, RC Cola, and the Athletics Federation of Nigeria.</div>
             <div class="pcard-stats">
               <div><div class="pcard-stat-val">13K+</div><div class="pcard-stat-lbl">Debut runners</div></div>
               <div><div class="pcard-stat-val">2026</div><div class="pcard-stat-lbl">Next edition</div></div>
             </div>
+            <a href="enugu-marathon.html" class="pcard-view-btn">View Property ↗</a>
           </div>
         </div>
       </div>
@@ -367,7 +397,7 @@
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">Sports Club</div>
-            <div class="pcard-title">Stormers Sports Club</div>
+            <a href="stormers-club.html" class="pcard-title-link"><div class="pcard-title">Stormers Sports Club</div></a>
             <div class="pcard-desc">Back-to-back Lisabi Cup Champions 2024 and 2025. Academy built from Baptist Boys High School talent under long-term contracts. Senior team newly promoted to Nigeria's NNL.</div>
             <div class="pcard-stats">
               <div><div class="pcard-stat-val">2x</div><div class="pcard-stat-lbl">Lisabi Champions</div></div>
@@ -408,7 +438,7 @@
           <div class="uc-inner">
             <div class="uc-date">Dec 2026</div>
             <div>
-              <div class="uc-title">Copa Lagos Beach Soccer</div>
+              <a href="copa-lagos.html" style="text-decoration:none;color:inherit;"><div class="uc-title">Copa Lagos Beach Soccer</div></a>
               <div class="uc-desc">Nigeria's premier beach football and lifestyle event returns to Eko Atlantic City. A three-day high-energy weekend drawing 20,000+ fans, athletes, and lifestyle enthusiasts. Licensee granted by Kinetic Sports — first return since the 2019 edition.</div>
             </div>
           </div>
@@ -417,7 +447,7 @@
           <div class="uc-inner">
             <div class="uc-date">2026</div>
             <div>
-              <div class="uc-title">Yenagoa City International 10KM Race</div>
+              <a href="yenagoa-race.html" style="text-decoration:none;color:inherit;"><div class="uc-title">Yenagoa City International 10KM Race</div></a>
               <div class="uc-desc">The first World Athletics-supervised marathon in Southern Nigeria. Inaugural edition drew 5,000+ runners in 2026, with long-term state government commitments secured. First edition in the South-South geopolitical zone.</div>
             </div>
           </div>

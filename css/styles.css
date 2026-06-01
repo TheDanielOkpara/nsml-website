@@ -925,7 +925,11 @@ footer {
   .nav { width: calc(100% - 2rem); top: 0.875rem; }
 
   /* Page hero smaller on mobile */
-  .page-hero { min-height: 42vh; padding: 7rem 1.5rem 3.5rem; }
+  .page-hero {
+    min-height: 0;           /* let content determine height */
+    justify-content: flex-start;  /* content flows from top down, not bottom up */
+    padding: 8.5rem 1.25rem 3.5rem; /* 8.5rem clears nav + gives breathing room */
+  }
   .page-hero-h1 { font-size: clamp(2rem, 9vw, 3rem); }
   .page-hero-p { font-size: 0.9375rem; }
 

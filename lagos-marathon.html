@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Bank Lagos City Marathon — Nilayo Sports Management</title>
+  <meta name="description" content="Learn about Access Bank Lagos City Marathon — a Nilayo Sports Management property.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/nav.js"></script>
+  <style>
+    /* ── PROPERTY PAGE HERO ──────────────── */
+    .prop-hero {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 1.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .prop-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1594882645126-14ac19a5a2f3?w=1920&q=85&auto=format&fit=crop') center / cover no-repeat;
+      filter: contrast(1.08) brightness(0.85);
+      will-change: transform;
+    }
+
+    .prop-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,31,60,0.3) 0%,
+        rgba(13,31,60,0.5) 50%,
+        rgba(13,31,60,0.95) 100%
+      );
+    }
+
+    .prop-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 72rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .prop-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color 0.3s var(--ease);
+    }
+
+    .prop-back:hover { color: var(--green); }
+
+    .prop-page-badge {
+      display: inline-block;
+      background: var(--green);
+      color: #ffffff;
+      border-radius: 9999px;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .prop-hero-tag {
+      display: inline-block;
+      background: var(--accent-glow);
+      color: var(--green);
+      border: 1px solid var(--accent-ring);
+      border-radius: 9999px;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .prop-hero-title {
+      font-family: var(--font-d);
+      font-size: clamp(1.875rem, 4.5vw, 3.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      max-width: 52rem;
+    }
+
+    .prop-hero-location {
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.55);
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .prop-hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── STATS BAND ──────────────────────── */
+    .prop-stats-band {
+      background: var(--navy);
+      border-bottom: 3px solid var(--green);
+    }
+
+    .prop-stats-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .prop-stat-item {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .prop-stat-item:last-child { border-right: none; }
+
+    .prop-stat-val {
+      font-family: var(--font-d);
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .prop-stat-lbl {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    /* ── CONTENT ─────────────────────────── */
+    .prop-content {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .prop-body p {
+      font-size: 1.0625rem;
+      color: var(--text-sub);
+      line-height: 1.85;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Sidebar */
+    .prop-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .prop-sidebar-card {
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-xl);
+    }
+
+    .prop-sidebar-card-inner {
+      background: #ffffff;
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 1.75rem;
+    }
+
+    .prop-sidebar-title {
+      font-family: var(--font-d);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.25rem;
+    }
+
+    .sponsor-pill {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--navy);
+      padding: 0.3rem 0.875rem;
+      margin: 0.25rem 0.25rem 0 0;
+    }
+
+    .prop-next {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    .prop-next strong { color: var(--navy); }
+
+    /* CTA band */
+    .prop-cta-band {
+      background: var(--green);
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .prop-cta-band h2 {
+      font-family: var(--font-d);
+      font-size: clamp(1.625rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .prop-cta-band p {
+      font-size: 1.0625rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem;
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .btn-white-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #ffffff;
+      color: var(--green-dark);
+      font-family: var(--font-b);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 9999px;
+      padding: 0.9375rem 1.375rem 0.9375rem 1.875rem;
+      transition: all 0.4s var(--ease);
+    }
+
+    .btn-white-solid:hover { background: var(--navy); color: #ffffff; transform: scale(0.97); }
+
+    @media (max-width: 1024px) {
+      .prop-content { grid-template-columns: 1fr; gap: 3rem; }
+      .prop-stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .prop-stat-item:nth-child(2) { border-right: none; }
+      .prop-stat-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); }
+      .prop-stat-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.1); }
+    }
+
+    @media (max-width: 768px) {
+      .prop-hero { min-height: 0; padding: 8rem 1.25rem 2.5rem; }
+      .prop-hero-title { font-size: clamp(1.625rem, 7vw, 2.5rem); }
+      .prop-stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .prop-content { padding: 3rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div id="nav-root"></div>
+
+  <!-- HERO -->
+  <div class="prop-hero">
+    <div class="prop-hero-bg" id="propHeroBg"></div>
+    <div class="prop-hero-overlay"></div>
+    <div class="prop-hero-inner">
+      <a href="properties.html" class="prop-back">← All Properties</a>
+      <span class="prop-page-badge">World Athletics Certified</span>
+      <div class="prop-hero-tag">Flagship Property</div>
+      <h1 class="prop-hero-title">Access Bank Lagos City Marathon</h1>
+      <div class="prop-hero-location">📍 Lagos, Nigeria</div>
+      <div class="prop-hero-actions">
+        
+        <!-- TODO: Replace # with the actual website URL e.g. https://lagoscitymarathon.com -->
+        <a href="#" target="_blank" rel="noopener" class="btn btn-fill">
+          <span>Visit Official Website</span>
+          <span class="btn-icon">↗</span>
+        </a>
+        <a href="contact.html" class="btn btn-outline-white">Partner With Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAND -->
+  <div class="prop-stats-band">
+    <div class="prop-stats-inner">
+      
+        <div class="prop-stat-item">
+          <div class="prop-stat-val">440K+</div>
+          <div class="prop-stat-lbl">Cumulative Participants</div>
+        </div>
+        <div class="prop-stat-item">
+          <div class="prop-stat-val">₦3B+</div>
+          <div class="prop-stat-lbl">Raised Annually</div>
+        </div>
+        <div class="prop-stat-item">
+          <div class="prop-stat-val">54</div>
+          <div class="prop-stat-lbl">African Nations Represented</div>
+        </div>
+        <div class="prop-stat-item">
+          <div class="prop-stat-val">Feb 2027</div>
+          <div class="prop-stat-lbl">Next Edition</div>
+        </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="prop-content">
+    <div class="prop-body" data-reveal>
+      <div class="section-tag">About This Property</div>
+      <p>The Access Bank Lagos City Marathon is Africa's premier road race — and Africa's Strongest Marathon Brand 2025 as certified by World Athletics. Since its inaugural edition in 2016, the event has grown into the continent's most impactful mass-participation sporting experience, drawing runners, sponsors, and spectators from across Nigeria and beyond.</p>
+    <p>As Project Consultants and Patent Owners, Nilayo Sports Management has driven the marathon's growth from a promising debut to a globally recognised event with World Athletics global certification. The 10th anniversary edition in 2025 marked a decade of building what has become the defining marathon of African sport.</p>
+    <p>The marathon raises over ₦3 billion annually from the private sector, with long-term commitments from Access Bank (title sponsor), KIA Motors, Seven Up, Aquafina, Airtel, and more than 30 national and global brands.</p>
+      
+        <div class="prop-next">
+          <span class="eyebrow-dot"></span>
+          Next Edition: <strong>6 February 2027</strong>
+        </div>
+    </div>
+
+    <div class="prop-sidebar">
+      <div class="prop-sidebar-card" data-reveal>
+        <div class="prop-sidebar-card-inner">
+          <div class="prop-sidebar-title">Sponsors & Partners</div>
+          <div>
+          <span class="sponsor-pill">Access Bank</span>
+          <span class="sponsor-pill">KIA Motors</span>
+          <span class="sponsor-pill">Seven Up</span>
+          <span class="sponsor-pill">Aquafina</span>
+          <span class="sponsor-pill">Airtel Nigeria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prop-sidebar-card" data-reveal>
+        <div class="prop-sidebar-card-inner">
+          <div class="prop-sidebar-title">Managed By</div>
+          <div style="font-size:0.9375rem;color:var(--text-sub);line-height:1.65;">
+            <strong style="display:block;color:var(--navy);font-family:var(--font-d);margin-bottom:0.25rem;">Nilayo Sports Management Ltd</strong>
+            Project Consultant &amp; Brand Partner<br>
+            <a href="contact.html" style="color:var(--green);font-weight:600;text-decoration:none;font-size:0.875rem;display:inline-flex;align-items:center;gap:0.375rem;margin-top:0.875rem;">Get in touch ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <div class="prop-cta-band">
+    <h2>Interested in Sponsoring This Event?</h2>
+    <p>Partner with NSML to associate your brand with one of Africa's most impactful sporting properties. We create meaningful connections between brands and millions of fans, athletes, and communities.</p>
+    <a href="contact.html" class="btn-white-solid">
+      <span>Start a Conversation</span>
+      <span class="btn-icon" style="width:2rem;height:2rem;border-radius:50%;background:rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;">↗</span>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+        </div>
+        <div>
+          <div class="f-col-title">Navigate</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-col-title">Properties</div>
+          <ul class="f-links">
+            <li><a href="lagos-marathon.html">Lagos City Marathon</a></li>
+            <li><a href="abuja-marathon.html">Abuja City Marathon</a></li>
+            <li><a href="enugu-marathon.html">Enugu City Marathon</a></li>
+            <li><a href="yenagoa-race.html">Yenagoa 10KM Race</a></li>
+            <li><a href="copa-lagos.html">Copa Lagos</a></li>
+            <li><a href="stormers-club.html">Stormers Sports Club</a></li>
+          </ul>
+        </div>
+        <div class="footer-social-col">
+          <div class="f-col-title">Follow Us</div>
+          <div class="footer-social-list">
+            <a href="https://www.instagram.com/nilayosports" target="_blank" rel="noopener" aria-label="Instagram" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://www.facebook.com/share/1DSXqskp56/" target="_blank" rel="noopener" aria-label="Facebook" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://x.com/nilayosports" target="_blank" rel="noopener" aria-label="X" class="social-link"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.linkedin.com/company/nilayosports/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="https://youtube.com/@nilayosports" target="_blank" rel="noopener" aria-label="YouTube" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
+        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hero parallax
+    const bg = document.getElementById('propHeroBg');
+    if (bg) window.addEventListener('scroll', () => { bg.style.transform = `translateY(${window.pageYOffset * 0.25}px)`; }, { passive: true });
+
+    // Scroll reveals
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        setTimeout(() => {
+          entry.target.style.transition = `opacity 0.75s cubic-bezier(0.32,0.72,0,1) ${i*80}ms, transform 0.75s cubic-bezier(0.32,0.72,0,1) ${i*80}ms`;
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'none';
+        }, 0);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    const navPill = document.getElementById('navPill');
+    if (navPill) window.addEventListener('scroll', () => navPill.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+  </script>
+</body>
+</html>

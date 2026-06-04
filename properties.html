@@ -39,7 +39,38 @@
       background: var(--surface-2);
     }
 
-    .pcard-img-wrap { overflow: hidden; height: 220px; }
+    .pcard-img-wrap {
+      overflow: hidden;
+      height: 220px;
+      position: relative;  /* enables logo overlay */
+    }
+
+    /* Event logo overlay — bottom-left of card image */
+    .pcard-event-logo {
+      position: absolute;
+      bottom: 0.875rem;
+      left: 0.875rem;
+      z-index: 3;
+      background: rgba(255,255,255,0.95);
+      border-radius: 0.625rem;
+      padding: 0.375rem 0.625rem;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(13,31,60,0.15);
+    }
+
+    .pcard-event-logo img {
+      height: 36px;
+      width: auto;
+      max-width: 110px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .pcard.featured .pcard-event-logo img {
+      height: 44px;
+      max-width: 140px;
+    }
 
     .pcard-img {
       width: 100%;
@@ -317,6 +348,9 @@
         <div class="pcard-inner">
           <div class="pcard-img-wrap">
             <img class="pcard-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&auto=format&fit=crop" alt="Access Bank Lagos City Marathon" loading="lazy">
+          <div class="pcard-event-logo">
+            <img src="images/events/ablcm-logo-[no-year].png" alt="Access Bank Lagos City Marathon logo">
+          </div>
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">Flagship Property</div>
@@ -337,6 +371,9 @@
         <div class="pcard-inner">
           <div class="pcard-img-wrap">
             <img class="pcard-img" src="https://images.unsplash.com/photo-1594882645126-14ac19a5a2f3?w=840&q=80&auto=format&fit=crop" alt="Abuja City Marathon" loading="lazy">
+          <div class="pcard-event-logo">
+            <img src="images/events/aihhm-2023-logo.png" alt="Abuja City Marathon logo">
+          </div>
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">International</div>
@@ -356,6 +393,9 @@
         <div class="pcard-inner">
           <div class="pcard-img-wrap">
             <img class="pcard-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=840&q=80&auto=format&fit=crop" alt="Abeokuta 10KM Race" loading="lazy">
+          <div class="pcard-event-logo">
+            <img src="images/events/abk-logo.png" alt="Abeokuta 10KM Race logo">
+          </div>
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">Heritage Race</div>
@@ -375,6 +415,9 @@
         <div class="pcard-inner">
           <div class="pcard-img-wrap">
             <img class="pcard-img" src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=840&q=80&auto=format&fit=crop" alt="Enugu City Marathon" loading="lazy">
+          <div class="pcard-event-logo">
+            <img src="images/events/enugu-marathon-logo.png" alt="Enugu City Marathon logo">
+          </div>
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">New Property</div>
@@ -394,6 +437,9 @@
         <div class="pcard-inner">
           <div class="pcard-img-wrap">
             <img class="pcard-img" src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=840&q=80&auto=format&fit=crop" alt="Yenagoa City International 10KM Race" loading="lazy">
+          <div class="pcard-event-logo">
+            <img src="images/events/yc1km.png" alt="Yenagoa City International 10KM Race logo">
+          </div>
           </div>
           <div class="pcard-body">
             <div class="pcard-tag">New Property</div>

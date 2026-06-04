@@ -594,19 +594,21 @@ body {
 
 /* Logo img inside marquee */
 .partner-logo {
-  height: 40px;
+  height: 48px;          /* taller so small logos are more visible */
   width: auto;
-  max-width: 130px;
+  max-width: 160px;      /* wider to accommodate landscape logos */
+  min-width: 60px;       /* prevents very narrow logos from disappearing */
   object-fit: contain;
+  object-position: center;
   display: block;
-  opacity: 0.85;
+  opacity: 0.9;
   transition: opacity 0.3s cubic-bezier(0.32,0.72,0,1), transform 0.3s cubic-bezier(0.32,0.72,0,1);
   flex-shrink: 0;
 }
 
 .partner-logo:hover {
   opacity: 1;
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
 /* Separator dot between logos */
@@ -637,7 +639,7 @@ body {
 .partners-set {
   display: flex;
   align-items: center;
-  gap: 3.5rem;
+  gap: 4rem;
   padding-right: 3.5rem;
 }
 

@@ -575,13 +575,21 @@ body {
 .stat-prefix { font-size: 0.72em; margin-top: 0.08em; color: var(--green); }
 .stat-lbl { font-size: 0.8125rem; color: rgba(255,255,255,0.5); margin-top: 0.875rem; letter-spacing: 0.03em; }
 
-/* ── PARTNERS MARQUEE ───────────────────── */
+/* ── PARTNERS MARQUEE (dual row) ────────── */
 .partners {
-  padding: 3.5rem 0;
+  padding: 2.5rem 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--surface);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Row 2 scrolls in reverse */
+.partners-track-reverse {
+  animation-direction: reverse;
 }
 
 /* Logo img inside marquee */

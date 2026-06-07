@@ -227,6 +227,8 @@
     /* Large featured card: Lagos Marathon spans 2 cols */
     .feat-grid .prop-card-lg {
       grid-column: span 2;
+      display: flex;
+      flex-direction: column;
     }
 
     .prop-card {
@@ -250,7 +252,9 @@
     }
 
     .prop-card-lg .prop-img-wrap {
-      height: 260px;
+      flex: 1;
+      height: auto;
+      min-height: 280px;
     }
 
     .prop-img {

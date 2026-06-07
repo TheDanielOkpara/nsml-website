@@ -204,11 +204,63 @@
     .uc-inner {
       background: var(--surface-2);
       border-radius: calc(var(--r-xl) - 0.25rem);
-      padding: 2rem;
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.03);
-      display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
+      overflow: hidden;
+    }
+
+    .uc-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .uc-img-wrap img.uc-hero {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.5s var(--ease);
+    }
+
+    .uc:hover .uc-img-wrap img.uc-hero { transform: scale(1.04); }
+
+    .uc-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%);
+    }
+
+    .uc-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-family: var(--font-d);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--green);
+      padding: 0.3em 0.75em;
+      border-radius: 2rem;
+    }
+
+    .uc-logo-wrap {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+    }
+
+    .uc-logo-wrap img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      drop-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .uc-body {
+      padding: 1.5rem;
     }
 
     .uc-date {
@@ -218,8 +270,7 @@
       letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--accent);
-      flex-shrink: 0;
-      padding-top: 0.1rem;
+      margin-bottom: 0.4rem;
     }
 
     .uc-title {
@@ -232,7 +283,6 @@
     }
 
     .uc-desc { font-size: 0.875rem; color: var(--text-sub); line-height: 1.7; }
-    .uc-logo { display: block; height: 44px; width: auto; object-fit: contain; object-position: left; margin-bottom: 0.75rem; }
 
     /* ── CONSULTATIONS GRID ───────────────── */
     .consult-grid {
@@ -503,9 +553,18 @@
       <div class="upcoming-grid">
         <div class="uc" data-reveal>
           <div class="uc-inner">
-            <div class="uc-date">Dec 2026</div>
-            <div>
-              <a href="copa-lagos.html" style="text-decoration:none;color:inherit;"><img src="images/events/copa-lagos_web.png" alt="Copa Lagos" class="uc-logo"><div class="uc-title">Copa Lagos Beach Soccer</div></a>
+            <div class="uc-img-wrap">
+              <img class="uc-hero" src="images/events/copa-lagos-hero.jpg" alt="Copa Lagos Beach Soccer">
+              <div class="uc-img-overlay"></div>
+              <div class="uc-badge">Upcoming · Dec 2026</div>
+              <div class="uc-logo-wrap">
+                <img src="images/events/copa-lagos_web.png" alt="Copa Lagos">
+              </div>
+            </div>
+            <div class="uc-body">
+              <a href="copa-lagos.html" style="text-decoration:none;color:inherit;">
+                <div class="uc-title">Copa Lagos Beach Soccer</div>
+              </a>
               <div class="uc-desc">Nigeria's premier beach football and lifestyle event returns to Eko Atlantic City. A three-day high-energy weekend drawing 20,000+ fans, athletes, and lifestyle enthusiasts. Licensee granted by Kinetic Sports — first return since the 2019 edition.</div>
             </div>
           </div>

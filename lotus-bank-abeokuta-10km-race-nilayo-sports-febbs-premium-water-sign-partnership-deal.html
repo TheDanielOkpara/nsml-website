@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- WP: <title><?php wp_title('—', true, 'right'); ?> Nilayo Sports Management</title> -->
+  <title>Lotus Bank Abeokuta 10km Race: Nilayo Sports, Febbs Premium Water Sign Partnership Deal — Nilayo Sports Management</title>
+  <meta name="description" content="Organiser of Lotus Bank Abeokuta 10km Race, Nilayo Sports Management Limited (NISML) and Febbs Water has signed a partnership deal that sees the premium…">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/nav.js"></script>
+  <style>
+
+    /* ── ARTICLE HERO ───────────────────────── */
+    .article-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 480px;
+      max-height: 680px;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    /* WP: style="background-image:url('<?php the_post_thumbnail_url('full'); ?>')" */
+    .article-hero-img {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=85&auto=format&fit=crop') center / cover no-repeat;
+      filter: saturate(0.85) contrast(1.05);
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+
+    .article-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,31,60,0.2)  0%,
+        rgba(13,31,60,0.15) 30%,
+        rgba(13,31,60,0.55) 65%,
+        rgba(13,31,60,0.95) 100%
+      );
+    }
+
+    .article-hero-inner {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0 1.5rem 3rem;
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .article-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.5rem;
+      text-decoration: none;
+    }
+
+    .article-breadcrumb a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.3s var(--ease);
+    }
+
+    .article-breadcrumb a:hover { color: var(--green); }
+
+    .article-breadcrumb-sep { font-size: 0.75rem; opacity: 0.4; }
+
+    .article-hero-cat {
+      display: inline-block;
+      background: var(--green);
+      color: #ffffff;
+      border-radius: 9999px;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.875rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* WP: <?php the_title('<h1 class="article-hero-title">', '</h1>'); ?> */
+    .article-hero-title {
+      font-family: var(--font-d);
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #ffffff;
+      max-width: 52rem;
+    }
+
+    /* ── ARTICLE META BAR ───────────────────── */
+    .article-meta-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(13,31,60,0.06);
+    }
+
+    .article-meta-bar-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .article-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .meta-item strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .meta-divider {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border-hi);
+      flex-shrink: 0;
+    }
+
+    /* Share buttons */
+    .share-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .share-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 0.25rem;
+    }
+
+    .share-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: all 0.3s var(--ease);
+    }
+
+    .share-btn:hover {
+      border-color: var(--green);
+      color: var(--green-dark);
+      background: var(--accent-glow);
+    }
+
+    /* ── ARTICLE BODY ───────────────────────── */
+    /* Reading column: centred, constrained to ~680px */
+    .article-content-wrap {
+      padding: 4rem 1.5rem 5rem;
+      max-width: 72rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr min(680px, 100%) 1fr;
+    }
+
+    /* WP: the_content() renders into .article-body */
+    .article-body {
+      grid-column: 2;
+    }
+
+    /* Intro paragraph — slightly larger */
+    .article-body .intro {
+      font-size: 1.1875rem;
+      color: var(--navy);
+      line-height: 1.75;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      border-left: 3px solid var(--green);
+      padding-left: 1.25rem;
+    }
+
+    /* Body paragraphs */
+    .article-body p {
+      font-size: 1.0625rem;
+      color: var(--text-sub);
+      line-height: 1.85;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Headings within article */
+    .article-body h2 {
+      font-family: var(--font-d);
+      font-size: 1.625rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--navy);
+      line-height: 1.2;
+      margin: 3rem 0 1.25rem;
+    }
+
+    .article-body h3 {
+      font-family: var(--font-d);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      line-height: 1.3;
+      margin: 2.25rem 0 1rem;
+    }
+
+    /* Inline images — slightly wider than the text column */
+    .article-body .article-inline-img {
+      margin: 2.5rem -2rem;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .article-body .article-inline-img img {
+      width: 100%;
+      display: block;
+      height: 400px;
+      object-fit: cover;
+      filter: contrast(1.06) brightness(0.97);
+    }
+
+    .article-body .article-inline-img figcaption {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      padding: 0.75rem 0 0;
+      line-height: 1.5;
+    }
+
+    /* Pull quote */
+    .article-body blockquote {
+      margin: 2.5rem 0;
+      padding: 2rem 2rem 2rem 1.75rem;
+      background: var(--surface);
+      border-left: 4px solid var(--green);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+    }
+
+    .article-body blockquote p {
+      font-family: var(--font-d);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .article-body blockquote cite {
+      font-size: 0.875rem;
+      color: var(--green-dark);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Lists */
+    .article-body ul,
+    .article-body ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .article-body li {
+      font-size: 1.0625rem;
+      color: var(--text-sub);
+      line-height: 1.8;
+      margin-bottom: 0.5rem;
+      padding-left: 0.375rem;
+    }
+
+    .article-body ul li::marker { color: var(--green); }
+    .article-body ol li::marker { color: var(--green); font-weight: 700; }
+
+    /* Key stats callout */
+    .article-body .stats-callout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2.5rem 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .article-body .stats-callout li {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+      text-align: center;
+      margin: 0;
+    }
+
+    .article-body .stats-callout li::marker { content: ''; }
+
+    .callout-val {
+      font-family: var(--font-d);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.375rem;
+    }
+
+    .callout-val em {
+      font-style: normal;
+      color: var(--green);
+      font-size: 0.65em;
+    }
+
+    .callout-lbl {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: block;
+    }
+
+    /* Horizontal rule */
+    .article-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    /* Article tags */
+    .article-tags {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .tag-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .tag-pill {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      color: var(--text-sub);
+      padding: 0.3rem 0.875rem;
+      text-decoration: none;
+      transition: all 0.3s var(--ease);
+    }
+
+    .tag-pill:hover {
+      border-color: var(--green);
+      color: var(--green-dark);
+      background: var(--accent-glow);
+    }
+
+    /* ── AUTHOR CARD ────────────────────────── */
+    /* WP: rendered using get_the_author_meta() */
+    .author-card {
+      grid-column: 2;
+      margin-top: 3rem;
+      padding: 0.25rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-xl);
+    }
+
+    .author-card-inner {
+      background: #ffffff;
+      border-radius: calc(var(--r-xl) - 0.25rem);
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .author-avatar {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      border: 2px solid var(--accent-ring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-d);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+
+    .author-role {
+      font-size: 0.8125rem;
+      color: var(--green-dark);
+      font-weight: 600;
+      margin-bottom: 0.625rem;
+    }
+
+    .author-bio {
+      font-size: 0.9375rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    /* ── RELATED ARTICLES ───────────────────── */
+    .related-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 5rem 1.5rem;
+    }
+
+    .related-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .related-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .related-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 6px 28px rgba(26,184,60,0.1);
+      transform: translateY(-3px);
+    }
+
+    .related-img-wrap { overflow: hidden; height: 180px; }
+
+    .related-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.06) brightness(0.97);
+      transition: transform 0.75s var(--ease), filter 0.75s var(--ease);
+    }
+
+    .related-card:hover .related-img {
+      transform: scale(1.05);
+      filter: saturate(1.1) contrast(1.08);
+    }
+
+    .related-body { padding: 1.5rem; flex: 1; }
+
+    .related-cat {
+      display: inline-block;
+      background: var(--accent-glow);
+      color: var(--green);
+      border: 1px solid var(--accent-ring);
+      border-radius: 9999px;
+      font-size: 0.5875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .related-title {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-date {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: auto;
+      padding-top: 0.875rem;
+    }
+
+    /* ── PREV / NEXT NAV ────────────────────── */
+    .article-nav {
+      grid-column: 2;
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .article-nav-link {
+      padding: 1.5rem;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-lg);
+      text-decoration: none;
+      transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .article-nav-link:hover {
+      border-color: var(--green);
+      box-shadow: 0 4px 20px rgba(26,184,60,0.1);
+    }
+
+    .article-nav-dir {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .article-nav-link.next .article-nav-dir { justify-content: flex-end; }
+
+    .article-nav-title {
+      font-family: var(--font-d);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .article-nav-link.next .article-nav-title { text-align: right; }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 1024px) {
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      /* Hero — switch to static flow on mobile so long titles
+         can't extend upward into the fixed nav                */
+      .article-hero {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        padding-top: 5.5rem;   /* clears the floating nav pill */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .article-hero-img { height: 200px; position: relative; flex-shrink: 0; }
+      .article-hero-overlay { display: none; }
+      .article-hero-inner {
+        position: static;
+        padding: 1.25rem 1.25rem 1.75rem;
+        background: var(--navy);
+      }
+      .article-hero-title { font-size: clamp(1.375rem, 5.5vw, 2rem); }
+      .article-breadcrumb { margin-bottom: 0.75rem; font-size: 0.75rem; }
+
+      /* Meta bar — stack vertically */
+      .article-meta-bar { position: static; padding: 1rem 1.25rem; }
+      .article-meta-bar-inner { flex-direction: column; align-items: flex-start; gap: 0.875rem; }
+      .article-meta-left { gap: 0.875rem; }
+      .share-row { width: 100%; justify-content: flex-start; }
+
+      /* Reading column — full width */
+      .article-content-wrap {
+        grid-template-columns: 1fr;
+        padding: 2.5rem 1.25rem 4rem;
+      }
+      .article-body  { grid-column: 1; }
+      .author-card   { grid-column: 1; }
+      .article-nav   { grid-column: 1; grid-template-columns: 1fr; }
+
+      /* Body content */
+      .article-body .intro { font-size: 1.0625rem; }
+      .article-body p { font-size: 1rem; }
+      .article-body h2 { font-size: 1.375rem; }
+      .article-body h3 { font-size: 1.125rem; }
+      .article-body .article-inline-img { margin: 2rem 0; }
+      .article-body .article-inline-img img { height: 220px; }
+      .article-body blockquote p { font-size: 1.0625rem; }
+      .article-body .stats-callout { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .callout-val { font-size: 1.625rem; }
+
+      /* Related */
+      .related-grid { grid-template-columns: 1fr; }
+      .related-section { padding: 3.5rem 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .article-body .stats-callout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div id="nav-root"></div>
+
+  <!-- ── ARTICLE HERO ──────────────────────────
+       WP: Use get_the_post_thumbnail_url() for bg image
+           Use the_title() for heading
+           Use get_the_category() for category pill
+  ─────────────────────────────────────────── -->
+  <div class="article-hero">
+    <div class="article-hero-img" id="heroParallax" style="background-image:url('https://nilayosports.com/wp-content/uploads/2024/06/Febbs-1010-1024x683-1.png')"></div>
+    <div class="article-hero-overlay"></div>
+    <div class="article-hero-inner">
+      <!-- WP: breadcrumb via Yoast SEO or custom wp_breadcrumb() -->
+      <div class="article-breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="article-breadcrumb-sep">›</span>
+        <a href="news.html">News</a>
+        <span class="article-breadcrumb-sep">›</span>
+        <span>Lotus Bank Abeokuta 10km Race: Nilayo Sports, Febbs…</span>
+      </div>
+      <!-- WP: the_category() -->
+      <span class="article-hero-cat">News</span>
+      <!-- WP: the_title() -->
+      <h1 class="article-hero-title">
+        Lotus Bank Abeokuta 10km Race: Nilayo Sports, Febbs Premium Water Sign Partnership Deal
+      </h1>
+    </div>
+  </div>
+
+  <!-- ── STICKY META BAR ───────────────────────
+       WP: the_date(), get_the_author(), estimated reading time via plugin
+  ─────────────────────────────────────────── -->
+  <div class="article-meta-bar">
+    <div class="article-meta-bar-inner">
+      <div class="article-meta-left">
+        <div class="meta-item">
+          <!-- WP: get_the_author() -->
+          <span>By</span>
+          <strong>NSML Editorial</strong>
+        </div>
+        <span class="meta-divider"></span>
+        <!-- WP: the_date('F j, Y') -->
+        <div class="meta-item">June 14, 2024</div>
+        <span class="meta-divider"></span>
+        <!-- WP: estimated reading time plugin or custom function -->
+        <div class="meta-item">2 min read</div>
+      </div>
+      <!-- Share buttons — WP: pass the_permalink() to each URL -->
+      <div class="share-row">
+        <span class="share-label">Share</span>
+        <a id="shareX"  href="#" target="_blank" rel="noopener" class="share-btn" aria-label="Share on X" title="Share on X">&#x1D54F;</a>
+        <a id="shareLI" href="#" target="_blank" rel="noopener" class="share-btn" aria-label="Share on LinkedIn" title="Share on LinkedIn">in</a>
+        <a id="shareWA" href="#" target="_blank" rel="noopener" class="share-btn" aria-label="Share on WhatsApp" title="Share on WhatsApp">W</a>
+        <button class="share-btn" id="copyLink" aria-label="Copy link" title="Copy link">&#x2398;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ARTICLE CONTENT ──────────────────────
+       WP: the_content() renders all of this
+           WordPress block editor (Gutenberg) produces
+           identical HTML structure automatically.
+  ─────────────────────────────────────────── -->
+  <div class="article-content-wrap">
+    <div class="article-body">
+
+      <p class="intro">
+        Organiser of Lotus Bank Abeokuta 10km Race, Nilayo Sports Management Limited (NISML) and Febbs Water has signed a partnership deal that sees the premium drinking water becoming official dehydration water of the marathon race which is scheduled to hold in the ancient city of Abeokuta, Ogun State, southwest Nigeria in September this year.
+      </p>
+
+      <p>
+        The Chief Executive Office of Febbs, Olasegun Dada said the company sees the Lotus Bank Abeokuta 10km Race as a promising and good initiative that will have positive impacts of human development of the Nigerian youth, adding that the management of Febbs is glad to be on board with Nilayo Sports in the organisation of the marathon event.
+      </p>
+
+      <p>
+        The Brand Strategic Manager of the company, Oluwatoyin Kayode while presenting a package to explain reasons behind Febbs Premium Drinking Water supporting the organisation of the race and what they will offer in this year’s event. &lt;div class=&quot;efzqxwh-container efzqxwh-type-custom_code &quot; data-adid=&quot;967073&quot; data-type=&quot;custom_code&quot;&gt;
+      </p>
+
+      <p>
+        According to her, Febbs Premium Drinking Water will provide more hydration points during the race, while at each hydration centre, there will be volunteers to cheer the runners.
+      </p>
+
+      <p>
+        Kayode reiterated that Febbs Water is coming on board for a period of renewable two years deal to add value to the organisation of the race, with the readiness to give the runners high quality experience.
+      </p>
+
+      <p>
+        She assured that the spectators, most expecially the locals who will troop out in their thousands to be part of the event, will not be left out in the plans the company have for the smooth organisation of the race.
+      </p>
+
+      <p>
+        Chief Bukola Olopade, CEO of Nilayo Sports, while commending the coming up board of Febbs Premium Drinking Water, he said he was impressed with the presentation of Febbs water highlighting how the company will partner Nilayo Sports for the success th the Abeokuta race.
+      </p>
+
+      <p>
+        “This is an organization having an humane strategic to get the runners dehydrated during the race.”
+      </p>
+
+      <p>
+        He said that Nilayo Sports is in the business of organizing marathon in the Nigerian sporting space to grow the country’s economy.
+      </p>
+
+      <p>
+        “We also ensure that our partners use the partnership to grow their business, and of course, the Lotus Bank Abeokuta 10km Race is being organized to celebrate the birthday of Alake of Egbaland.
+      </p>
+
+      <p>
+        “This year, we are inviting officials of World Athletics to witness this event, even as we are putting lots into the race to get Bronze Label Status in the next edition.
+      </p>
+
+      <p>
+        “The race promises to be an exciting event and we are looking forward to seeing a perfect dehydrating system in this year’s event,” Olopade said.
+      </p>
+
+      <p>
+        &lt;/div&gt;
+      </p>
+
+      <p>
+        SOURCE:&lt;a href=&quot;https://independent.ng/lotus-bank-abeokuta-10km-race-nilayo-sports-febbs-premium-water-sign-partnership-deal/&quot;&gt; INDEPENDENT&lt;/a&gt;
+      </p>
+
+      <!-- Tags (WP: the_tags()) -->
+      <div class="article-tags">
+        <span class="tag-label">Tags</span>
+        <a href="news.html" class="tag-pill">News</a>
+        <a href="news.html" class="tag-pill">NSML</a>
+      </div>
+
+
+    </div><!-- /article-body -->
+
+    <!-- ── AUTHOR CARD ─────────────────────────
+         WP: get_the_author_meta('display_name')
+             get_the_author_meta('description')
+             get_avatar()
+    ──────────────────────────────────────── -->
+    <div class="author-card">
+      <div class="author-card-inner">
+        <!-- WP: get_avatar(get_the_author_meta('ID'), 64) -->
+        <div class="author-avatar">NS</div>
+        <div>
+          <!-- WP: get_the_author_meta('display_name') -->
+          <div class="author-name">NSML Editorial Team</div>
+          <!-- WP: custom author role field via ACF -->
+          <div class="author-role">Nilayo Sports Management Ltd</div>
+          <!-- WP: get_the_author_meta('description') -->
+          <p class="author-bio">The NSML Editorial Team covers sporting events, partnership announcements, and industry insights from across Africa's sports management landscape. For press enquiries, contact the NSML Communications team.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PREV / NEXT ARTICLE ─────────────────
+         WP: previous_post_link() and next_post_link()
+    ──────────────────────────────────────── -->
+    <nav class="article-nav" aria-label="Article navigation">
+      <a href="news.html" class="article-nav-link prev">
+        <span class="article-nav-dir">← Previous</span>
+        <span class="article-nav-title">Browse more NSML news</span>
+      </a>
+      <a href="news.html" class="article-nav-link next">
+        <span class="article-nav-dir">Next →</span>
+        <span class="article-nav-title">Browse more NSML news</span>
+      </a>
+    </nav>
+
+  </div><!-- /article-content-wrap -->
+
+  <!-- ── RELATED ARTICLES ──────────────────────
+       WP: WP_Query with same category, exclude current post
+  ─────────────────────────────────────────── -->
+  <div class="related-section">
+    <div class="related-inner">
+      <div class="split-header" style="margin-bottom:0">
+        <div>
+          <div class="section-tag">More to Read</div>
+          <h2 class="sec-h2">Related <span class="hi">Stories</span></h2>
+        </div>
+        <a href="news.html" class="btn btn-outline btn-sm">All News</a>
+      </div>
+
+      <div class="related-grid" style="margin-top:2.5rem">
+        <a href="news.html" class="related-card" data-reveal>
+          <div class="related-img-wrap">
+            <img class="related-img"
+              src="https://images.unsplash.com/photo-1594882645126-14ac19a5a2f3?w=840&q=80&auto=format&fit=crop"
+              alt="NSML News"
+              loading="lazy">
+          </div>
+          <div class="related-body">
+            <span class="related-cat">News</span>
+            <div class="related-title">More stories from Nilayo Sports Management</div>
+            <div class="related-date">Latest</div>
+          </div>
+        </a>
+
+        <a href="news.html" class="related-card" data-reveal>
+          <div class="related-img-wrap">
+            <img class="related-img"
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=840&q=80&auto=format&fit=crop"
+              alt="NSML News"
+              loading="lazy">
+          </div>
+          <div class="related-body">
+            <span class="related-cat">News</span>
+            <div class="related-title">Catch up on partnership announcements and event recaps</div>
+            <div class="related-date">Latest</div>
+          </div>
+        </a>
+
+        <a href="news.html" class="related-card" data-reveal>
+          <div class="related-img-wrap">
+            <img class="related-img"
+              src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=840&q=80&auto=format&fit=crop"
+              alt="NSML News"
+              loading="lazy">
+          </div>
+          <div class="related-body">
+            <span class="related-cat">News</span>
+            <div class="related-title">Explore the full NSML newsroom for more updates</div>
+            <div class="related-date">Latest</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NEWSLETTER CTA ──────────────────────── -->
+  <div style="background:var(--navy);padding:5rem 1.5rem;border-top:3px solid var(--green);">
+    <div style="max-width:42rem;margin:0 auto;text-align:center;" data-reveal>
+      <div class="eyebrow-pill" style="justify-content:center;display:inline-flex;margin-bottom:1.5rem;background:rgba(26,184,60,0.12);border-color:rgba(26,184,60,0.3);color:var(--green);">
+        <span class="eyebrow-dot"></span>
+        Stay Updated
+      </div>
+      <h2 style="font-family:var(--font-d);font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:800;letter-spacing:-0.03em;color:#ffffff;margin-bottom:1rem;line-height:1.1;">
+        Never Miss an <span style="color:var(--green)">NSML Story</span>
+      </h2>
+      <p style="font-size:1.0625rem;color:rgba(255,255,255,0.55);margin-bottom:2.25rem;line-height:1.7;">
+        Event dates, results, partnership announcements, and insights — delivered straight to your inbox.
+      </p>
+      <form id="articleNlForm" novalidate style="display:flex;flex-direction:column;gap:0.625rem;max-width:32rem;margin:0 auto;">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <input type="email" id="articleNlEmail" placeholder="Your email address"
+            style="flex:1;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-radius:9999px;padding:0.875rem 1.5rem;font-family:var(--font-b);font-size:0.9375rem;color:#ffffff;outline:none;transition:border-color 0.3s;"
+            onfocus="this.style.borderColor='var(--green)'"
+            onblur="this.style.borderColor=this.value&&!/invalid/.test(this.dataset.state||'') ? 'var(--green)' : 'rgba(255,255,255,0.15)'"
+            autocomplete="email"
+            aria-label="Email address">
+          <button type="submit" id="articleNlBtn" class="btn btn-fill" style="white-space:nowrap;flex-shrink:0;min-width:0;">
+            <span id="articleNlLabel">Subscribe</span>
+            <span class="btn-icon">↗</span>
+          </button>
+        </div>
+        <p id="articleNlError" style="font-size:0.8125rem;color:#ff8a80;font-weight:500;display:none;text-align:center;"></p>
+        <div id="articleNlSuccess" style="display:none;align-items:center;gap:0.625rem;justify-content:center;background:rgba(26,184,60,0.15);border:1px solid rgba(26,184,60,0.35);border-radius:9999px;padding:0.75rem 1.5rem;">
+          <span style="color:var(--green);font-size:1rem;">✓</span>
+          <span style="font-size:0.9375rem;color:#ffffff;font-weight:600;">You're subscribed — thanks!</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────── -->
+  
+  <!-- PARTNERS LOGO MARQUEE -->
+  <div class="partners">
+    <div class="partners-lbl">Trusted Partners &amp; Affiliations</div>
+    <div class="partners-track">
+      <div class="partners-set">
+        <img src="images/partners/web/world-athletics.png" alt="World Athletics" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/pngroyale.com-access-bank-plc-logo.png" alt="Access Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/premium-trust-logo-colour-png.png" alt="PremiumTrust Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/airtel-logo.png" alt="Airtel Nigeria" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/new-kia-logo.png" alt="KIA Motors" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/afnlogo.png" alt="AFN" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/dana.png" alt="Dana Airlines" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/air-peace-icon-2048x407-x77lwkmv.png" alt="Air Peace" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/pinnacle-logo.png" alt="Pinnacle Oil" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/aquavie.png" alt="Aquavie" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/firstbank-logo.png" alt="First Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/keystone.png" alt="Keystone Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/new-mtn-logo.png" alt="MTN" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/unilever.png" alt="Unilever" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/rite-logo.png" alt="Rite Foods" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/valuejet_approved_logo_png.png" alt="Value Jet" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/kenya_airways-logo.wine.png" alt="Kenya Airways" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/casio-logo.png" alt="Casio" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/ogun-state-logo.png" alt="Ogun State" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/bayelsa-sports-logo.png" alt="Bayelsa Sports" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/ramecgroup-logo.png" alt="Ramec Group" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/greenlife-pharmaceuticals-logo.png" alt="Greenlife" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/febbs-premium-drinking-water.png" alt="FEBBS Water" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/binad-table-water.png" alt="Binad Water" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/tcm-logo.png" alt="TCM" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/rexona_logo_2015.svg.png" alt="Rexona" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/premier-cool-deo-01.png" alt="Premier Cool" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/vitabol-hd-logo.png" alt="Vitabol" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/waka.png" alt="Waka" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/what-network-logo.png" alt="What Network" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/robb-logo.png" alt="Robb" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/rpp-logo.png" alt="RPP" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/ogsaa.png" alt="OGSAA" loading="lazy" class="partner-logo">
+      </div>
+      <div class="partners-set" aria-hidden="true">
+        <img src="images/partners/web/world-athletics.png" alt="World Athletics" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/pngroyale.com-access-bank-plc-logo.png" alt="Access Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/premium-trust-logo-colour-png.png" alt="PremiumTrust Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/airtel-logo.png" alt="Airtel Nigeria" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/new-kia-logo.png" alt="KIA Motors" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/afnlogo.png" alt="AFN" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/dana.png" alt="Dana Airlines" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/air-peace-icon-2048x407-x77lwkmv.png" alt="Air Peace" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/pinnacle-logo.png" alt="Pinnacle Oil" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/aquavie.png" alt="Aquavie" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/firstbank-logo.png" alt="First Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/keystone.png" alt="Keystone Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/new-mtn-logo.png" alt="MTN" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/unilever.png" alt="Unilever" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/rite-logo.png" alt="Rite Foods" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/valuejet_approved_logo_png.png" alt="Value Jet" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/kenya_airways-logo.wine.png" alt="Kenya Airways" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/casio-logo.png" alt="Casio" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/ogun-state-logo.png" alt="Ogun State" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/bayelsa-sports-logo.png" alt="Bayelsa Sports" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/ramecgroup-logo.png" alt="Ramec Group" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/greenlife-pharmaceuticals-logo.png" alt="Greenlife" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/febbs-premium-drinking-water.png" alt="FEBBS Water" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/binad-table-water.png" alt="Binad Water" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/tcm-logo.png" alt="TCM" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/rexona_logo_2015.svg.png" alt="Rexona" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/premier-cool-deo-01.png" alt="Premier Cool" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/vitabol-hd-logo.png" alt="Vitabol" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/waka.png" alt="Waka" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/what-network-logo.png" alt="What Network" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/robb-logo.png" alt="Robb" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/rpp-logo.png" alt="RPP" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/ogsaa.png" alt="OGSAA" loading="lazy" class="partner-logo">
+      </div>
+    </div>
+    <div class="partners-track partners-track-reverse">
+      <div class="partners-set">
+        <img src="images/partners/web/bet9ja-logo.png" alt="Bet9ja" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/cashtoken.png" alt="Cash Token" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/channelstv-logo-new-1024x941.png" alt="Channels TV" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/eko-atlantic-logo-clean.png" alt="Eko Atlantic" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/nord.png" alt="Nord" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/brila-green-logo-with-fm-.png" alt="Brila FM" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lasaa.png" alt="LASAA" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/fatgbems.png" alt="Fatgbems" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/hertage.png" alt="Heritage Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/oraimo_logo2.0.png" alt="Oraimo" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/easytipping-front-logo.png" alt="EasyTipping" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/2sure-logo.png" alt="2Sure" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lssc-new-logo.png" alt="LSSC" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/royal-crown-cola-logo-aefc4cb9e1-seeklogo.com.png" alt="Royal Crown Cola" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/comag-logo-2023-new.png" alt="Comag" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/conference-hotel-logo.png" alt="Conference Hotel" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/aims.png" alt="AIMS" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/fct.png" alt="FCT" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lag.png" alt="LAG" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/peculiar.png" alt="Peculiar" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/cr.png" alt="CR" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/joy.png" alt="Joy" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/mf-logo1.png" alt="MF" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lockup-transparent-background-01.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/logo_31710a86f0b01cc31d0a2f0c263ad8d4_2x.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/layer-1-copy-3.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/img_0537.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/img_0538.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/aron-.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/2017_1large_atb.png" alt="ATB" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/1519896687213.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/1280px-suzuki_logo_2.svg.png" alt="Suzuki" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/png-clipart-bayelsa-state-osun-state-rivers-state-kaduna-state-coat-of-arms-osun-state-bayelsa-state-rivers-state-removebg-preview.png" alt="Bayelsa State" loading="lazy" class="partner-logo">
+      </div>
+      <div class="partners-set" aria-hidden="true">
+        <img src="images/partners/web/bet9ja-logo.png" alt="Bet9ja" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/cashtoken.png" alt="Cash Token" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/channelstv-logo-new-1024x941.png" alt="Channels TV" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/eko-atlantic-logo-clean.png" alt="Eko Atlantic" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/nord.png" alt="Nord" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/brila-green-logo-with-fm-.png" alt="Brila FM" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lasaa.png" alt="LASAA" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/fatgbems.png" alt="Fatgbems" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/hertage.png" alt="Heritage Bank" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/oraimo_logo2.0.png" alt="Oraimo" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/easytipping-front-logo.png" alt="EasyTipping" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/2sure-logo.png" alt="2Sure" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lssc-new-logo.png" alt="LSSC" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/royal-crown-cola-logo-aefc4cb9e1-seeklogo.com.png" alt="Royal Crown Cola" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/comag-logo-2023-new.png" alt="Comag" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/conference-hotel-logo.png" alt="Conference Hotel" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/aims.png" alt="AIMS" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/fct.png" alt="FCT" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lag.png" alt="LAG" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/peculiar.png" alt="Peculiar" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/cr.png" alt="CR" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/joy.png" alt="Joy" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/mf-logo1.png" alt="MF" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/lockup-transparent-background-01.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/logo_31710a86f0b01cc31d0a2f0c263ad8d4_2x.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/layer-1-copy-3.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/img_0537.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/img_0538.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/aron-.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/2017_1large_atb.png" alt="ATB" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/1519896687213.png" alt="Partner" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/1280px-suzuki_logo_2.svg.png" alt="Suzuki" loading="lazy" class="partner-logo">
+        <img src="images/partners/web/png-clipart-bayelsa-state-osun-state-rivers-state-kaduna-state-coat-of-arms-osun-state-bayelsa-state-rivers-state-removebg-preview.png" alt="Bayelsa State" loading="lazy" class="partner-logo">
+      </div>
+    </div>
+  </div>
+
+<footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.</div>
+        </div>
+        <div>
+          <div class="f-col-title">Navigate</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-col-title">Properties</div>
+          <ul class="f-links">
+            <li><a href="lagos-marathon.html">Lagos City Marathon</a></li>
+            <li><a href="abuja-marathon.html">Abuja City Marathon</a></li>
+            <li><a href="abeokuta-race.html">Abeokuta 10KM Race</a></li>
+            <li><a href="ijebu-marathon.html">Ijebu Heritage Half Marathon</a></li>
+            <li><a href="copa-lagos.html">Copa Lagos Beach Soccer</a></li>
+            <li><a href="enugu-marathon.html">Enugu City Marathon</a></li>
+            <li><a href="yenagoa-race.html">Yenagoa 10KM Race</a></li>
+            <li><a href="stormers-club.html">Stormers Sports Club</a></li>
+          </ul>
+        </div>
+        <div class="footer-social-col">
+          <div class="f-col-title">Follow Us</div>
+          <div class="footer-social-list">
+            <a href="https://www.instagram.com/nilayosports" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.facebook.com/share/1DSXqskp56/" target="_blank" rel="noopener" aria-label="Facebook" class="social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://x.com/nilayosports" target="_blank" rel="noopener" aria-label="X (Twitter)" class="social-link">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/nilayosports/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://youtube.com/@nilayosports" target="_blank" rel="noopener" aria-label="YouTube" class="social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+            <div class="footer-bottom">
+        <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
+        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── HERO PARALLAX ──────────────────────── */
+    const heroImg = document.getElementById('heroParallax');
+    if (heroImg) {
+      window.addEventListener('scroll', () => {
+        const offset = window.pageYOffset;
+        heroImg.style.transform = `translateY(${offset * 0.3}px)`;
+      }, { passive: true });
+    }
+
+    /* ── SCROLL REVEALS ─────────────────────── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        setTimeout(() => {
+          el.style.transition = `opacity 0.75s cubic-bezier(0.32,0.72,0,1) ${i * 80}ms,
+                                  transform 0.75s cubic-bezier(0.32,0.72,0,1) ${i * 80}ms`;
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }, 0);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.06 });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+    /* ── SHARE BUTTONS ──────────────────────── */
+    (function initShare() {
+      const pageUrl   = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title.split('—')[0].trim());
+
+      // X / Twitter
+      const btnX = document.getElementById('shareX');
+      if (btnX) btnX.href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}&via=nilayosports`;
+
+      // LinkedIn
+      const btnLI = document.getElementById('shareLI');
+      if (btnLI) btnLI.href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&source=Nilayo+Sports+Management`;
+
+      // WhatsApp
+      const btnWA = document.getElementById('shareWA');
+      if (btnWA) btnWA.href = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+    })();
+
+    /* ── COPY LINK ──────────────────────────── */
+    const copyBtn = document.getElementById('copyLink');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => {
+            const orig = copyBtn.innerHTML;
+            copyBtn.innerHTML = '&#x2713;';
+            copyBtn.style.borderColor = 'var(--green)';
+            copyBtn.style.color      = 'var(--green)';
+            setTimeout(() => {
+              copyBtn.innerHTML = orig;
+              copyBtn.style.borderColor = '';
+              copyBtn.style.color      = '';
+            }, 2200);
+          })
+          .catch(() => {
+            // Fallback for browsers without clipboard API
+            const ta = document.createElement('textarea');
+            ta.value = window.location.href;
+            ta.style.position = 'fixed';
+            ta.style.opacity  = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            copyBtn.innerHTML = '&#x2713; Copied';
+            setTimeout(() => { copyBtn.innerHTML = '&#x2398;'; }, 2200);
+          });
+      });
+    }
+
+    /* ── ARTICLE NEWSLETTER VALIDATION ─────── */
+    const anlForm    = document.getElementById('articleNlForm');
+    const anlEmail   = document.getElementById('articleNlEmail');
+    const anlError   = document.getElementById('articleNlError');
+    const anlSuccess = document.getElementById('articleNlSuccess');
+
+    if (anlForm) {
+      anlForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = anlEmail.value.trim();
+        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+
+        if (!val) {
+          anlError.textContent   = 'Please enter your email address.';
+          anlError.style.display = 'block';
+          anlEmail.style.borderColor = '#ff8a80';
+          return;
+        }
+        if (!isValid) {
+          anlError.textContent   = 'Please enter a valid email address.';
+          anlError.style.display = 'block';
+          anlEmail.style.borderColor = '#ff8a80';
+          return;
+        }
+
+        anlError.style.display = 'none';
+        anlForm.querySelector('div').style.display = 'none';
+        anlSuccess.style.display = 'flex';
+      });
+
+      anlEmail.addEventListener('input', () => {
+        if (anlError.style.display !== 'none') {
+          anlError.style.display = 'none';
+          anlEmail.style.borderColor = 'rgba(255,255,255,0.15)';
+        }
+      });
+    }
+
+    /* ── NAV SCROLL STATE ───────────────────── */
+    const navPill = document.getElementById('navPill');
+    if (navPill) {
+      window.addEventListener('scroll', () => {
+        navPill.classList.toggle('scrolled', window.scrollY > 60);
+      }, { passive: true });
+    }
+
+    /* ── STICKY META BAR: hide behind nav ─────
+       Adjusts top offset so meta bar sits below the floating nav
+    ──────────────────────────────────────── */
+    const metaBar = document.querySelector('.article-meta-bar');
+    const nav     = document.getElementById('mainNav');
+    if (metaBar && nav) {
+      const setOffset = () => {
+        metaBar.style.top = nav.offsetHeight + 'px';
+      };
+      setOffset();
+      window.addEventListener('resize', setOffset, { passive: true });
+    }
+  </script>
+</body>
+</html>

@@ -52,6 +52,21 @@
 
     .article-featured .article-title {
       font-size: clamp(1.5rem, 2.5vw, 2rem);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-featured .article-excerpt {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-featured .article-img-wrap {
+      max-height: 460px;
     }
 
     /* Standard article card */

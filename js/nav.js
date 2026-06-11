@@ -55,6 +55,10 @@
       if (navPill) navPill.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
+    document.querySelectorAll('.f-copy').forEach(el => {
+      el.textContent = el.textContent.replace(/\d{4}/, new Date().getFullYear());
+    });
+
     if (burger && overlay) {
       burger.addEventListener('click', () => {
         const open = overlay.classList.toggle('open');

@@ -353,6 +353,18 @@
       .prop-gallery-grid { grid-template-columns: 1fr; }
       .gallery-slot-wide { grid-column: span 1; }
     }
+
+    /* ── EVENT LOGO ─────────────────────── */
+    .event-logo-wrap { margin-bottom: 1.25rem; }
+    .event-logo {
+      height: 70px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+      filter: brightness(1.05);
+    }
+
   </style>
 </head>
 <body>
@@ -365,6 +377,9 @@
     <div class="prop-hero-overlay"></div>
     <div class="prop-hero-inner">
       <a href="properties.html" class="prop-back">← All Properties</a>
+      <div class="event-logo-wrap">
+        <img src="images/events/aihhm-2023-logo.png" alt="Ijebu Heritage Half Marathon" class="event-logo">
+      </div>
       <div class="prop-hero-tag">Heritage Race</div>
       <h1 class="prop-hero-title">Ijebu Heritage Half Marathon</h1>
       <div class="prop-hero-location">📍 Ijebu-Ode, Ogun State</div>
@@ -414,9 +429,7 @@
       <div class="prop-sidebar-card" data-reveal>
         <div class="prop-sidebar-card-inner">
           <div class="prop-sidebar-title">Sponsors &amp; Partners</div>
-          <div>
-            <span class="sponsor-logo-pill"><img src="images/partners/web/airtel-logo.png" alt="Airtel Nigeria" loading="lazy"></span>
-          </div>
+          <img src="images/events/sponsors/ijebu-sponsors.jpg" alt="Ijebu Heritage Half Marathon Sponsors & Partners" style="width:100%;border-radius:0.625rem;margin-top:0.75rem;display:block;">
         </div>
       </div>
 

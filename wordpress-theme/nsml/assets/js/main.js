@@ -250,4 +250,109 @@
   `;
   document.head.appendChild(underlineStyle);
 
+
+  /* ── 9. SCROLL REVEALS (ported from the static site) ───
+     Every [data-reveal] element starts at opacity:0 (see
+     styles.css) and is faded/slid into place the first time
+     it enters the viewport. Some page templates (home.php,
+     page-about.php, page-contact.php, page-services.php)
+     already wire this up inline with template-specific
+     stagger timing; this is the shared fallback for every
+     other template (front-page.php, single.php,
+     single-nsml_property.php, archive-nsml_property.php).
+     Re-running it on a page that already revealed its own
+     elements is harmless -- it just sets the same opacity/
+     transform again.
+  ───────────────────────────────────────────────── */
+  const revealIo = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const delay = i * 90;
+      setTimeout(() => {
+        el.style.transition = `opacity 0.75s ${ease} ${delay}ms, transform 0.75s ${ease} ${delay}ms`;
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }, 0);
+      revealIo.unobserve(el);
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => revealIo.observe(el));
+
+
+  /* ── 10. STATS COUNT-UP ──────────────────────────
+     .stat[data-count] elements (the "11+ Yrs", "70+
+     Partners" band on the homepage) count up from 0 to
+     their target the first time they scroll into view.
+  ───────────────────────────────────────────────── */
+  const statIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el     = entry.target;
+      const target = parseInt(el.dataset.count, 10);
+      const numEl  = el.querySelector('.count-num');
+      const dur    = 1600;
+      const t0     = performance.now();
+
+      el.style.transition = `opacity 0.7s ${ease}, transform 0.7s ${ease}`;
+      el.style.opacity    = '1';
+      el.style.transform  = 'none';
+
+      if (numEl && !isNaN(target)) {
+        (function tick(now) {
+          const p     = Math.min((now - t0) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 4);
+          const val   = Math.floor(eased * target);
+          numEl.textContent = (target >= 1000) ? val.toLocaleString() : val;
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      }
+
+      statIo.unobserve(el);
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.stat[data-count]').forEach(el => statIo.observe(el));
+
+
+  /* ── 11. HOMEPAGE HERO ENTRANCE + PARALLAX ──────
+     Only present on front-page.php (#heroBg / #heroEyebrow
+     etc. don't exist elsewhere, so this no-ops on every
+     other page). Ported from index.html's inline GSAP
+     timeline -- without it, the hero text never leaves its
+     opacity:0 starting state and the video background
+     never parallaxes on scroll.
+  ───────────────────────────────────────────────── */
+  if (typeof gsap !== 'undefined' && document.getElementById('heroBg')) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .to('#heroEyebrow', { opacity: 1, y: 0, duration: 0.7,  delay: 0.2 })
+      .to('#hl1',         { opacity: 1, y: 0, duration: 0.85 }, '-=0.3')
+      .to('#hl2',         { opacity: 1, y: 0, duration: 0.85 }, '-=0.65')
+      .to('#heroP',       { opacity: 1, y: 0, duration: 0.75 }, '-=0.45')
+      .to('#heroBtns',    { opacity: 1, y: 0, duration: 0.75 }, '-=0.45')
+      .to('#heroTrust',   { opacity: 1,       duration: 0.6  }, '-=0.3');
+
+    gsap.to('#heroBg', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+  }
+
+
+  /* ── 12. PROPERTY PAGE HERO PARALLAX ────────────
+     Only present on single-nsml_property.php (#propHeroBg
+     doesn't exist elsewhere). Ported from lagos-marathon.html
+     etc. -- a lightweight scroll-linked transform, not GSAP.
+  ───────────────────────────────────────────────── */
+  const propHeroBg = document.getElementById('propHeroBg');
+  if (propHeroBg) {
+    window.addEventListener('scroll', () => {
+      propHeroBg.style.transform = `translateY(${window.pageYOffset * 0.25}px)`;
+    }, { passive: true });
+  }
+
 })();

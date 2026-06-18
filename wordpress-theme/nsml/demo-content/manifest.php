@@ -671,7 +671,7 @@ return array(
             ),
             'sponsor_image' => 'images/events/sponsors/lagos-sponsors.jpg',
             'event_logo' => 'images/events/ablcm-logo-[no-year].png',
-            'hero_image' => null,
+            'hero_image' => 'images/events/lagos/lagos-hero.jpg',
         ),
                 array(
             'slug' => 'abuja-marathon',
@@ -1163,6 +1163,16 @@ return array(
             'slug' => 'contact',
             'title' => 'Contact',
             'template' => 'page-contact.php',
+        ),
+                array(
+            'slug' => 'home',
+            'title' => 'Home',
+            'template' => '',
+        ),
+                array(
+            'slug' => 'news',
+            'title' => 'News',
+            'template' => '',
         ),
     ),
 );

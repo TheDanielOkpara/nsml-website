@@ -73,6 +73,15 @@ NON_ARTICLE_PAGES = {
     "news.html", "properties.html", "article.html",
 }
 
+# A handful of property pages style their hero with a remote stock-photo URL
+# (e.g. lagos-marathon.html uses an Unsplash URL) instead of a local file, so
+# there is nothing for parse_property() to pick up automatically. Each entry
+# here is a real local file -- shipped in this repo specifically as that
+# property's hero/cover image -- used in place of the missing local hero.
+PROPERTY_HERO_IMAGE_OVERRIDES = {
+    "lagos-marathon": "images/events/lagos/lagos-hero.jpg",
+}
+
 PROPERTY_FILES = [
     "lagos-marathon.html",
     "abuja-marathon.html",
@@ -382,9 +391,13 @@ def parse_property(filename):
     if m and not m.group(1).startswith("http"):
         hero_bg = m.group(1)
 
+    slug = slug_from_filename(filename)
+    if not hero_bg and slug in PROPERTY_HERO_IMAGE_OVERRIDES:
+        hero_bg = PROPERTY_HERO_IMAGE_OVERRIDES[slug]
+
     return {
         "filename": filename,
-        "slug": slug_from_filename(filename),
+        "slug": slug,
         "title": title,
         "location": location,
         "hero_tag": hero_tag,
@@ -670,6 +683,8 @@ def export_manifest(articles, properties):
         {"slug": "about", "title": "About", "template": "page-about.php"},
         {"slug": "services", "title": "Services", "template": "page-services.php"},
         {"slug": "contact", "title": "Contact", "template": "page-contact.php"},
+        {"slug": "home", "title": "Home", "template": ""},
+        {"slug": "news", "title": "News", "template": ""},
     ]
 
     manifest = {

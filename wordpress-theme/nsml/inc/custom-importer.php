@@ -320,5 +320,23 @@ function nsml_run_custom_import( $demo_dir ) {
 		$result['properties_created']++;
 	}
 
+	// --- Reading settings ("Posts page") --------------------------------------
+	// Makes the blog index land at a pretty /news/ URL out of the box, instead
+	// of requiring the manual Settings > Reading step from the README. Only
+	// runs if no Posts page is configured yet, so it never overwrites a choice
+	// the site owner already made themselves.
+	if ( ! get_option( 'page_for_posts' ) ) {
+		$home_page = get_page_by_path( 'home', OBJECT, 'page' );
+		$news_page = get_page_by_path( 'news', OBJECT, 'page' );
+		if ( $news_page ) {
+			update_option( 'show_on_front', 'page' );
+			if ( $home_page ) {
+				update_option( 'page_on_front', $home_page->ID );
+			}
+			update_option( 'page_for_posts', $news_page->ID );
+			flush_rewrite_rules();
+		}
+	}
+
 	return $result;
 }

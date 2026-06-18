@@ -419,7 +419,7 @@ get_header();
 					<p class="success-body"><?php esc_html_e( 'Thank you for reaching out. A member of the NSML team will review your enquiry and be in touch within 48 hours.', 'nsml' ); ?></p>
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn-fill btn-sm">
 						<span><?php esc_html_e( 'Back to Home', 'nsml' ); ?></span>
-						<span class="btn-icon">&#8599;</span>
+						<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 					</a>
 				</div>
 
@@ -477,7 +477,7 @@ get_header();
 					</div>
 					<button type="submit" class="btn-submit" id="submitBtn">
 						<span id="submitLabel"><?php esc_html_e( 'Send Message', 'nsml' ); ?></span>
-						<span class="btn-icon" style="width:2rem;height:2rem;border-radius:50%;background:rgba(0,0,0,0.13);display:flex;align-items:center;justify-content:center">&#8599;</span>
+						<span class="btn-icon" style="width:2rem;height:2rem;border-radius:50%;background:rgba(0,0,0,0.13);display:flex;align-items:center;justify-content:center"><?php echo nsml_btn_icon_svg(); ?></span>
 					</button>
 				</form>
 			</div>

@@ -142,7 +142,7 @@ $nsml_home_news = get_posts(
 			<div class="hero-btns" id="heroBtns">
 				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn-fill">
 					<span><?php esc_html_e( 'Partner With Us', 'nsml' ); ?></span>
-					<span class="btn-icon">&#8599;</span>
+					<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 				</a>
 				<a href="<?php echo esc_url( get_post_type_archive_link( NSML_PROPERTY_CPT ) ?: home_url( '/properties/' ) ); ?>" class="btn btn-outline-white"><?php esc_html_e( 'Explore Properties', 'nsml' ); ?></a>
 			</div>
@@ -214,7 +214,7 @@ $nsml_home_news = get_posts(
 			<p><?php esc_html_e( 'We are a sports marketing, brand management, and procurement agency that thrives on dynamism and innovation. With deep relationships with World Athletics, NFF, CAA, and AFN, we promote sporting activities from grassroots to international fame — creating lasting legacies that inspire generations.', 'nsml' ); ?></p>
 			<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="btn btn-fill btn-sm">
 				<span><?php esc_html_e( 'Our Story', 'nsml' ); ?></span>
-				<span class="btn-icon">&#8599;</span>
+				<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 			</a>
 		</div>
 		<div class="teaser-metrics">
@@ -268,7 +268,7 @@ $nsml_home_news = get_posts(
 					<div class="prop-desc">Africa's Strongest Marathon Brand 2025 — a World Athletics Global Certification. 10th anniversary edition delivered in 2025 with 440,000+ participants since 2016, raising over ₦3 billion annually from the private sector.</div>
 					<a href="<?php echo esc_url( home_url( '/properties/lagos-marathon/' ) ); ?>" class="btn btn-fill btn-sm">
 						<span><?php esc_html_e( 'View Property', 'nsml' ); ?></span>
-						<span class="btn-icon">&#8599;</span>
+						<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 					</a>
 				</div>
 			</div>
@@ -284,7 +284,7 @@ $nsml_home_news = get_posts(
 						<div class="prop-desc">120,000+ cumulative participants since 2019. Long-term commitments from Lotus Bank, Access Bank, Airtel, Rite Foods, JAC Motors and more.</div>
 						<a href="<?php echo esc_url( home_url( '/properties/abeokuta-race/' ) ); ?>" class="btn btn-fill btn-sm">
 							<span><?php esc_html_e( 'View Property', 'nsml' ); ?></span>
-							<span class="btn-icon">&#8599;</span>
+							<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 						</a>
 					</div>
 				</div>
@@ -299,7 +299,7 @@ $nsml_home_news = get_posts(
 						<div class="prop-desc">50,000+ participants. First World Athletics-supervised half marathon in Nigeria's capital. Next edition November 2026.</div>
 						<a href="<?php echo esc_url( home_url( '/properties/abuja-marathon/' ) ); ?>" class="btn btn-fill btn-sm">
 							<span><?php esc_html_e( 'View Property', 'nsml' ); ?></span>
-							<span class="btn-icon">&#8599;</span>
+							<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 						</a>
 					</div>
 				</div>
@@ -366,7 +366,7 @@ $nsml_home_news = get_posts(
 				autocomplete="email">
 			<button type="submit" id="homeSubBtn" class="btn btn-fill" style="white-space:nowrap;flex-shrink:0;">
 				<span id="homeSubLabel"><?php esc_html_e( 'Subscribe', 'nsml' ); ?></span>
-				<span class="btn-icon">&#8599;</span>
+				<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 			</button>
 		</form>
 		<p class="newsletter-disclaimer" id="homeDisclaimer"><?php esc_html_e( 'By subscribing you agree to receive email communications from NSML. Unsubscribe at any time.', 'nsml' ); ?></p>
@@ -388,7 +388,7 @@ $nsml_home_news = get_posts(
 		<div class="cta-band-btns" data-reveal>
 			<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-white">
 				<span><?php esc_html_e( 'Start a Conversation', 'nsml' ); ?></span>
-				<span class="btn-icon">&#8599;</span>
+				<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 			</a>
 			<a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="btn-ghost-white"><?php esc_html_e( 'Our Services', 'nsml' ); ?></a>
 		</div>

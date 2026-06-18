@@ -347,7 +347,7 @@ get_header();
 	<p data-reveal><?php esc_html_e( "Whatever stage you're at — athlete, club, event, or brand — we have the expertise to take you further, faster.", 'nsml' ); ?></p>
 	<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn-fill" data-reveal>
 		<span><?php esc_html_e( 'Start a Conversation', 'nsml' ); ?></span>
-		<span class="btn-icon">&#8599;</span>
+		<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 	</a>
 </div>
 

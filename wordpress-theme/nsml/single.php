@@ -279,7 +279,7 @@ while ( have_posts() ) :
 					<input type="email" id="articleNlEmail" name="email" placeholder="<?php esc_attr_e( 'Your email address', 'nsml' ); ?>" style="flex:1;min-width:240px;max-width:320px;">
 					<button type="submit" id="articleNlBtn" class="btn btn-fill">
 						<span id="articleNlLabel"><?php esc_html_e( 'Subscribe', 'nsml' ); ?></span>
-						<span class="btn-icon">↗</span>
+						<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 					</button>
 				</div>
 				<p id="articleNlError" style="color:#ff8a8a;margin-top:0.75rem;display:none;"></p>

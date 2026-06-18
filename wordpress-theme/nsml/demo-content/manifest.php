@@ -1142,7 +1142,32 @@ return array(
                     'label' => 'Football, Athletics, Basketball',
                 ),
             ),
-            'gallery' => array(),
+            'gallery' =>             array(
+                                array(
+                    'image' => 'images/events/stormers/Stormer_1.webp',
+                    'wide' => false,
+                ),
+                                array(
+                    'image' => 'images/events/stormers/Stormer_2.webp',
+                    'wide' => false,
+                ),
+                                array(
+                    'image' => 'images/events/stormers/Stormer_3.webp',
+                    'wide' => true,
+                ),
+                                array(
+                    'image' => 'images/events/stormers/Stormer_4.jpg',
+                    'wide' => false,
+                ),
+                                array(
+                    'image' => 'images/events/stormers/Stormer_5.jpg',
+                    'wide' => false,
+                ),
+                                array(
+                    'image' => 'images/events/stormers/Stormer_6.webp',
+                    'wide' => false,
+                ),
+            ),
             'sponsor_image' => null,
             'event_logo' => 'images/events/stormers-logo.png',
             'hero_image' => 'images/events/stormers-hero.jpg',

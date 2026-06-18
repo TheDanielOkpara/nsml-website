@@ -1,17 +1,27 @@
 #!/usr/bin/env python3
 """
-Generate a WXR 1.2 (WordPress eXtended RSS) demo-content file from the
-existing static-HTML NSML site, so the client can use the standard
-One-Click-Demo-Import / native WordPress Importer flow to populate a fresh
-WordPress install with the REAL blog articles, REAL property pages, and
-REAL images already present in this repo -- instead of generic placeholder
-demo content.
+Generate the demo content for the NSML theme from the existing static-HTML
+site, so the client can populate a fresh WordPress install with the REAL
+blog articles, REAL property pages, and REAL images already present in
+this repo -- instead of generic placeholder demo content.
+
+Produces two equivalent representations of the same data:
+  * manifest.php + images/ -- consumed by the theme's own custom importer
+    (Appearance > Import Content), which copies images straight off disk
+    into the Media Library with no HTTP request. This is the recommended
+    import path; see wordpress-theme/README.md.
+  * nsml-demo-content.xml -- a WXR 1.2 file for the native WordPress
+    Importer (Tools > Import > WordPress), kept for compatibility/testing.
+    Its native import fetches images over HTTP from the live domain,
+    which some hosts block.
 
 Usage:
     python3 generate_wxr.py
 
 Output:
-    wordpress-theme/demo-content/nsml-demo-content.xml
+    wordpress-theme/nsml/demo-content/nsml-demo-content.xml
+    wordpress-theme/nsml/demo-content/manifest.php
+    wordpress-theme/nsml/demo-content/images/...
 
 Design notes
 ------------
@@ -52,12 +62,24 @@ except ImportError:
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 THEME_DIR = os.path.join(REPO_ROOT, "wordpress-theme")
-OUTPUT_PATH = os.path.join(THEME_DIR, "demo-content", "nsml-demo-content.xml")
+DEMO_CONTENT_DIR = os.path.join(THEME_DIR, "nsml", "demo-content")
+OUTPUT_PATH = os.path.join(DEMO_CONTENT_DIR, "nsml-demo-content.xml")
+MANIFEST_IMAGES_DIR = os.path.join(DEMO_CONTENT_DIR, "images")
+MANIFEST_PATH = os.path.join(DEMO_CONTENT_DIR, "manifest.php")
 CNAME_PATH = os.path.join(REPO_ROOT, "CNAME")
 
 NON_ARTICLE_PAGES = {
     "index.html", "about.html", "services.html", "contact.html",
     "news.html", "properties.html", "article.html",
+}
+
+# A handful of property pages style their hero with a remote stock-photo URL
+# (e.g. lagos-marathon.html uses an Unsplash URL) instead of a local file, so
+# there is nothing for parse_property() to pick up automatically. Each entry
+# here is a real local file -- shipped in this repo specifically as that
+# property's hero/cover image -- used in place of the missing local hero.
+PROPERTY_HERO_IMAGE_OVERRIDES = {
+    "lagos-marathon": "images/events/lagos/lagos-hero.jpg",
 }
 
 PROPERTY_FILES = [
@@ -369,9 +391,13 @@ def parse_property(filename):
     if m and not m.group(1).startswith("http"):
         hero_bg = m.group(1)
 
+    slug = slug_from_filename(filename)
+    if not hero_bg and slug in PROPERTY_HERO_IMAGE_OVERRIDES:
+        hero_bg = PROPERTY_HERO_IMAGE_OVERRIDES[slug]
+
     return {
         "filename": filename,
-        "slug": slug_from_filename(filename),
+        "slug": slug,
         "title": title,
         "location": location,
         "hero_tag": hero_tag,
@@ -563,6 +589,134 @@ WXR_FOOTER = """
 """
 
 
+def php_str(value):
+    """A safely single-quoted PHP string literal."""
+    return "'" + str(value).replace("\\", "\\\\").replace("'", "\\'") + "'"
+
+
+def php_value(value, indent=0):
+    pad = "    " * indent
+    pad_in = "    " * (indent + 1)
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, (int, float)):
+        return str(value)
+    if isinstance(value, str):
+        return php_str(value)
+    if isinstance(value, dict):
+        if not value:
+            return "array()"
+        lines = [pad + "array("]
+        for k, v in value.items():
+            lines.append(f"{pad_in}{php_str(k)} => {php_value(v, indent + 1)},")
+        lines.append(pad + ")")
+        return "\n".join(lines)
+    if isinstance(value, list):
+        if not value:
+            return "array()"
+        lines = [pad + "array("]
+        for v in value:
+            lines.append(f"{pad_in}{php_value(v, indent + 1)},")
+        lines.append(pad + ")")
+        return "\n".join(lines)
+    raise TypeError(f"Cannot serialize value of type {type(value)} to PHP")
+
+
+def copy_attachment_files():
+    """Copy every referenced image into demo-content/images/<rel_path>,
+    preserving the same relative path structure used in the WXR, so the
+    custom local importer (inc/custom-importer.php) never needs to fetch
+    anything over HTTP -- it just reads these bundled files straight off
+    disk into the Media Library."""
+    import shutil
+    copied = 0
+    for rel_path in ATTACHMENTS:
+        src = os.path.join(REPO_ROOT, rel_path)
+        dst = os.path.join(MANIFEST_IMAGES_DIR, rel_path)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copyfile(src, dst)
+        copied += 1
+    return copied
+
+
+def export_manifest(articles, properties):
+    """Write demo-content/manifest.php: a plain PHP array (no XML, no
+    remote HTTP fetch) consumed by inc/custom-importer.php to populate
+    posts/properties/pages directly from files bundled with the theme."""
+    posts_data = []
+    for art in articles:
+        hero_rel = repo_relpath(art["hero_image"]) if art["hero_image"] else None
+        posts_data.append({
+            "slug": art["slug"],
+            "title": art["title"],
+            "date": wxr_post_date(art["date"]),
+            "content": art["content_html"],
+            "tags": art["tags"],
+            "hero_image": hero_rel,
+        })
+
+    properties_data = []
+    for prop in properties:
+        gallery = [
+            {"image": repo_relpath(g["src"]), "wide": g["wide"]}
+            for g in prop["gallery"]
+        ]
+        properties_data.append({
+            "slug": prop["slug"],
+            "title": prop["title"],
+            "location": prop["location"],
+            "hero_tag": prop["hero_tag"],
+            "website": prop["website"],
+            "organizer_type": prop["organizer_type"],
+            "next_edition": prop["next_edition"],
+            "about_html": prop["about_html"],
+            "stats": prop["stats"],
+            "gallery": gallery,
+            "sponsor_image": repo_relpath(prop["sponsor_image"]) if prop["sponsor_image"] else None,
+            "event_logo": repo_relpath(prop["event_logo"]) if prop["event_logo"] else None,
+            "hero_image": repo_relpath(prop["hero_bg"]) if prop["hero_bg"] else None,
+        })
+
+    pages_data = [
+        {"slug": "about", "title": "About", "template": "page-about.php"},
+        {"slug": "services", "title": "Services", "template": "page-services.php"},
+        {"slug": "contact", "title": "Contact", "template": "page-contact.php"},
+        {"slug": "home", "title": "Home", "template": ""},
+        {"slug": "news", "title": "News", "template": ""},
+    ]
+
+    manifest = {
+        "posts": posts_data,
+        "properties": properties_data,
+        "pages": pages_data,
+    }
+
+    php_code = (
+        "<?php\n"
+        "/**\n"
+        " * Auto-generated by tools/generate_wxr.py. Do not edit by hand --\n"
+        " * re-run the generator script instead. Consumed by\n"
+        " * inc/custom-importer.php. Every image path here is relative to\n"
+        " * demo-content/images/ (bundled with the theme; no remote fetch).\n"
+        " */\n\n"
+        "if ( ! defined( 'ABSPATH' ) ) {\n\texit;\n}\n\n"
+        "return " + php_value(manifest) + ";\n"
+    )
+
+    os.makedirs(os.path.dirname(MANIFEST_PATH), exist_ok=True)
+    with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
+        f.write(php_code)
+
+    n_images = copy_attachment_files()
+    print(f"\nWrote {MANIFEST_PATH}")
+    print(f"  posts:       {len(posts_data)}")
+    print(f"  properties:  {len(properties_data)}")
+    print(f"  pages:       {len(pages_data)}")
+    print(f"  images copied into {MANIFEST_IMAGES_DIR}: {n_images}")
+
+
 def main():
     print(f"Repo root: {REPO_ROOT}")
     print(f"Base URL (from CNAME): {BASE_URL}")
@@ -667,6 +821,8 @@ def main():
     except ET.ParseError as e:
         print(f"XML well-formedness check: FAIL ({e})", file=sys.stderr)
         sys.exit(1)
+
+    export_manifest(articles, properties)
 
 
 if __name__ == "__main__":

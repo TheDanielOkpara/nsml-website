@@ -1,0 +1,855 @@
+<?php
+/**
+ * Template Name: About
+ * Static markup mirrors about.html exactly.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+get_header();
+?>
+
+<style>
+	/* ── MANIFESTO ────────────────────────── */
+	.manifesto-body {
+		font-family: var(--font-d);
+		font-size: clamp(1.65rem, 3.2vw, 2.75rem);
+		font-weight: 600;
+		line-height: 1.28;
+		letter-spacing: -0.025em;
+		max-width: 54rem;
+	}
+
+	.manifesto-body .word { display: inline; opacity: 0.1; }
+
+	/* ── VMV CARDS ────────────────────────── */
+	.vmv-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-top: 5rem;
+	}
+
+	.vmv-card {
+		min-width: 0;        /* prevents grid blowout on mobile */
+		padding: 0.25rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--r-xl);
+		opacity: 0;
+		transform: translateY(2rem);
+		transition: border-color 0.4s var(--ease);
+	}
+
+	.vmv-card:hover { border-color: var(--border-hi); }
+
+	.vmv-card-inner {
+		background: var(--surface-2);
+		border-radius: calc(var(--r-xl) - 0.25rem);
+		padding: 2rem;
+		box-shadow: inset 0 1px 1px rgba(255,255,255,0.035);
+		height: 100%;
+	}
+
+	.vmv-label {
+		font-size: 0.625rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--accent);
+		margin-bottom: 1rem;
+	}
+
+	.vmv-text { font-size: 0.9375rem; color: var(--text-sub); line-height: 1.75; }
+
+	/* ── VALUES ROW ───────────────────────── */
+	.values-row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-top: 3rem;
+	}
+
+	.value-item {
+		padding: 0.25rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--r-xl);
+		opacity: 0;
+		transform: translateY(2rem);
+	}
+
+	.value-item-inner {
+		background: var(--surface-2);
+		border-radius: calc(var(--r-xl) - 0.25rem);
+		padding: 2.5rem 2rem;
+		box-shadow: inset 0 1px 1px rgba(255,255,255,0.035);
+		text-align: center;
+	}
+
+	.value-num {
+		font-family: var(--font-d);
+		font-size: 3.5rem;
+		font-weight: 800;
+		letter-spacing: -0.05em;
+		color: var(--accent);
+		opacity: 0.2;
+		line-height: 1;
+		margin-bottom: 1rem;
+	}
+
+	.value-name {
+		font-family: var(--font-d);
+		font-size: 1.375rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		margin-bottom: 0.75rem;
+	}
+
+	.value-desc { font-size: 0.875rem; color: var(--text-sub); line-height: 1.7; }
+
+	/* ── TEAM ─────────────────────────────────────────────────
+	   Interactive Bio Spotlight:
+	   • CEO always-visible featured card (full-width)
+	   • 5 others in portrait grid — click to expand bio below row
+	────────────────────────────────────────────────────────── */
+
+	/* CEO featured card */
+	.team-ceo {
+		display: grid;
+		grid-template-columns: 320px 1fr;
+		background: var(--navy);
+		border-radius: var(--r-xl);
+		overflow: hidden;
+		margin-top: 3rem;
+		margin-bottom: 2rem;
+		opacity: 0;
+		transform: translateY(2rem);
+	}
+
+	.ceo-photo-wrap {
+		position: relative;
+		overflow: hidden;
+		min-height: 380px;
+		background: linear-gradient(160deg, #0d2545 0%, #1a3460 100%);
+		flex-shrink: 0;
+	}
+
+	.ceo-photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		display: block;
+	}
+
+	.ceo-fallback {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-d);
+		font-size: 5rem;
+		font-weight: 800;
+		color: var(--green);
+		letter-spacing: -0.04em;
+	}
+
+	.ceo-details {
+		padding: 3rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.ceo-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		background: rgba(23,188,56,0.12);
+		border: 1px solid rgba(23,188,56,0.28);
+		border-radius: 9999px;
+		font-size: 0.625rem;
+		font-weight: 700;
+		letter-spacing: 0.13em;
+		text-transform: uppercase;
+		color: var(--green);
+		padding: 0.3rem 0.875rem;
+		width: fit-content;
+		margin-bottom: 0.875rem;
+	}
+
+	.ceo-name {
+		font-family: var(--font-d);
+		font-size: clamp(1.625rem, 2.5vw, 2.25rem);
+		font-weight: 800;
+		letter-spacing: -0.035em;
+		color: #ffffff;
+		line-height: 1.1;
+		margin-bottom: 0.25rem;
+	}
+
+	.ceo-role {
+		font-size: 1rem;
+		color: var(--green);
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+	}
+
+	.ceo-bio {
+		font-size: 0.9375rem;
+		color: rgba(255,255,255,0.58);
+		line-height: 1.8;
+		max-width: 36rem;
+	}
+
+	/* Portrait grid for remaining 5 */
+	.team-grid-outer {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+	}
+
+	.tm-card {
+		background: #ffffff;
+		border: 1.5px solid var(--border);
+		border-radius: var(--r-xl);
+		overflow: hidden;
+		cursor: pointer;
+		opacity: 0;
+		transform: translateY(2rem);
+		transition:
+			border-color  0.35s var(--ease),
+			box-shadow    0.35s var(--ease),
+			transform     0.4s  var(--ease);
+		position: relative;
+	}
+
+	.tm-card::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: var(--green);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.35s var(--ease);
+	}
+
+	.tm-card:hover,
+	.tm-card.active {
+		border-color: var(--green);
+		box-shadow: 0 6px 28px rgba(23,188,56,0.12);
+		transform: translateY(-3px) !important;
+	}
+
+	.tm-card.active::after { transform: scaleX(1); }
+
+	/* "View Bio" hint on hover */
+	.tm-card .tm-hint {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: rgba(23,188,56,0.9);
+		color: #ffffff;
+		font-size: 0.5875rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		padding: 0.25rem 0.75rem;
+		border-radius: 9999px;
+		opacity: 0;
+		transform: translateY(-4px);
+		transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+	}
+
+	.tm-card:hover .tm-hint { opacity: 1; transform: translateY(0); }
+	.tm-card.active .tm-hint { opacity: 1; transform: translateY(0); background: var(--navy); }
+
+	.tm-photo-wrap {
+		height: 280px;
+		overflow: hidden;
+		background: var(--surface-2);
+		position: relative;
+	}
+
+	.tm-photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		display: block;
+		transition: transform 0.7s cubic-bezier(0.32,0.72,0,1);
+	}
+
+	.tm-card:hover .tm-photo,
+	.tm-card.active .tm-photo { transform: scale(1.04); }
+
+	.tm-initials {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-d);
+		font-size: 3rem;
+		font-weight: 800;
+		color: var(--green);
+		background: linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+		letter-spacing: -0.04em;
+	}
+
+	.tm-body {
+		padding: 1.375rem 1.5rem 1.5rem;
+	}
+
+	.tm-name {
+		font-family: var(--font-d);
+		font-size: 1.0625rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--navy);
+		margin-bottom: 0.25rem;
+		line-height: 1.2;
+	}
+
+	.tm-role {
+		font-size: 0.8125rem;
+		color: var(--text-muted);
+		line-height: 1.45;
+	}
+
+	/* Bio spotlight panel — spans all grid cols, expands below clicked row */
+	.bio-panel {
+		grid-column: 1 / -1;
+		display: grid;
+		grid-template-columns: 280px 1fr;
+		background: var(--navy);
+		border-radius: var(--r-xl);
+		overflow: hidden;
+		max-height: 0;
+		opacity: 0;
+		transition:
+			max-height 0.55s cubic-bezier(0.32,0.72,0,1),
+			opacity    0.35s cubic-bezier(0.32,0.72,0,1);
+		pointer-events: none;
+	}
+
+	.bio-panel.open {
+		max-height: 440px;
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	.bio-panel-photo {
+		position: relative;
+		background: linear-gradient(160deg, #0d2545 0%, #1a3460 100%);
+		overflow: hidden;
+	}
+
+	.bio-panel-photo img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		display: block;
+	}
+
+	.bio-panel-photo .bio-initials-fb {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-d);
+		font-size: 4rem;
+		font-weight: 800;
+		color: var(--green);
+		letter-spacing: -0.04em;
+	}
+
+	.bio-panel-content {
+		padding: 2.5rem 3rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.bio-panel-role {
+		font-size: 0.6875rem;
+		font-weight: 700;
+		letter-spacing: 0.13em;
+		text-transform: uppercase;
+		color: var(--green);
+		margin-bottom: 0.75rem;
+	}
+
+	.bio-panel-name {
+		font-family: var(--font-d);
+		font-size: clamp(1.5rem, 2.5vw, 2rem);
+		font-weight: 800;
+		letter-spacing: -0.035em;
+		color: #ffffff;
+		line-height: 1.1;
+		margin-bottom: 1.25rem;
+	}
+
+	.bio-panel-text {
+		font-size: 0.9375rem;
+		color: rgba(255,255,255,0.62);
+		line-height: 1.8;
+		max-width: 38rem;
+	}
+
+	.bio-panel-close {
+		position: absolute;
+		top: 1.25rem;
+		right: 1.25rem;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		background: rgba(255,255,255,0.08);
+		border: 1px solid rgba(255,255,255,0.12);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		color: rgba(255,255,255,0.6);
+		font-size: 0.875rem;
+		transition: background 0.3s, color 0.3s;
+	}
+
+	.bio-panel-close:hover { background: rgba(255,255,255,0.15); color: #ffffff; }
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.team-ceo { grid-template-columns: 260px 1fr; }
+		.bio-panel { grid-template-columns: 220px 1fr; }
+	}
+
+	@media (max-width: 768px) {
+		.team-ceo { grid-template-columns: 1fr; }
+		.ceo-photo-wrap { min-height: 300px; }
+		.ceo-details { padding: 2rem 1.75rem; }
+		.team-grid-outer { grid-template-columns: repeat(2, 1fr); }
+		.bio-panel {
+			grid-template-columns: 1fr;
+			max-height: 0;
+		}
+		.bio-panel.open { max-height: 700px; }
+		.bio-panel-photo { height: 220px; }
+		.bio-panel-content { padding: 1.75rem; }
+	}
+
+	@media (max-width: 480px) {
+		.team-grid-outer { grid-template-columns: 1fr; }
+	}
+
+	@media (max-width: 768px) {
+		.vmv-grid    { grid-template-columns: 1fr; }
+		.values-row  { grid-template-columns: 1fr; }
+	}
+</style>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+	<div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1552674605-db5fecabfe68?w=1920&q=80&auto=format&fit=crop')"></div>
+	<div class="page-hero-overlay"></div>
+	<div class="page-hero-inner">
+		<div class="page-hero-label"><?php esc_html_e( 'Our Story', 'nsml' ); ?></div>
+		<h1 class="page-hero-h1"><?php esc_html_e( 'Driving Sports', 'nsml' ); ?><br><span class="hi"><?php esc_html_e( 'Excellence', 'nsml' ); ?></span></h1>
+		<p class="page-hero-p"><?php esc_html_e( 'A sports marketing, brand management, and procurement agency built on dynamism, innovation, and a relentless commitment to elevating the business of sports across Africa.', 'nsml' ); ?></p>
+	</div>
+</div>
+
+<!-- MANIFESTO -->
+<div class="section-wrap">
+	<div class="section-tag"><?php esc_html_e( 'Who We Are', 'nsml' ); ?></div>
+	<p class="manifesto-body" id="manifestoText">
+		<?php esc_html_e( 'We are a sports marketing, brand management, and procurement agency that thrives on dynamism and innovation in the business of sports management. With a history of working relationships with prominent players in the world of sports, we specialize in promoting sporting activities from grassroots level to international fame.', 'nsml' ); ?>
+	</p>
+	<div class="vmv-grid">
+		<div class="vmv-card" data-reveal>
+			<div class="vmv-card-inner">
+				<div class="vmv-label"><?php esc_html_e( 'Vision', 'nsml' ); ?></div>
+				<div class="vmv-text"><?php esc_html_e( 'To be the leading force in transforming the sports industry across Africa and beyond, creating unparalleled value for athletes, brands, and communities, while leveraging on strategic partnerships.', 'nsml' ); ?></div>
+			</div>
+		</div>
+		<div class="vmv-card" data-reveal>
+			<div class="vmv-card-inner">
+				<div class="vmv-label"><?php esc_html_e( 'Mission', 'nsml' ); ?></div>
+				<div class="vmv-text"><?php esc_html_e( 'To deliver innovative, impactful, and sustainable sports management solutions, leveraging our expertise in marketing, brand development, and strategic partnerships to elevate sporting activities from grassroots to global recognition.', 'nsml' ); ?></div>
+			</div>
+		</div>
+		<div class="vmv-card" data-reveal>
+			<div class="vmv-card-inner">
+				<div class="vmv-label"><?php esc_html_e( 'Commitment', 'nsml' ); ?></div>
+				<div class="vmv-text"><?php esc_html_e( 'We are committed to fostering talent, driving economic growth through sports, and building lasting legacies that inspire generations. From a single athlete to a continental event, we bring the same standard of excellence.', 'nsml' ); ?></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CORE VALUES -->
+<div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+	<div class="section-wrap">
+		<div class="section-tag"><?php esc_html_e( 'Core Values', 'nsml' ); ?></div>
+		<h2 class="sec-h2"><?php esc_html_e( 'What We Stand', 'nsml' ); ?> <span class="hi"><?php esc_html_e( 'For', 'nsml' ); ?></span></h2>
+		<div class="values-row">
+			<div class="value-item" data-reveal>
+				<div class="value-item-inner">
+					<div class="value-num">01</div>
+					<div class="value-name"><?php esc_html_e( 'Professionalism', 'nsml' ); ?></div>
+					<div class="value-desc"><?php esc_html_e( 'We hold ourselves to the highest standards in every engagement. Excellence is not occasional — it is our baseline.', 'nsml' ); ?></div>
+				</div>
+			</div>
+			<div class="value-item" data-reveal>
+				<div class="value-item-inner">
+					<div class="value-num">02</div>
+					<div class="value-name"><?php esc_html_e( 'Transparency', 'nsml' ); ?></div>
+					<div class="value-desc"><?php esc_html_e( 'Open and honest in all dealings. Our partners always know exactly what we are doing, why, and to what effect.', 'nsml' ); ?></div>
+				</div>
+			</div>
+			<div class="value-item" data-reveal>
+				<div class="value-item-inner">
+					<div class="value-num">03</div>
+					<div class="value-name"><?php esc_html_e( 'Integrity', 'nsml' ); ?></div>
+					<div class="value-desc"><?php esc_html_e( 'We do what we say. Every commitment, every agreement, every relationship is built on the foundation of trust earned through action.', 'nsml' ); ?></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- TEAM -->
+<div class="section-wrap">
+	<div class="section-tag"><?php esc_html_e( 'The Team', 'nsml' ); ?></div>
+	<h2 class="sec-h2"><?php esc_html_e( 'Led by', 'nsml' ); ?> <span class="hi"><?php esc_html_e( 'Excellence', 'nsml' ); ?></span></h2>
+
+	<!-- ── CEO FEATURED CARD (always visible) ──────────────────────── -->
+	<div class="team-ceo" data-reveal>
+		<div class="ceo-photo-wrap">
+			<img class="ceo-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/yetunde.jpg' ); ?>"
+				 alt="Olopade Yetunde — MD/CEO"
+				 onerror="this.style.display='none'">
+			<div class="ceo-fallback" id="ceoFallback">OY</div>
+		</div>
+		<div class="ceo-details">
+			<div class="ceo-badge">
+				<span class="eyebrow-dot"></span>
+				<?php esc_html_e( 'Managing Director', 'nsml' ); ?>
+			</div>
+			<div class="ceo-name">Olopade Yetunde</div>
+			<div class="ceo-role"><?php esc_html_e( 'Chief Executive Officer', 'nsml' ); ?></div>
+			<p class="ceo-bio"><?php esc_html_e( "A seasoned expert in events marketing, sponsorship activation, and brand partnerships with over 20 years of experience. Yetunde specialises in large-scale sports events, corporate collaborations, and impactful brand engagements — driving Nilayo's strategic vision and setting industry benchmarks in sports marketing across Africa.", 'nsml' ); ?></p>
+		</div>
+	</div>
+
+	<!-- ── INTERACTIVE TEAM GRID ───────────────────────────────────────
+		 Click any card to expand bio below that row.
+		 Press the same card again (or the X) to close.
+	──────────────────────────────────────────────────────────────────── -->
+	<div class="team-grid-outer" id="teamGrid">
+
+		<!-- Team data stored in data-* attributes — bio panel reads these on click -->
+		<div class="tm-card" data-reveal data-index="0"
+			 data-name="Olopade Adenike"
+			 data-role="Chief Operating Officer"
+			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/adenike.jpg' ); ?>"
+			 data-initials="OA"
+			 data-bio="The operational architect behind NSML's growth. Adenike ensures that every sponsorship commitment, event logistics plan, and client relationship is executed to the highest standard. She brings the same precision to a community 10KM race as to a World Athletics-certified marathon — because NSML's reputation is built on delivery, every single time.">
+			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
+			<div class="tm-photo-wrap">
+				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/adenike.jpg' ); ?>"
+					 alt="Olopade Adenike" loading="lazy"
+					 onerror="this.style.display='none'">
+				<div class="tm-initials">OA</div>
+			</div>
+			<div class="tm-body">
+				<div class="tm-name">Olopade Adenike</div>
+				<div class="tm-role"><?php esc_html_e( 'Chief Operating Officer', 'nsml' ); ?></div>
+			</div>
+		</div>
+
+		<div class="tm-card" data-reveal data-index="1"
+			 data-name="Odeh Emmanuel"
+			 data-role="Project Lead"
+			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/emmanuel.jpg' ); ?>"
+			 data-initials="OE"
+			 data-bio="A results-driven professional with expertise in business development, entrepreneurship, and team leadership. With extensive experience in project execution, Emmanuel drives business growth and operational efficiency. Backed by certifications in Business Administration and Management, his strategic vision and hands-on leadership make him a key asset in project management and business development at Nilayo.">
+			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
+			<div class="tm-photo-wrap">
+				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/emmanuel.jpg' ); ?>"
+					 alt="Odeh Emmanuel" loading="lazy"
+					 onerror="this.style.display='none'">
+				<div class="tm-initials">OE</div>
+			</div>
+			<div class="tm-body">
+				<div class="tm-name">Odeh Emmanuel</div>
+				<div class="tm-role"><?php esc_html_e( 'Project Lead', 'nsml' ); ?></div>
+			</div>
+		</div>
+
+		<div class="tm-card" data-reveal data-index="2"
+			 data-name="Adekite Bolaji"
+			 data-role="Admin Lead"
+			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/bolaji.jpg' ); ?>"
+			 data-initials="AB"
+			 data-bio="An experienced HR professional with a BA in English Language, an MBA, and multiple professional certifications. Bolaji specialises in talent management, employee relations, and organisational development — nurturing a dynamic work environment. Committed to excellence and innovation, she drives Nilayo Sports' success by attracting and developing top talent.">
+			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
+			<div class="tm-photo-wrap">
+				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/bolaji.jpg' ); ?>"
+					 alt="Adekite Bolaji" loading="lazy"
+					 onerror="this.style.display='none'">
+				<div class="tm-initials">AB</div>
+			</div>
+			<div class="tm-body">
+				<div class="tm-name">Adekite Bolaji</div>
+				<div class="tm-role"><?php esc_html_e( 'Admin Lead', 'nsml' ); ?></div>
+			</div>
+		</div>
+
+		<div class="tm-card" data-reveal data-index="3"
+			 data-name="Odi Jide"
+			 data-role="Brand &amp; Comms Lead"
+			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/jide.jpg' ); ?>"
+			 data-initials="OJ"
+			 data-bio="A seasoned media and communications professional with expertise in broadcast journalism, brand strategy, creative advertising, and media production. With over a decade of experience, Jide blends analytical insight with creative storytelling to strengthen Nilayo's brand presence. A trained journalist from the Nigerian Institute of Journalism and an alumnus of O2 Academy Lagos, he plays a key role in shaping the company's communication and marketing strategies.">
+			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
+			<div class="tm-photo-wrap">
+				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/jide.jpg' ); ?>"
+					 alt="Odi Jide" loading="lazy"
+					 onerror="this.style.display='none'">
+				<div class="tm-initials">OJ</div>
+			</div>
+			<div class="tm-body">
+				<div class="tm-name">Odi Jide</div>
+				<div class="tm-role"><?php esc_html_e( 'Brand &amp; Comms Lead', 'nsml' ); ?></div>
+			</div>
+		</div>
+
+		<div class="tm-card" data-reveal data-index="4"
+			 data-name="Omoniyi Sandra"
+			 data-role="Business Strategist"
+			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/sandra.jpg' ); ?>"
+			 data-initials="OS"
+			 data-bio="A specialist in sports management, strategy, and operations with a Master's in Sport Management and Administration and over a decade of experience. Sandra develops strategic solutions that drive revenue and brand growth, excels in forging high-impact partnerships, and creates sustainable business models that elevate sports properties. She combines strategic insight with deep industry expertise to deliver innovative solutions for brands and stakeholders.">
+			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
+			<div class="tm-photo-wrap">
+				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/sandra.jpg' ); ?>"
+					 alt="Omoniyi Sandra" loading="lazy"
+					 onerror="this.style.display='none'">
+				<div class="tm-initials">OS</div>
+			</div>
+			<div class="tm-body">
+				<div class="tm-name">Omoniyi Sandra</div>
+				<div class="tm-role"><?php esc_html_e( 'Business Strategist', 'nsml' ); ?></div>
+			</div>
+		</div>
+
+	</div><!-- /team-grid-outer -->
+
+	<!-- Bio panel template (moved into grid via JS) -->
+	<div class="bio-panel" id="bioPanelTpl" style="display:none">
+		<div class="bio-panel-photo" id="bioPanelPhoto">
+			<img id="bioPanelImg" src="" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+			<div class="bio-initials-fb" id="bioPanelInitials"></div>
+		</div>
+		<div class="bio-panel-content" style="position:relative;">
+			<button class="bio-panel-close" id="bioPanelClose" aria-label="Close bio">&#x2715;</button>
+			<div class="bio-panel-role" id="bioPanelRole"></div>
+			<div class="bio-panel-name" id="bioPanelName"></div>
+			<p class="bio-panel-text" id="bioPanelText"></p>
+		</div>
+	</div>
+
+</div><!-- /section-wrap -->
+
+<script>
+	gsap.registerPlugin(ScrollTrigger);
+
+	const mEl = document.getElementById('manifestoText');
+	mEl.innerHTML = mEl.textContent.trim().split(/\s+/).map(w => `<span class="word">${w} </span>`).join('');
+
+	gsap.to('.manifesto-body .word', {
+		opacity: 1, stagger: 0.04, ease: 'none',
+		scrollTrigger: { trigger: mEl, start: 'top 78%', end: 'bottom 22%', scrub: 0.6 }
+	});
+
+	const io = new IntersectionObserver((entries) => {
+		entries.forEach((entry, i) => {
+			if (!entry.isIntersecting) return;
+			const el = entry.target;
+			setTimeout(() => {
+				el.style.transition = 'opacity 0.75s cubic-bezier(0.32,0.72,0,1), transform 0.75s cubic-bezier(0.32,0.72,0,1)';
+				el.style.opacity = '1'; el.style.transform = 'none';
+			}, i * 85);
+			io.unobserve(el);
+		});
+	}, { threshold: 0.1 });
+
+	document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+	/* ── PHOTO FALLBACK HANDLING ─────────────────── */
+	// CEO card
+	const ceoImg = document.querySelector('.ceo-photo');
+	const ceoFb  = document.getElementById('ceoFallback');
+	if (ceoImg && ceoFb) {
+		const hideCeoFb = () => { if (ceoImg.naturalWidth > 0) ceoFb.style.display = 'none'; };
+		if (ceoImg.complete) hideCeoFb();
+		else { ceoImg.addEventListener('load', hideCeoFb); ceoImg.addEventListener('error', () => { ceoImg.style.display = 'none'; }); }
+	}
+
+	// Team portrait cards — hide initials when photo loads
+	document.querySelectorAll('.tm-photo').forEach(img => {
+		const wrap    = img.closest('.tm-photo-wrap');
+		const initials = wrap ? wrap.querySelector('.tm-initials') : null;
+		if (!img.src || img.src === window.location.href) return; // no src
+		const hideInitials = () => { if (img.naturalWidth > 0 && initials) initials.style.display = 'none'; };
+		if (img.complete) hideInitials();
+		else {
+			img.addEventListener('load',  hideInitials);
+			img.addEventListener('error', () => { img.style.display = 'none'; }); // show initials on error
+		}
+	});
+
+	/* ── INTERACTIVE BIO SPOTLIGHT ──────────────── */
+	const grid      = document.getElementById('teamGrid');
+	const panelTpl  = document.getElementById('bioPanelTpl');
+	const COLS      = () => window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+
+	let activeIndex  = -1;
+	let activePanel  = null;
+
+	function openBio(card) {
+		const idx       = parseInt(card.dataset.index);
+		const cols      = COLS();
+
+		// If same card — close
+		if (idx === activeIndex) {
+			closeBio();
+			return;
+		}
+
+		// Remove old panel if open
+		if (activePanel) {
+			activePanel.classList.remove('open');
+			setTimeout(() => { if (activePanel && activePanel.parentNode) activePanel.parentNode.removeChild(activePanel); activePanel = null; }, 300);
+		}
+
+		// Deactivate all cards
+		document.querySelectorAll('.tm-card').forEach(c => c.classList.remove('active'));
+		card.classList.add('active');
+		activeIndex = idx;
+
+		// Build panel
+		const panel = panelTpl.cloneNode(true);
+		panel.id    = 'bioPanel';
+		panel.style.display = '';
+		panel.classList.add('bio-panel');
+
+		const photo    = card.dataset.photo;
+		const name     = card.dataset.name;
+		const role     = card.dataset.role;
+		const bio      = card.dataset.bio;
+		const initials = card.dataset.initials;
+
+		const panelImg      = panel.querySelector('#bioPanelImg');
+		const panelInitials = panel.querySelector('#bioPanelInitials');
+		const panelRole     = panel.querySelector('#bioPanelRole');
+		const panelName     = panel.querySelector('#bioPanelName');
+		const panelText     = panel.querySelector('#bioPanelText');
+		const panelClose    = panel.querySelector('#bioPanelClose');
+
+		// Remove template IDs to avoid duplicates
+		[panelImg, panelInitials, panelRole, panelName, panelText, panelClose].forEach(el => { if(el) el.removeAttribute('id'); });
+
+		if (photo) {
+			panelImg.src = photo;
+			panelImg.alt = name;
+			panelImg.style.display = 'block';
+			panelInitials.style.display = 'none';
+			panelImg.onerror = () => { panelImg.style.display = 'none'; panelInitials.style.display = 'flex'; };
+		} else {
+			panelImg.style.display = 'none';
+			panelInitials.style.display = 'flex';
+		}
+
+		panelInitials.textContent = initials;
+		panelRole.textContent     = role;
+		panelName.textContent     = name;
+		panelText.textContent     = bio;
+
+		panelClose.addEventListener('click', closeBio);
+
+		// Find where to insert — after last card in same row
+		const cards    = Array.from(document.querySelectorAll('.tm-card'));
+		const rowEnd   = Math.min(Math.floor(idx / cols) * cols + cols - 1, cards.length - 1);
+		const anchor   = cards[rowEnd];
+		anchor.after(panel);
+		activePanel = panel;
+
+		// Trigger animation
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				panel.classList.add('open');
+				// Scroll so panel is visible
+				setTimeout(() => {
+					panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+				}, 100);
+			});
+		});
+	}
+
+	function closeBio() {
+		if (activePanel) {
+			activePanel.classList.remove('open');
+			setTimeout(() => {
+				if (activePanel && activePanel.parentNode) activePanel.parentNode.removeChild(activePanel);
+				activePanel = null;
+			}, 400);
+		}
+		document.querySelectorAll('.tm-card').forEach(c => c.classList.remove('active'));
+		activeIndex = -1;
+	}
+
+	document.querySelectorAll('.tm-card').forEach(card => {
+		card.addEventListener('click', () => openBio(card));
+	});
+
+	// Close bio on Escape key
+	document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBio(); });
+
+	// Reposition panel on resize (column count may change)
+	let resizeTimer;
+	window.addEventListener('resize', () => {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(() => {
+			if (activePanel && activeIndex >= 0) {
+				const card = document.querySelector(`.tm-card[data-index="${activeIndex}"]`);
+				if (card) {
+					activePanel.parentNode.removeChild(activePanel);
+					activePanel = null;
+					const cols    = COLS();
+					const cards   = Array.from(document.querySelectorAll('.tm-card'));
+					const rowEnd  = Math.min(Math.floor(activeIndex / cols) * cols + cols - 1, cards.length - 1);
+					cards[rowEnd].after(activePanel = document.getElementById('bioPanel') || activePanel);
+				}
+			}
+		}, 200);
+	}, { passive: true });
+
+	/* ── NAV SCROLL STATE ────────────────────────── */
+	const navPill = document.getElementById('navPill');
+	if (navPill) {
+		window.addEventListener('scroll', () => navPill.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+	}
+</script>
+
+<?php get_footer(); ?>

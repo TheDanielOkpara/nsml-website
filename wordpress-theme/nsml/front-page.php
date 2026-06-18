@@ -103,6 +103,22 @@ $nsml_home_news = get_posts(
 		.hero-trust { display: none; }
 		.feat-section { padding: 3.5rem 1.25rem; }
 	}
+	.newsletter-band { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 1.5rem; }
+	.newsletter-inner { max-width: 48rem; margin: 0 auto; text-align: center; }
+	.newsletter-inner .section-tag { justify-content: center; margin-bottom: 1.5rem; }
+	.newsletter-h2 { font-family: var(--font-d); font-size: clamp(1.875rem, 3.5vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--navy); margin-bottom: 1rem; }
+	.newsletter-h2 .hi { color: var(--green); }
+	.newsletter-p { font-size: 1.0625rem; color: var(--text-sub); line-height: 1.7; margin-bottom: 2.5rem; }
+	.newsletter-form { display: flex; gap: 0.75rem; max-width: 36rem; margin: 0 auto; }
+	.newsletter-input { flex: 1; background: #ffffff; border: 1.5px solid var(--border); border-radius: 9999px; padding: 0.875rem 1.5rem; font-family: var(--font-b); font-size: 0.9375rem; color: var(--navy); outline: none; transition: border-color 0.3s var(--ease); }
+	.newsletter-input::placeholder { color: var(--text-muted); }
+	.newsletter-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,184,60,0.12); }
+	.newsletter-disclaimer { font-size: 0.8125rem; color: var(--text-muted); margin-top: 1rem; }
+	@media (max-width: 768px) {
+		.newsletter-form { flex-direction: column; gap: 0.75rem; }
+		.newsletter-input { border-radius: var(--r-lg); }
+		.newsletter-band { padding: 3.5rem 1.25rem; }
+	}
 </style>
 
 <section class="hero">
@@ -332,6 +348,36 @@ $nsml_home_news = get_posts(
 	</div>
 </div>
 
+<div class="newsletter-band">
+	<div class="newsletter-inner" data-reveal>
+		<div class="section-tag" style="justify-content:center;"><?php esc_html_e( 'Stay Informed', 'nsml' ); ?></div>
+		<h2 class="newsletter-h2"><?php esc_html_e( 'Get', 'nsml' ); ?> <span class="hi"><?php esc_html_e( 'NSML News', 'nsml' ); ?></span><br><?php esc_html_e( 'in Your Inbox', 'nsml' ); ?></h2>
+		<p class="newsletter-p"><?php esc_html_e( 'Event dates, partnership announcements, and sports industry insights — delivered directly to you. No spam, unsubscribe anytime.', 'nsml' ); ?></p>
+		<form class="newsletter-form" id="homeNewsletterForm" novalidate>
+			<?php wp_nonce_field( NSML_NEWSLETTER_NONCE_ACTION, 'nsml_newsletter_nonce' ); ?>
+			<input type="text" name="nsml_nl_hp" value="" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+			<input
+				type="email"
+				id="homeEmail"
+				name="email"
+				class="newsletter-input"
+				placeholder="<?php esc_attr_e( 'Enter your email address', 'nsml' ); ?>"
+				aria-label="<?php esc_attr_e( 'Email address', 'nsml' ); ?>"
+				autocomplete="email">
+			<button type="submit" id="homeSubBtn" class="btn btn-fill" style="white-space:nowrap;flex-shrink:0;">
+				<span id="homeSubLabel"><?php esc_html_e( 'Subscribe', 'nsml' ); ?></span>
+				<span class="btn-icon">&#8599;</span>
+			</button>
+		</form>
+		<p class="newsletter-disclaimer" id="homeDisclaimer"><?php esc_html_e( 'By subscribing you agree to receive email communications from NSML. Unsubscribe at any time.', 'nsml' ); ?></p>
+		<p id="homeEmailError" style="font-size:0.8125rem;color:#e53935;font-weight:500;margin-top:0.5rem;display:none;"></p>
+		<div id="homeSuccess" style="display:none;align-items:center;gap:0.75rem;justify-content:center;padding:1rem;background:rgba(26,184,60,0.08);border:1px solid var(--accent-ring);border-radius:var(--r-lg);margin-top:1rem;">
+			<span style="color:var(--green-dark);font-size:1.125rem;">&#10003;</span>
+			<span style="font-size:0.9375rem;color:var(--navy);font-weight:600;"><?php esc_html_e( "You're subscribed — thanks!", 'nsml' ); ?></span>
+		</div>
+	</div>
+</div>
+
 <div class="cta-band">
 	<div class="cta-band-bg"></div>
 	<div class="cta-band-inner">
@@ -348,5 +394,47 @@ $nsml_home_news = get_posts(
 		</div>
 	</div>
 </div>
+
+<script>
+( function () {
+	var newsForm    = document.getElementById( 'homeNewsletterForm' );
+	var newsEmailEl = document.getElementById( 'homeEmail' );
+	var newsErrEl   = document.getElementById( 'homeEmailError' );
+	var newsSuccess = document.getElementById( 'homeSuccess' );
+	var newsDiscl   = document.getElementById( 'homeDisclaimer' );
+	var newsSubBtn  = document.getElementById( 'homeSubBtn' );
+
+	if ( newsForm ) {
+		newsForm.addEventListener( 'submit', function ( e ) {
+			e.preventDefault();
+			newsErrEl.style.display = 'none';
+			var formData = new FormData( newsForm );
+			formData.append( 'action', 'nsml_subscribe_newsletter' );
+			newsSubBtn.disabled = true;
+			fetch( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', {
+				method: 'POST', body: formData, credentials: 'same-origin'
+			} )
+				.then( function ( response ) { return response.json(); } )
+				.then( function ( data ) {
+					if ( data && data.success ) {
+						newsForm.style.display    = 'none';
+						newsDiscl.style.display   = 'none';
+						newsSuccess.style.display = 'flex';
+					} else {
+						newsErrEl.textContent = ( data && data.data && data.data.message ) || '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'nsml' ) ); ?>';
+						newsErrEl.style.display = 'block';
+						newsSubBtn.disabled = false;
+					}
+				} )
+				.catch( function () {
+					newsErrEl.textContent = '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'nsml' ) ); ?>';
+					newsErrEl.style.display = 'block';
+					newsSubBtn.disabled = false;
+				} );
+		} );
+		newsEmailEl.addEventListener( 'input', function () { newsErrEl.style.display = 'none'; } );
+	}
+}() );
+</script>
 
 <?php get_footer(); ?>

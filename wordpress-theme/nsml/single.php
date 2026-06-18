@@ -267,6 +267,79 @@ while ( have_posts() ) :
 		</div>
 	<?php endif; ?>
 
+	<div style="background:var(--navy);padding:5rem 1.5rem;border-top:3px solid var(--green);">
+		<div style="max-width:42rem;margin:0 auto;text-align:center;" data-reveal>
+			<div class="eyebrow-pill" style="margin:0 auto 1.5rem;"><?php esc_html_e( 'Stay Updated', 'nsml' ); ?></div>
+			<h2 style="color:#fff;"><?php esc_html_e( 'Never Miss an', 'nsml' ); ?> <span style="color:var(--green)"><?php esc_html_e( 'NSML Story', 'nsml' ); ?></span></h2>
+			<p style="color:rgba(255,255,255,.7);margin:1rem 0 2rem;"><?php esc_html_e( 'Event dates, results, partnership announcements, and insights — delivered straight to your inbox.', 'nsml' ); ?></p>
+			<form id="articleNlForm" novalidate>
+				<?php wp_nonce_field( NSML_NEWSLETTER_NONCE_ACTION, 'nsml_newsletter_nonce' ); ?>
+				<input type="text" name="nsml_nl_hp" value="" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+				<div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
+					<input type="email" id="articleNlEmail" name="email" placeholder="<?php esc_attr_e( 'Your email address', 'nsml' ); ?>" style="flex:1;min-width:240px;max-width:320px;">
+					<button type="submit" id="articleNlBtn" class="btn btn-fill">
+						<span id="articleNlLabel"><?php esc_html_e( 'Subscribe', 'nsml' ); ?></span>
+						<span class="btn-icon">↗</span>
+					</button>
+				</div>
+				<p id="articleNlError" style="color:#ff8a8a;margin-top:0.75rem;display:none;"></p>
+				<div id="articleNlSuccess" style="display:none;align-items:center;justify-content:center;gap:0.5rem;margin-top:1rem;color:var(--green);">
+					<span>✓</span>
+					<span><?php esc_html_e( "You're subscribed — thanks!", 'nsml' ); ?></span>
+				</div>
+			</form>
+		</div>
+	</div>
+
 <?php endwhile; ?>
 
 <?php get_footer(); ?>
+
+<script>
+( function () {
+	var form = document.getElementById( 'articleNlForm' );
+	if ( ! form ) {
+		return;
+	}
+	var emailInput = document.getElementById( 'articleNlEmail' );
+	var errorEl    = document.getElementById( 'articleNlError' );
+	var successEl  = document.getElementById( 'articleNlSuccess' );
+	var submitBtn  = document.getElementById( 'articleNlBtn' );
+
+	form.addEventListener( 'submit', function ( e ) {
+		e.preventDefault();
+		errorEl.style.display = 'none';
+
+		var formData = new FormData( form );
+		formData.append( 'action', 'nsml_subscribe_newsletter' );
+
+		submitBtn.disabled = true;
+
+		fetch( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', {
+			method: 'POST',
+			body: formData,
+			credentials: 'same-origin'
+		} )
+			.then( function ( response ) { return response.json(); } )
+			.then( function ( data ) {
+				if ( data && data.success ) {
+					form.querySelector( 'div' ).style.display = 'none';
+					successEl.style.display = 'flex';
+				} else {
+					errorEl.textContent = ( data && data.data && data.data.message ) || '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'nsml' ) ); ?>';
+					errorEl.style.display = 'block';
+					submitBtn.disabled = false;
+				}
+			} )
+			.catch( function () {
+				errorEl.textContent = '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'nsml' ) ); ?>';
+				errorEl.style.display = 'block';
+				submitBtn.disabled = false;
+			} );
+	} );
+
+	emailInput.addEventListener( 'input', function () {
+		errorEl.style.display = 'none';
+	} );
+}() );
+</script>

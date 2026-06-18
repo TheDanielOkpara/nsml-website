@@ -15,6 +15,7 @@ $nsml_footer_properties = get_posts(
 	)
 );
 ?>
+	<?php nsml_render_partners_marquee(); ?>
 	<footer>
 		<div class="footer-inner">
 			<div class="footer-top">

@@ -223,6 +223,17 @@ get_header();
 		margin-top: -0.25rem;
 	}
 
+	.form-error-banner {
+		font-size: 0.8125rem;
+		color: #e53935;
+		font-weight: 500;
+		background: rgba(229,57,53,0.07);
+		border: 1px solid rgba(229,57,53,0.25);
+		border-radius: 0.5rem;
+		padding: 0.75rem 1rem;
+		margin-bottom: 1.25rem;
+	}
+
 	/* Character counter */
 	.char-count {
 		font-size: 0.6875rem;
@@ -412,7 +423,11 @@ get_header();
 					</a>
 				</div>
 
+				<div class="form-error-banner" id="formErrorBanner" style="display:none"></div>
+
 				<form id="contactForm" novalidate>
+					<?php wp_nonce_field( NSML_CONTACT_NONCE_ACTION, 'nsml_contact_nonce' ); ?>
+					<input type="text" name="nsml_hp" id="nsml_hp" value="" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
 					<div class="form-row">
 						<div class="field" id="field-fname">
 							<label for="fname"><?php esc_html_e( 'First Name', 'nsml' ); ?> <span style="color:#e53935">*</span></label>
@@ -595,12 +610,16 @@ get_header();
 	}
 
 	// Full form validation on submit
+	const errorBanner = document.getElementById('formErrorBanner');
+
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 
 		const fields  = ['fname','lname','email','phone','interest','message'];
 		const results = fields.map(id => validateField(id));
 		const allValid = results.every(Boolean);
+
+		if (errorBanner) errorBanner.style.display = 'none';
 
 		if (!allValid) {
 			// Scroll to first invalid field
@@ -612,19 +631,45 @@ get_header();
 			return;
 		}
 
-		// Simulate submission
 		submitBtn.disabled = true;
 		const label = document.getElementById('submitLabel');
 		label.textContent = 'Sending…';
 
-		setTimeout(() => {
-			// Hide form, show success
-			form.style.display = 'none';
-			document.querySelector('.form-title').style.display = 'none';
-			document.querySelector('.form-sub').style.display   = 'none';
-			const success = document.getElementById('formSuccess');
-			success.style.display = 'flex';
-		}, 1200);
+		const formData = new FormData(form);
+		formData.append('action', 'nsml_submit_contact');
+
+		fetch('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: formData
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					form.style.display = 'none';
+					document.querySelector('.form-title').style.display = 'none';
+					document.querySelector('.form-sub').style.display   = 'none';
+					const success = document.getElementById('formSuccess');
+					success.style.display = 'flex';
+				} else {
+					submitBtn.disabled = false;
+					label.textContent = 'Send Message';
+					if (errorBanner) {
+						errorBanner.textContent = (data.data && data.data.message) || 'Sorry, something went wrong. Please try again.';
+						errorBanner.style.display = 'block';
+						errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					}
+				}
+			})
+			.catch(() => {
+				submitBtn.disabled = false;
+				label.textContent = 'Send Message';
+				if (errorBanner) {
+					errorBanner.textContent = 'Sorry, something went wrong. Please check your connection and try again.';
+					errorBanner.style.display = 'block';
+					errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				}
+			});
 	});
 
 	/* ── NAV SCROLL STATE ──────────────────── */

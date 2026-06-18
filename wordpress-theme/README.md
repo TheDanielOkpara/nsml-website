@@ -63,6 +63,35 @@ created by hand afterwards). If you do use it, a one-time hook
 each property's imported attachment URLs into real Media Library
 attachment IDs on the next `admin_init`.
 
+## Plugins
+
+The theme is self-contained and works fully with **zero plugins** —
+including the contact form (Contact page), which is wired directly to
+`wp_mail()` over a custom AJAX handler in `inc/contact-form.php`. No
+Contact Form 7 / WPForms / Gravity Forms install is needed; the form
+markup, validation, spam honeypot, per-IP rate limiting, and nonce
+protection are all built into the theme.
+
+The one thing a theme cannot fix on its own:
+
+- **Install an SMTP plugin (strongly recommended) — e.g. [WP Mail
+  SMTP](https://wordpress.org/plugins/wp-mail-smtp/) or [Post
+  SMTP](https://wordpress.org/plugins/post-smtp/).** `wp_mail()` falls
+  back to PHP's `mail()` function, which on most shared/cPanel hosts is
+  unauthenticated and frequently silently dropped or marked as spam by
+  the receiving mail server. An SMTP plugin routes mail through a real
+  authenticated mailbox or transactional email API (Gmail, Microsoft
+  365, SendGrid, Mailgun, etc.) so messages submitted through the
+  contact form actually arrive. Without it, the contact form will
+  validate and report success/failure correctly, but delivery is not
+  guaranteed.
+  - Configure it to send as the address set in Appearance > Theme
+    Settings > Contact > "Contact email" — that's where contact-form
+    submissions are sent.
+
+Everything else (forms, CPTs, theme settings, demo content import,
+security hardening) is custom code in this theme and needs no plugin.
+
 ## Editing content after go-live
 
 - **Blog posts**: Posts > Add New, like any WordPress post. Featured image

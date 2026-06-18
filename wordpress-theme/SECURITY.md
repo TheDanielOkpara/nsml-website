@@ -48,8 +48,9 @@ define( 'FORCE_SSL_ADMIN', true );
 ## Updates
 
 - Keep WordPress core, and any installed plugins, on auto-update for minor/
-  security releases. This theme has no third-party plugin dependencies by
-  itself.
+  security releases. The theme itself has no required plugin dependencies —
+  see README.md's "Plugins" section for the one strongly recommended
+  install (an SMTP plugin, for contact-form mail deliverability).
 
 ## Backups
 

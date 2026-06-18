@@ -53,3 +53,4 @@ if ( ! function_exists( '__' ) ) {
 
 require dirname( __DIR__, 2 ) . '/nsml/inc/cpt-property.php';
 require dirname( __DIR__, 2 ) . '/nsml/inc/template-tags.php';
+require dirname( __DIR__, 2 ) . '/nsml/inc/contact-form.php';

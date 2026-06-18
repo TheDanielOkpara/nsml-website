@@ -127,7 +127,7 @@ while ( have_posts() ) :
 				<?php if ( $nsml_official_site ) : ?>
 					<a href="<?php echo esc_url( $nsml_official_site ); ?>" target="_blank" rel="noopener" class="btn btn-fill">
 						<span><?php esc_html_e( 'Visit Official Website', 'nsml' ); ?></span>
-						<span class="btn-icon">&#8599;</span>
+						<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 					</a>
 				<?php endif; ?>
 				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn-outline-white"><?php esc_html_e( 'Partner With Us', 'nsml' ); ?></a>
@@ -223,7 +223,7 @@ while ( have_posts() ) :
 		<p><?php esc_html_e( 'Partner with NSML to associate your brand with one of Africa\'s most impactful sporting properties. We create meaningful connections between brands and millions of fans, athletes, and communities.', 'nsml' ); ?></p>
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-white-solid">
 			<span><?php esc_html_e( 'Start a Conversation', 'nsml' ); ?></span>
-			<span class="btn-icon" style="width:2rem;height:2rem;border-radius:50%;background:rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;">&#8599;</span>
+			<span class="btn-icon" style="width:2rem;height:2rem;border-radius:50%;background:rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;"><?php echo nsml_btn_icon_svg(); ?></span>
 		</a>
 	</div>
 

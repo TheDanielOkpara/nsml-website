@@ -8,6 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * The arrow glyph inside .btn-icon circles ("Partner With Us", "Get in
+ * touch", etc). An inline SVG renders identically across browsers/OSes,
+ * unlike the Unicode arrow character (&#8599;) it replaces, which some
+ * platforms render as a colored emoji or a missing-glyph box. Uses
+ * currentColor so it automatically matches the button's text color.
+ */
+function nsml_btn_icon_svg() {
+	return '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block"><path d="M7 17L17 7M9 7H17V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+
+/**
  * The "Trusted Partners & Affiliations" logo marquee that appears on
  * every page of the static site (homepage, about, services, contact,
  * every article, every property), right before the footer. Identical

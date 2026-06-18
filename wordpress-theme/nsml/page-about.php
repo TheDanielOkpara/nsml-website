@@ -527,6 +527,114 @@ get_header();
 	</div>
 </div>
 
+<?php
+/**
+ * Team data: defaults below match the original static design exactly.
+ * If any "Team" (nsml_team CPT) entries exist in wp-admin, they replace
+ * these defaults entirely -- see Appearance/admin menu "Team" to manage.
+ */
+function nsml_initials_from_name( $name ) {
+	$initials = '';
+	foreach ( array_slice( preg_split( '/\s+/', trim( (string) $name ) ), 0, 2 ) as $word ) {
+		$initials .= mb_strtoupper( mb_substr( $word, 0, 1 ) );
+	}
+	return $initials;
+}
+
+$nsml_lead_name     = 'Olopade Yetunde';
+$nsml_lead_badge    = __( 'Managing Director', 'nsml' );
+$nsml_lead_role     = __( 'Chief Executive Officer', 'nsml' );
+$nsml_lead_bio      = __( "A seasoned expert in events marketing, sponsorship activation, and brand partnerships with over 20 years of experience. Yetunde specialises in large-scale sports events, corporate collaborations, and impactful brand engagements — driving Nilayo's strategic vision and setting industry benchmarks in sports marketing across Africa.", 'nsml' );
+$nsml_lead_photo    = NSML_THEME_URI . '/assets/images/team/yetunde.jpg';
+$nsml_lead_initials = 'OY';
+
+$nsml_grid_members = array(
+	array(
+		'name'     => 'Olopade Adenike',
+		'role'     => __( 'Chief Operating Officer', 'nsml' ),
+		'photo'    => NSML_THEME_URI . '/assets/images/team/adenike.jpg',
+		'initials' => 'OA',
+		'bio'      => __( "The operational architect behind NSML's growth. Adenike ensures that every sponsorship commitment, event logistics plan, and client relationship is executed to the highest standard. She brings the same precision to a community 10KM race as to a World Athletics-certified marathon — because NSML's reputation is built on delivery, every single time.", 'nsml' ),
+	),
+	array(
+		'name'     => 'Odeh Emmanuel',
+		'role'     => __( 'Project Lead', 'nsml' ),
+		'photo'    => NSML_THEME_URI . '/assets/images/team/emmanuel.jpg',
+		'initials' => 'OE',
+		'bio'      => __( 'A results-driven professional with expertise in business development, entrepreneurship, and team leadership. With extensive experience in project execution, Emmanuel drives business growth and operational efficiency. Backed by certifications in Business Administration and Management, his strategic vision and hands-on leadership make him a key asset in project management and business development at Nilayo.', 'nsml' ),
+	),
+	array(
+		'name'     => 'Adekite Bolaji',
+		'role'     => __( 'Admin Lead', 'nsml' ),
+		'photo'    => NSML_THEME_URI . '/assets/images/team/bolaji.jpg',
+		'initials' => 'AB',
+		'bio'      => __( "An experienced HR professional with a BA in English Language, an MBA, and multiple professional certifications. Bolaji specialises in talent management, employee relations, and organisational development — nurturing a dynamic work environment. Committed to excellence and innovation, she drives Nilayo Sports' success by attracting and developing top talent.", 'nsml' ),
+	),
+	array(
+		'name'     => 'Odi Jide',
+		'role'     => __( 'Brand & Comms Lead', 'nsml' ),
+		'photo'    => NSML_THEME_URI . '/assets/images/team/jide.jpg',
+		'initials' => 'OJ',
+		'bio'      => __( "A seasoned media and communications professional with expertise in broadcast journalism, brand strategy, creative advertising, and media production. With over a decade of experience, Jide blends analytical insight with creative storytelling to strengthen Nilayo's brand presence. A trained journalist from the Nigerian Institute of Journalism and an alumnus of O2 Academy Lagos, he plays a key role in shaping the company's communication and marketing strategies.", 'nsml' ),
+	),
+	array(
+		'name'     => 'Omoniyi Sandra',
+		'role'     => __( 'Business Strategist', 'nsml' ),
+		'photo'    => NSML_THEME_URI . '/assets/images/team/sandra.jpg',
+		'initials' => 'OS',
+		'bio'      => __( "A specialist in sports management, strategy, and operations with a Master's in Sport Management and Administration and over a decade of experience. Sandra develops strategic solutions that drive revenue and brand growth, excels in forging high-impact partnerships, and creates sustainable business models that elevate sports properties. She combines strategic insight with deep industry expertise to deliver innovative solutions for brands and stakeholders.", 'nsml' ),
+	),
+);
+
+$nsml_team_query = new WP_Query(
+	array(
+		'post_type'      => NSML_TEAM_CPT,
+		'posts_per_page' => -1,
+		'orderby'        => 'menu_order',
+		'order'          => 'ASC',
+		'post_status'    => 'publish',
+	)
+);
+
+if ( $nsml_team_query->have_posts() ) {
+	$nsml_lead_post   = null;
+	$nsml_rest_posts  = array();
+	foreach ( $nsml_team_query->posts as $nsml_tm ) {
+		if ( null === $nsml_lead_post && get_post_meta( $nsml_tm->ID, 'nsml_team_is_lead', true ) ) {
+			$nsml_lead_post = $nsml_tm;
+		} else {
+			$nsml_rest_posts[] = $nsml_tm;
+		}
+	}
+	if ( ! $nsml_lead_post && $nsml_rest_posts ) {
+		$nsml_lead_post = array_shift( $nsml_rest_posts );
+	}
+
+	if ( $nsml_lead_post ) {
+		$nsml_lead_name     = get_the_title( $nsml_lead_post );
+		$nsml_lead_role     = get_post_meta( $nsml_lead_post->ID, 'nsml_team_role', true ) ?: $nsml_lead_role;
+		$nsml_lead_badge    = $nsml_lead_role;
+		$nsml_lead_bio      = wp_strip_all_tags( $nsml_lead_post->post_content );
+		$nsml_lead_photo    = get_the_post_thumbnail_url( $nsml_lead_post, 'medium' ) ?: $nsml_lead_photo;
+		$nsml_lead_initials = nsml_initials_from_name( $nsml_lead_name );
+	}
+
+	if ( $nsml_rest_posts ) {
+		$nsml_grid_members = array();
+		foreach ( $nsml_rest_posts as $nsml_tm ) {
+			$nsml_grid_members[] = array(
+				'name'     => get_the_title( $nsml_tm ),
+				'role'     => get_post_meta( $nsml_tm->ID, 'nsml_team_role', true ),
+				'photo'    => get_the_post_thumbnail_url( $nsml_tm, 'medium' ) ?: '',
+				'initials' => nsml_initials_from_name( get_the_title( $nsml_tm ) ),
+				'bio'      => wp_strip_all_tags( $nsml_tm->post_content ),
+			);
+		}
+	}
+}
+wp_reset_postdata();
+?>
+
 <!-- TEAM -->
 <div class="section-wrap">
 	<div class="section-tag"><?php esc_html_e( 'The Team', 'nsml' ); ?></div>
@@ -535,19 +643,19 @@ get_header();
 	<!-- ── CEO FEATURED CARD (always visible) ──────────────────────── -->
 	<div class="team-ceo" data-reveal>
 		<div class="ceo-photo-wrap">
-			<img class="ceo-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/yetunde.jpg' ); ?>"
-				 alt="Olopade Yetunde — MD/CEO"
+			<img class="ceo-photo" src="<?php echo esc_url( $nsml_lead_photo ); ?>"
+				 alt="<?php echo esc_attr( $nsml_lead_name . ' — MD/CEO' ); ?>"
 				 onerror="this.style.display='none'">
-			<div class="ceo-fallback" id="ceoFallback">OY</div>
+			<div class="ceo-fallback" id="ceoFallback"><?php echo esc_html( $nsml_lead_initials ); ?></div>
 		</div>
 		<div class="ceo-details">
 			<div class="ceo-badge">
 				<span class="eyebrow-dot"></span>
-				<?php esc_html_e( 'Managing Director', 'nsml' ); ?>
+				<?php echo esc_html( $nsml_lead_badge ); ?>
 			</div>
-			<div class="ceo-name">Olopade Yetunde</div>
-			<div class="ceo-role"><?php esc_html_e( 'Chief Executive Officer', 'nsml' ); ?></div>
-			<p class="ceo-bio"><?php esc_html_e( "A seasoned expert in events marketing, sponsorship activation, and brand partnerships with over 20 years of experience. Yetunde specialises in large-scale sports events, corporate collaborations, and impactful brand engagements — driving Nilayo's strategic vision and setting industry benchmarks in sports marketing across Africa.", 'nsml' ); ?></p>
+			<div class="ceo-name"><?php echo esc_html( $nsml_lead_name ); ?></div>
+			<div class="ceo-role"><?php echo esc_html( $nsml_lead_role ); ?></div>
+			<p class="ceo-bio"><?php echo esc_html( $nsml_lead_bio ); ?></p>
 		</div>
 	</div>
 
@@ -556,103 +664,26 @@ get_header();
 		 Press the same card again (or the X) to close.
 	──────────────────────────────────────────────────────────────────── -->
 	<div class="team-grid-outer" id="teamGrid">
-
-		<!-- Team data stored in data-* attributes — bio panel reads these on click -->
-		<div class="tm-card" data-reveal data-index="0"
-			 data-name="Olopade Adenike"
-			 data-role="Chief Operating Officer"
-			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/adenike.jpg' ); ?>"
-			 data-initials="OA"
-			 data-bio="The operational architect behind NSML's growth. Adenike ensures that every sponsorship commitment, event logistics plan, and client relationship is executed to the highest standard. She brings the same precision to a community 10KM race as to a World Athletics-certified marathon — because NSML's reputation is built on delivery, every single time.">
+		<?php foreach ( $nsml_grid_members as $nsml_gi => $nsml_m ) : ?>
+		<div class="tm-card" data-reveal data-index="<?php echo esc_attr( $nsml_gi ); ?>"
+			 data-name="<?php echo esc_attr( $nsml_m['name'] ); ?>"
+			 data-role="<?php echo esc_attr( $nsml_m['role'] ); ?>"
+			 data-photo="<?php echo esc_url( $nsml_m['photo'] ); ?>"
+			 data-initials="<?php echo esc_attr( $nsml_m['initials'] ); ?>"
+			 data-bio="<?php echo esc_attr( $nsml_m['bio'] ); ?>">
 			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
 			<div class="tm-photo-wrap">
-				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/adenike.jpg' ); ?>"
-					 alt="Olopade Adenike" loading="lazy"
+				<img class="tm-photo" src="<?php echo esc_url( $nsml_m['photo'] ); ?>"
+					 alt="<?php echo esc_attr( $nsml_m['name'] ); ?>" loading="lazy"
 					 onerror="this.style.display='none'">
-				<div class="tm-initials">OA</div>
+				<div class="tm-initials"><?php echo esc_html( $nsml_m['initials'] ); ?></div>
 			</div>
 			<div class="tm-body">
-				<div class="tm-name">Olopade Adenike</div>
-				<div class="tm-role"><?php esc_html_e( 'Chief Operating Officer', 'nsml' ); ?></div>
+				<div class="tm-name"><?php echo esc_html( $nsml_m['name'] ); ?></div>
+				<div class="tm-role"><?php echo esc_html( $nsml_m['role'] ); ?></div>
 			</div>
 		</div>
-
-		<div class="tm-card" data-reveal data-index="1"
-			 data-name="Odeh Emmanuel"
-			 data-role="Project Lead"
-			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/emmanuel.jpg' ); ?>"
-			 data-initials="OE"
-			 data-bio="A results-driven professional with expertise in business development, entrepreneurship, and team leadership. With extensive experience in project execution, Emmanuel drives business growth and operational efficiency. Backed by certifications in Business Administration and Management, his strategic vision and hands-on leadership make him a key asset in project management and business development at Nilayo.">
-			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
-			<div class="tm-photo-wrap">
-				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/emmanuel.jpg' ); ?>"
-					 alt="Odeh Emmanuel" loading="lazy"
-					 onerror="this.style.display='none'">
-				<div class="tm-initials">OE</div>
-			</div>
-			<div class="tm-body">
-				<div class="tm-name">Odeh Emmanuel</div>
-				<div class="tm-role"><?php esc_html_e( 'Project Lead', 'nsml' ); ?></div>
-			</div>
-		</div>
-
-		<div class="tm-card" data-reveal data-index="2"
-			 data-name="Adekite Bolaji"
-			 data-role="Admin Lead"
-			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/bolaji.jpg' ); ?>"
-			 data-initials="AB"
-			 data-bio="An experienced HR professional with a BA in English Language, an MBA, and multiple professional certifications. Bolaji specialises in talent management, employee relations, and organisational development — nurturing a dynamic work environment. Committed to excellence and innovation, she drives Nilayo Sports' success by attracting and developing top talent.">
-			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
-			<div class="tm-photo-wrap">
-				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/bolaji.jpg' ); ?>"
-					 alt="Adekite Bolaji" loading="lazy"
-					 onerror="this.style.display='none'">
-				<div class="tm-initials">AB</div>
-			</div>
-			<div class="tm-body">
-				<div class="tm-name">Adekite Bolaji</div>
-				<div class="tm-role"><?php esc_html_e( 'Admin Lead', 'nsml' ); ?></div>
-			</div>
-		</div>
-
-		<div class="tm-card" data-reveal data-index="3"
-			 data-name="Odi Jide"
-			 data-role="Brand &amp; Comms Lead"
-			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/jide.jpg' ); ?>"
-			 data-initials="OJ"
-			 data-bio="A seasoned media and communications professional with expertise in broadcast journalism, brand strategy, creative advertising, and media production. With over a decade of experience, Jide blends analytical insight with creative storytelling to strengthen Nilayo's brand presence. A trained journalist from the Nigerian Institute of Journalism and an alumnus of O2 Academy Lagos, he plays a key role in shaping the company's communication and marketing strategies.">
-			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
-			<div class="tm-photo-wrap">
-				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/jide.jpg' ); ?>"
-					 alt="Odi Jide" loading="lazy"
-					 onerror="this.style.display='none'">
-				<div class="tm-initials">OJ</div>
-			</div>
-			<div class="tm-body">
-				<div class="tm-name">Odi Jide</div>
-				<div class="tm-role"><?php esc_html_e( 'Brand &amp; Comms Lead', 'nsml' ); ?></div>
-			</div>
-		</div>
-
-		<div class="tm-card" data-reveal data-index="4"
-			 data-name="Omoniyi Sandra"
-			 data-role="Business Strategist"
-			 data-photo="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/sandra.jpg' ); ?>"
-			 data-initials="OS"
-			 data-bio="A specialist in sports management, strategy, and operations with a Master's in Sport Management and Administration and over a decade of experience. Sandra develops strategic solutions that drive revenue and brand growth, excels in forging high-impact partnerships, and creates sustainable business models that elevate sports properties. She combines strategic insight with deep industry expertise to deliver innovative solutions for brands and stakeholders.">
-			<div class="tm-hint"><?php esc_html_e( 'View Bio', 'nsml' ); ?></div>
-			<div class="tm-photo-wrap">
-				<img class="tm-photo" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/team/sandra.jpg' ); ?>"
-					 alt="Omoniyi Sandra" loading="lazy"
-					 onerror="this.style.display='none'">
-				<div class="tm-initials">OS</div>
-			</div>
-			<div class="tm-body">
-				<div class="tm-name">Omoniyi Sandra</div>
-				<div class="tm-role"><?php esc_html_e( 'Business Strategist', 'nsml' ); ?></div>
-			</div>
-		</div>
-
+		<?php endforeach; ?>
 	</div><!-- /team-grid-outer -->
 
 	<!-- Bio panel template (moved into grid via JS) -->

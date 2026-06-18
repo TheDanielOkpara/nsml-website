@@ -430,7 +430,7 @@ if ( have_posts() ) {
 				autocomplete="email">
 			<button type="submit" id="newsSubBtn" class="btn btn-fill" style="white-space:nowrap;flex-shrink:0;">
 				<span id="newsSubLabel"><?php esc_html_e( 'Subscribe', 'nsml' ); ?></span>
-				<span class="btn-icon">↗</span>
+				<span class="btn-icon"><?php echo nsml_btn_icon_svg(); ?></span>
 			</button>
 		</form>
 		<p class="newsletter-disclaimer" id="newsDisclaimer"><?php esc_html_e( 'By subscribing you agree to receive email communications from NSML. Unsubscribe at any time.', 'nsml' ); ?></p>

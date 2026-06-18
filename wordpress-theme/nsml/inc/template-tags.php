@@ -149,6 +149,37 @@ function nsml_get_related_posts( $exclude_id, $count = 3 ) {
 }
 
 /**
+ * One "article-card" on the News index (home.php). $hidden marks posts
+ * beyond the first 6 — rendered into the page already, just hidden behind
+ * the "Load More" reveal, mirroring news.html's `extra-article` markup
+ * (a fixed batch of hidden nodes, not real AJAX pagination).
+ */
+function nsml_render_news_card( $post, $hidden = false ) {
+	$classes = 'article-card' . ( $hidden ? ' extra-article' : '' );
+	$style   = $hidden ? ' style="display:none;opacity:0;transform:translateY(2rem);"' : '';
+	?>
+	<article class="<?php echo esc_attr( $classes ); ?>"<?php echo $style; // phpcs:ignore -- fixed, non-dynamic inline style ?> data-reveal>
+		<div class="article-img-wrap">
+			<?php if ( has_post_thumbnail( $post ) ) : ?>
+				<?php echo get_the_post_thumbnail( $post, 'nsml-card', array( 'class' => 'article-img', 'loading' => 'lazy' ) ); ?>
+			<?php else : ?>
+				<img class="article-img" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/logo.png' ); ?>" alt="<?php echo esc_attr( get_the_title( $post ) ); ?>" loading="lazy">
+			<?php endif; ?>
+		</div>
+		<div class="article-body">
+			<div class="article-meta">
+				<span class="article-cat"><?php esc_html_e( 'News', 'nsml' ); ?></span>
+				<span class="article-date"><?php echo esc_html( get_the_date( 'F Y', $post ) ); ?></span>
+			</div>
+			<a href="<?php echo esc_url( get_permalink( $post ) ); ?>" class="article-title"><?php echo esc_html( get_the_title( $post ) ); ?></a>
+			<p class="article-excerpt"><?php echo esc_html( get_the_excerpt( $post ) ); ?></p>
+			<a href="<?php echo esc_url( get_permalink( $post ) ); ?>" class="article-read-more"><?php esc_html_e( 'Read Full Story', 'nsml' ); ?> <span class="article-read-more-arrow">↗</span></a>
+		</div>
+	</article>
+	<?php
+}
+
+/**
  * Decode a property's JSON stats / gallery meta into a plain array.
  * Returns an empty array on any malformed input rather than warning/erroring,
  * since this also feeds output escaping in templates.

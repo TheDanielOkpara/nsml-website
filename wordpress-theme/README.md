@@ -49,8 +49,10 @@ images.
 6. Settings > Permalinks > Save (flushes rewrite rules for the
    `nsml_property` custom post type's `/properties/...` URLs, and for the
    `/about/`, `/services/`, `/contact/` page URLs).
-7. Settings > Reading — if you want a pretty `/news/` URL for the blog
-   index, create a "News" page and set it as the Posts page here.
+7. Settings > Reading — create a "News" page and set it as the Posts page
+   here, so the blog index (featured story, article grid, "Load More",
+   newsletter sign-up — see `home.php`) lives at a pretty `/news/` URL,
+   matching the nav and the "All News" links elsewhere on the site.
    `front-page.php` is used for the site root regardless of this setting.
 
 ### Alternative: native WordPress importer

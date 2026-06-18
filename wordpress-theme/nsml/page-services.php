@@ -1,0 +1,534 @@
+<?php
+/**
+ * Template Name: Services
+ * Static markup mirrors services.html exactly.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+get_header();
+?>
+
+<style>
+	/* ── BENTO GRID ───────────────────────── */
+	/* 12-col dense. Row sums: 7+5=12, 5+7=12, 4+4+4=12 */
+	.bento {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+		grid-auto-flow: dense;
+		gap: 0.875rem;
+	}
+
+	.bc { grid-column: span var(--span, 4); }
+	.bc-1 { --span: 7; }
+	.bc-2 { --span: 5; }
+	.bc-3 { --span: 5; }
+	.bc-4 { --span: 7; }
+	.bc-5 { --span: 4; }
+	.bc-6 { --span: 4; }
+	.bc-7 { --span: 4; }
+
+	.bc-wrap {
+		padding: 0.25rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--r-xl);
+		opacity: 0;
+		transform: translateY(2rem);
+		transition: border-color 0.4s var(--ease);
+		height: 100%;
+	}
+
+	.bc-wrap:hover { border-color: var(--border-hi); }
+
+	.bc-inner {
+		background: var(--surface-2);
+		border-radius: calc(var(--r-xl) - 0.25rem);
+		padding: 2rem;
+		box-shadow: inset 0 1px 1px rgba(255,255,255,0.035);
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		min-height: 13rem;
+	}
+
+	.bc-1 .bc-inner, .bc-4 .bc-inner { min-height: 17rem; padding: 2.5rem; }
+
+	.bc-inner.bc-tint-green  { background: var(--surface-2); }
+	.bc-inner.bc-tint-navy   { background: #e8ecf4; }
+	.bc-inner.bc-tint-gold   { background: #faf3da; }
+
+	.bc-media {
+		position: absolute;
+		inset: 0;
+		background-size: cover;
+		background-position: center;
+		filter: grayscale(0.7) contrast(1.05);
+		opacity: 0.07;
+		transition: opacity 0.7s var(--ease), transform 0.8s var(--ease);
+	}
+
+	.bc-wrap:hover .bc-media { opacity: 0.14; transform: scale(1.04); }
+
+	.bc-num {
+		font-size: 0.625rem;
+		font-weight: 700;
+		letter-spacing: 0.13em;
+		text-transform: uppercase;
+		color: var(--accent);
+		position: relative;
+	}
+
+	.bc-title {
+		font-family: var(--font-d);
+		font-size: 1.1875rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 1.2;
+		position: relative;
+	}
+
+	.bc-1 .bc-title, .bc-4 .bc-title { font-size: clamp(1.25rem, 2.2vw, 1.75rem); }
+
+	.bc-desc { font-size: 0.875rem; color: var(--text-sub); line-height: 1.7; position: relative; flex: 1; }
+
+	.bc-arrow {
+		position: absolute;
+		bottom: 1.75rem;
+		right: 1.75rem;
+		width: 2.25rem;
+		height: 2.25rem;
+		border-radius: 50%;
+		background: var(--border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.8125rem;
+		transition: all 0.4s var(--ease);
+	}
+
+	.bc-wrap:hover .bc-arrow { background: var(--accent); color: #0c0e0d; transform: translate(2px, -2px); }
+
+	/* ── PROCESS SECTION ──────────────────── */
+	.process-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+		margin-top: 3rem;
+		border: 1px solid var(--border);
+		border-radius: var(--r-xl);
+		overflow: hidden;
+	}
+
+	.process-step {
+		padding: 2.5rem 1.75rem;
+		border-right: 1px solid var(--border);
+		opacity: 0;
+		transform: translateY(2rem);
+	}
+
+	.process-step:last-child { border-right: none; }
+
+	.process-step-num {
+		font-family: var(--font-d);
+		font-size: 2.5rem;
+		font-weight: 800;
+		letter-spacing: -0.05em;
+		color: var(--accent);
+		opacity: 0.25;
+		line-height: 1;
+		margin-bottom: 1rem;
+	}
+
+	.process-step-title {
+		font-family: var(--font-d);
+		font-size: 1rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		margin-bottom: 0.625rem;
+	}
+
+	.process-step-text { font-size: 0.8125rem; color: var(--text-sub); line-height: 1.7; }
+
+	/* ── CTA ──────────────────────────────── */
+	.cta-full {
+		padding: 9rem 1.5rem;
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.cta-glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 65% 50% at 50% 50%, rgba(200,245,60,0.065) 0%, transparent 65%);
+		pointer-events: none;
+	}
+
+	.cta-full h2 {
+		font-family: var(--font-d);
+		font-size: clamp(2.5rem, 5.5vw, 5rem);
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		line-height: 1.0;
+		margin: 0 auto 1.5rem;
+		max-width: 18ch;
+		position: relative;
+	}
+
+	.cta-full h2 .hi { color: var(--accent); }
+
+	.cta-full p {
+		font-size: 1.0625rem;
+		color: var(--text-sub);
+		max-width: 34rem;
+		margin: 0 auto 3rem;
+		line-height: 1.7;
+		position: relative;
+	}
+
+	@media (max-width: 1024px) {
+		.bc-1, .bc-4 { --span: 12; }
+		.bc-2, .bc-3 { --span: 6; }
+		.bc-5, .bc-6, .bc-7 { --span: 4; }
+		.process-grid { grid-template-columns: repeat(2, 1fr); }
+		.process-step:nth-child(2) { border-right: none; }
+		.process-step:nth-child(3) { border-top: 1px solid var(--border); }
+		.process-step:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+	}
+
+	@media (max-width: 768px) {
+		.bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7 { --span: 12; }
+		.process-grid { grid-template-columns: 1fr; border-radius: var(--r-lg); }
+		.process-step { border-right: none; border-bottom: 1px solid var(--border); }
+		.process-step:last-child { border-bottom: none; }
+	}
+</style>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+	<div class="page-hero-bg" style="background-image:url('<?php echo esc_url( NSML_THEME_URI . '/assets/images/multi-sport-hero.jpg' ); ?>'); background-position: center 30%;"></div>
+	<div class="page-hero-overlay"></div>
+	<div class="page-hero-inner">
+		<div class="page-hero-label"><?php esc_html_e( 'What We Do', 'nsml' ); ?></div>
+		<h1 class="page-hero-h1"><?php esc_html_e( 'Sports Business', 'nsml' ); ?><br><span class="hi"><?php esc_html_e( 'End to End', 'nsml' ); ?></span></h1>
+		<p class="page-hero-p"><?php esc_html_e( 'From brand identity to procurement, from sponsorship to event delivery — we manage every dimension of sports business with the precision of a world-class operation.', 'nsml' ); ?></p>
+	</div>
+</div>
+
+<!-- BENTO SERVICES -->
+<div class="section-wrap">
+	<div class="split-header">
+		<div>
+			<div class="section-tag"><?php esc_html_e( 'Our Services', 'nsml' ); ?></div>
+			<h2 class="sec-h2"><?php esc_html_e( 'Seven', 'nsml' ); ?> <span class="hi"><?php esc_html_e( 'Disciplines', 'nsml' ); ?></span></h2>
+		</div>
+		<p class="sec-p" style="margin-top:0"><?php esc_html_e( 'Each service is a specialised practice, delivered by people who have worked at the highest levels of African sport.', 'nsml' ); ?></p>
+	</div>
+	<div class="bento">
+		<div class="bc bc-1">
+			<div class="bc-wrap">
+				<div class="bc-inner bc-tint-green">
+					<div class="bc-media" style="background-image:url('https://images.unsplash.com/photo-1552674605-db5fecabfe68?w=800&q=80&auto=format&fit=crop')"></div>
+					<div class="bc-num">01</div>
+					<div class="bc-title"><?php esc_html_e( 'Brand Management', 'nsml' ); ?></div>
+					<div class="bc-desc"><?php esc_html_e( 'We build, protect, and grow the brands of athletes, clubs, and sporting events. From identity development to long-term positioning, we ensure your brand commands presence and authority on the world stage. Our approach is strategic, not cosmetic.', 'nsml' ); ?></div>
+					<div class="bc-arrow">&#8599;</div>
+				</div>
+			</div>
+		</div>
+		<div class="bc bc-2">
+			<div class="bc-wrap">
+				<div class="bc-inner bc-tint-navy">
+					<div class="bc-num">02</div>
+					<div class="bc-title"><?php esc_html_e( 'Sports Marketing', 'nsml' ); ?></div>
+					<div class="bc-desc"><?php esc_html_e( 'Connecting sports properties with audiences that care. Strategic campaigns that drive visibility, engagement, and real commercial value across Africa and beyond.', 'nsml' ); ?></div>
+					<div class="bc-arrow">&#8599;</div>
+				</div>
+			</div>
+		</div>
+		<div class="bc bc-3">
+			<div class="bc-wrap">
+				<div class="bc-inner bc-tint-gold">
+					<div class="bc-num">03</div>
+					<div class="bc-title"><?php esc_html_e( 'Contract Negotiations', 'nsml' ); ?></div>
+					<div class="bc-desc"><?php esc_html_e( 'Expert representation at every table. We secure deal terms that protect and advance the interests of our clients in every agreement they sign, with transparency throughout.', 'nsml' ); ?></div>
+					<div class="bc-arrow">&#8599;</div>
+				</div>
+			</div>
+		</div>
+		<div class="bc bc-4">
+			<div class="bc-wrap">
+				<div class="bc-inner bc-tint-green">
+					<div class="bc-media" style="background-image:url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80&auto=format&fit=crop')"></div>
+					<div class="bc-num">04</div>
+					<div class="bc-title"><?php esc_html_e( 'Sponsorship Consulting', 'nsml' ); ?></div>
+					<div class="bc-desc"><?php esc_html_e( 'Structuring sponsorship packages that deliver measurable ROI for brands while elevating the sporting properties they support. We have secured long-term commitments from Access Bank, KIA Motors, Airtel, and 50+ national and global brands across our portfolio of events.', 'nsml' ); ?></div>
+					<div class="bc-arrow">&#8599;</div>
+				</div>
+			</div>
+		</div>
+		<div class="bc bc-5">
+			<div class="bc-wrap">
+				<div class="bc-inner bc-tint-navy">
+					<div class="bc-num">05</div>
+					<div class="bc-title"><?php esc_html_e( 'Sports Procurement', 'nsml' ); ?></div>
+					<div class="bc-desc"><?php esc_html_e( 'End-to-end sourcing and supply of sporting equipment, infrastructure, and services at scale, with the rigor of global standards.', 'nsml' ); ?></div>
+					<div class="bc-arrow">&#8599;</div>
+				</div>
+			</div>
+		</div>
+		<div class="bc bc-6">
+			<div class="bc-wrap">
+				<div class="bc-inner bc-tint-gold">
+					<div class="bc-num">06</div>
+					<div class="bc-title"><?php esc_html_e( 'Community Relations', 'nsml' ); ?></div>
+					<div class="bc-desc"><?php esc_html_e( 'Sports is a community instrument. We connect sporting events to the people and places they serve, building trust and sustained local engagement.', 'nsml' ); ?></div>
+					<div class="bc-arrow">&#8599;</div>
+				</div>
+			</div>
+		</div>
+		<div class="bc bc-7">
+			<div class="bc-wrap">
+				<div class="bc-inner bc-tint-green">
+					<div class="bc-num">07</div>
+					<div class="bc-title"><?php esc_html_e( 'Project Management', 'nsml' ); ?></div>
+					<div class="bc-desc"><?php esc_html_e( 'Flawless execution of sporting festivals from conception to closing ceremony. We have managed events spanning 8 days with 15,000+ competing athletes.', 'nsml' ); ?></div>
+					<div class="bc-arrow">&#8599;</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- HOW WE WORK -->
+<div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+	<div class="section-wrap">
+		<div class="section-tag"><?php esc_html_e( 'How We Work', 'nsml' ); ?></div>
+		<h2 class="sec-h2"><?php esc_html_e( 'Our', 'nsml' ); ?> <span class="hi"><?php esc_html_e( 'Process', 'nsml' ); ?></span></h2>
+		<div class="process-grid">
+			<div class="process-step" data-reveal>
+				<div class="process-step-num">01</div>
+				<div class="process-step-title"><?php esc_html_e( 'Discovery', 'nsml' ); ?></div>
+				<div class="process-step-text"><?php esc_html_e( 'We start by understanding your goals, your audience, and your constraints. No templates — every engagement is built from first principles.', 'nsml' ); ?></div>
+			</div>
+			<div class="process-step" data-reveal>
+				<div class="process-step-num">02</div>
+				<div class="process-step-title"><?php esc_html_e( 'Strategy', 'nsml' ); ?></div>
+				<div class="process-step-text"><?php esc_html_e( 'We design a precise roadmap — commercial structures, brand positioning, partnership frameworks, and success metrics that are specific to you.', 'nsml' ); ?></div>
+			</div>
+			<div class="process-step" data-reveal>
+				<div class="process-step-num">03</div>
+				<div class="process-step-title"><?php esc_html_e( 'Execution', 'nsml' ); ?></div>
+				<div class="process-step-text"><?php esc_html_e( 'Our team delivers with the discipline of a major event operation. Timelines, budgets, and relationships are managed with rigorous accountability.', 'nsml' ); ?></div>
+			</div>
+			<div class="process-step" data-reveal>
+				<div class="process-step-num">04</div>
+				<div class="process-step-title"><?php esc_html_e( 'Growth', 'nsml' ); ?></div>
+				<div class="process-step-text"><?php esc_html_e( 'We measure, report, and iterate. The goal is not a one-time win but a compounding trajectory for your sport, your brand, or your career.', 'nsml' ); ?></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-full">
+	<div class="cta-glow" aria-hidden="true"></div>
+	<div class="eyebrow-pill" style="margin-bottom:2rem;display:inline-flex" data-reveal>
+		<span class="eyebrow-dot"></span>
+		<?php esc_html_e( "Let's Build Together", 'nsml' ); ?>
+	</div>
+	<h2 data-reveal><?php esc_html_e( 'Your Sport Deserves', 'nsml' ); ?><br><?php esc_html_e( 'Better', 'nsml' ); ?> <span class="hi"><?php esc_html_e( 'Management', 'nsml' ); ?></span></h2>
+	<p data-reveal><?php esc_html_e( "Whatever stage you're at — athlete, club, event, or brand — we have the expertise to take you further, faster.", 'nsml' ); ?></p>
+	<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn-fill" data-reveal>
+		<span><?php esc_html_e( 'Start a Conversation', 'nsml' ); ?></span>
+		<span class="btn-icon">&#8599;</span>
+	</a>
+</div>
+
+<!-- PARTNERS LOGO MARQUEE -->
+<div class="partners">
+	<div class="partners-lbl"><?php esc_html_e( 'Trusted Partners &amp; Affiliations', 'nsml' ); ?></div>
+	<div class="partners-track">
+		<div class="partners-set">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/world-athletics.png' ); ?>" alt="World Athletics" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/pngroyale.com-access-bank-plc-logo.png' ); ?>" alt="Access Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/premium-trust-logo-colour-png.png' ); ?>" alt="PremiumTrust Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/airtel-logo.png' ); ?>" alt="Airtel Nigeria" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/new-kia-logo.png' ); ?>" alt="KIA Motors" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/afnlogo.png' ); ?>" alt="AFN" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/dana.png' ); ?>" alt="Dana Airlines" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/air-peace-icon-2048x407-x77lwkmv.png' ); ?>" alt="Air Peace" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/pinnacle-logo.png' ); ?>" alt="Pinnacle Oil" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/aquavie.png' ); ?>" alt="Aquavie" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/firstbank-logo.png' ); ?>" alt="First Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/keystone.png' ); ?>" alt="Keystone Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/new-mtn-logo.png' ); ?>" alt="MTN" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/unilever.png' ); ?>" alt="Unilever" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/rite-logo.png' ); ?>" alt="Rite Foods" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/valuejet_approved_logo_png.png' ); ?>" alt="Value Jet" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/kenya_airways-logo.wine.png' ); ?>" alt="Kenya Airways" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/casio-logo.png' ); ?>" alt="Casio" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/ogun-state-logo.png' ); ?>" alt="Ogun State" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/bayelsa-sports-logo.png' ); ?>" alt="Bayelsa Sports" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/ramecgroup-logo.png' ); ?>" alt="Ramec Group" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/greenlife-pharmaceuticals-logo.png' ); ?>" alt="Greenlife" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/febbs-premium-drinking-water.png' ); ?>" alt="FEBBS Water" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/binad-table-water.png' ); ?>" alt="Binad Water" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/tcm-logo.png' ); ?>" alt="TCM" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/rexona_logo_2015.svg.png' ); ?>" alt="Rexona" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/premier-cool-deo-01.png' ); ?>" alt="Premier Cool" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/vitabol-hd-logo.png' ); ?>" alt="Vitabol" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/waka.png' ); ?>" alt="Waka" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/what-network-logo.png' ); ?>" alt="What Network" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/robb-logo.png' ); ?>" alt="Robb" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/rpp-logo.png' ); ?>" alt="RPP" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/ogsaa.png' ); ?>" alt="OGSAA" loading="lazy" class="partner-logo">
+		</div>
+		<div class="partners-set" aria-hidden="true">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/world-athletics.png' ); ?>" alt="World Athletics" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/pngroyale.com-access-bank-plc-logo.png' ); ?>" alt="Access Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/premium-trust-logo-colour-png.png' ); ?>" alt="PremiumTrust Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/airtel-logo.png' ); ?>" alt="Airtel Nigeria" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/new-kia-logo.png' ); ?>" alt="KIA Motors" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/afnlogo.png' ); ?>" alt="AFN" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/dana.png' ); ?>" alt="Dana Airlines" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/air-peace-icon-2048x407-x77lwkmv.png' ); ?>" alt="Air Peace" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/pinnacle-logo.png' ); ?>" alt="Pinnacle Oil" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/aquavie.png' ); ?>" alt="Aquavie" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/firstbank-logo.png' ); ?>" alt="First Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/keystone.png' ); ?>" alt="Keystone Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/new-mtn-logo.png' ); ?>" alt="MTN" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/unilever.png' ); ?>" alt="Unilever" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/rite-logo.png' ); ?>" alt="Rite Foods" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/valuejet_approved_logo_png.png' ); ?>" alt="Value Jet" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/kenya_airways-logo.wine.png' ); ?>" alt="Kenya Airways" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/casio-logo.png' ); ?>" alt="Casio" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/ogun-state-logo.png' ); ?>" alt="Ogun State" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/bayelsa-sports-logo.png' ); ?>" alt="Bayelsa Sports" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/ramecgroup-logo.png' ); ?>" alt="Ramec Group" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/greenlife-pharmaceuticals-logo.png' ); ?>" alt="Greenlife" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/febbs-premium-drinking-water.png' ); ?>" alt="FEBBS Water" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/binad-table-water.png' ); ?>" alt="Binad Water" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/tcm-logo.png' ); ?>" alt="TCM" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/rexona_logo_2015.svg.png' ); ?>" alt="Rexona" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/premier-cool-deo-01.png' ); ?>" alt="Premier Cool" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/vitabol-hd-logo.png' ); ?>" alt="Vitabol" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/waka.png' ); ?>" alt="Waka" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/what-network-logo.png' ); ?>" alt="What Network" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/robb-logo.png' ); ?>" alt="Robb" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/rpp-logo.png' ); ?>" alt="RPP" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/ogsaa.png' ); ?>" alt="OGSAA" loading="lazy" class="partner-logo">
+		</div>
+	</div>
+	<div class="partners-track partners-track-reverse">
+		<div class="partners-set">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/bet9ja-logo.png' ); ?>" alt="Bet9ja" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/cashtoken.png' ); ?>" alt="Cash Token" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/channelstv-logo-new-1024x941.png' ); ?>" alt="Channels TV" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/eko-atlantic-logo-clean.png' ); ?>" alt="Eko Atlantic" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/nord.png' ); ?>" alt="Nord" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/brila-green-logo-with-fm-.png' ); ?>" alt="Brila FM" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lasaa.png' ); ?>" alt="LASAA" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/fatgbems.png' ); ?>" alt="Fatgbems" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/hertage.png' ); ?>" alt="Heritage Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/oraimo_logo2.0.png' ); ?>" alt="Oraimo" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/easytipping-front-logo.png' ); ?>" alt="EasyTipping" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/2sure-logo.png' ); ?>" alt="2Sure" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lssc-new-logo.png' ); ?>" alt="LSSC" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/royal-crown-cola-logo-aefc4cb9e1-seeklogo.com.png' ); ?>" alt="Royal Crown Cola" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/comag-logo-2023-new.png' ); ?>" alt="Comag" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/conference-hotel-logo.png' ); ?>" alt="Conference Hotel" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/aims.png' ); ?>" alt="AIMS" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/fct.png' ); ?>" alt="FCT" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lag.png' ); ?>" alt="LAG" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/peculiar.png' ); ?>" alt="Peculiar" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/cr.png' ); ?>" alt="CR" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/joy.png' ); ?>" alt="Joy" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/mf-logo1.png' ); ?>" alt="MF" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lockup-transparent-background-01.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/logo_31710a86f0b01cc31d0a2f0c263ad8d4_2x.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/layer-1-copy-3.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/img_0537.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/img_0538.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/aron-.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/2017_1large_atb.png' ); ?>" alt="ATB" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/1519896687213.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/1280px-suzuki_logo_2.svg.png' ); ?>" alt="Suzuki" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/png-clipart-bayelsa-state-osun-state-rivers-state-kaduna-state-coat-of-arms-osun-state-bayelsa-state-rivers-state-removebg-preview.png' ); ?>" alt="Bayelsa State" loading="lazy" class="partner-logo">
+		</div>
+		<div class="partners-set" aria-hidden="true">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/bet9ja-logo.png' ); ?>" alt="Bet9ja" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/cashtoken.png' ); ?>" alt="Cash Token" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/channelstv-logo-new-1024x941.png' ); ?>" alt="Channels TV" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/eko-atlantic-logo-clean.png' ); ?>" alt="Eko Atlantic" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/nord.png' ); ?>" alt="Nord" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/brila-green-logo-with-fm-.png' ); ?>" alt="Brila FM" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lasaa.png' ); ?>" alt="LASAA" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/fatgbems.png' ); ?>" alt="Fatgbems" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/hertage.png' ); ?>" alt="Heritage Bank" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/oraimo_logo2.0.png' ); ?>" alt="Oraimo" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/easytipping-front-logo.png' ); ?>" alt="EasyTipping" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/2sure-logo.png' ); ?>" alt="2Sure" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lssc-new-logo.png' ); ?>" alt="LSSC" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/royal-crown-cola-logo-aefc4cb9e1-seeklogo.com.png' ); ?>" alt="Royal Crown Cola" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/comag-logo-2023-new.png' ); ?>" alt="Comag" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/conference-hotel-logo.png' ); ?>" alt="Conference Hotel" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/aims.png' ); ?>" alt="AIMS" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/fct.png' ); ?>" alt="FCT" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lag.png' ); ?>" alt="LAG" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/peculiar.png' ); ?>" alt="Peculiar" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/cr.png' ); ?>" alt="CR" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/joy.png' ); ?>" alt="Joy" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/mf-logo1.png' ); ?>" alt="MF" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/lockup-transparent-background-01.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/logo_31710a86f0b01cc31d0a2f0c263ad8d4_2x.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/layer-1-copy-3.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/img_0537.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/img_0538.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/aron-.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/2017_1large_atb.png' ); ?>" alt="ATB" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/1519896687213.png' ); ?>" alt="Partner" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/1280px-suzuki_logo_2.svg.png' ); ?>" alt="Suzuki" loading="lazy" class="partner-logo">
+			<img src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/partners/web/png-clipart-bayelsa-state-osun-state-rivers-state-kaduna-state-coat-of-arms-osun-state-bayelsa-state-rivers-state-removebg-preview.png' ); ?>" alt="Bayelsa State" loading="lazy" class="partner-logo">
+		</div>
+	</div>
+</div>
+
+<script>
+	const io = new IntersectionObserver((entries) => {
+		entries.forEach((entry, i) => {
+			if (!entry.isIntersecting) return;
+			const el = entry.target;
+			setTimeout(() => {
+				el.style.transition = 'opacity 0.75s cubic-bezier(0.32,0.72,0,1), transform 0.75s cubic-bezier(0.32,0.72,0,1)';
+				el.style.opacity = '1'; el.style.transform = 'none';
+			}, i * 75);
+			io.unobserve(el);
+		});
+	}, { threshold: 0.08 });
+
+	document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+	// Bento cards stagger
+	const bIo = new IntersectionObserver((entries) => {
+		entries.forEach((entry, i) => {
+			if (!entry.isIntersecting) return;
+			const el = entry.target;
+			setTimeout(() => {
+				el.style.transition = 'opacity 0.75s cubic-bezier(0.32,0.72,0,1), transform 0.75s cubic-bezier(0.32,0.72,0,1)';
+				el.style.opacity = '1'; el.style.transform = 'none';
+			}, i * 80);
+			bIo.unobserve(el);
+		});
+	}, { threshold: 0.06 });
+
+	document.querySelectorAll('.bc-wrap').forEach(el => bIo.observe(el));
+</script>
+
+<?php get_footer(); ?>

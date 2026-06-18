@@ -94,7 +94,7 @@ function nsml_nav_config() {
 
 	return array(
 		'home'    => home_url( '/' ),
-		'logo'    => NSML_THEME_URI . '/assets/images/logo.png',
+		'logo'    => nsml_theme_setting( 'logo' ),
 		'current' => $current,
 		'links'   => $links,
 		'contact' => home_url( '/contact/' ),

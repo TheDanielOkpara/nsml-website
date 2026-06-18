@@ -20,3 +20,5 @@ require_once NSML_THEME_DIR . '/inc/setup.php';
 require_once NSML_THEME_DIR . '/inc/enqueue.php';
 require_once NSML_THEME_DIR . '/inc/cpt-property.php';
 require_once NSML_THEME_DIR . '/inc/template-tags.php';
+require_once NSML_THEME_DIR . '/inc/theme-settings.php';
+require_once NSML_THEME_DIR . '/inc/custom-importer.php';

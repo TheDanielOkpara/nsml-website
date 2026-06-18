@@ -54,5 +54,6 @@ define( 'FORCE_SSL_ADMIN', true );
 ## Backups
 
 - Take a full database + `wp-content` (especially `uploads/`) backup before
-  importing `demo-content/nsml-demo-content.xml`, and before any major
+  running Appearance > Import Content (or importing
+  `nsml/demo-content/nsml-demo-content.xml`), and before any major
   WordPress core update.

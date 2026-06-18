@@ -22,7 +22,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-WXR_PATH = os.path.join(REPO_ROOT, "wordpress-theme", "demo-content", "nsml-demo-content.xml")
+WXR_PATH = os.path.join(REPO_ROOT, "wordpress-theme", "nsml", "demo-content", "nsml-demo-content.xml")
 
 WP_NS = "http://wordpress.org/export/1.2/"
 

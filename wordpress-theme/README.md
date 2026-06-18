@@ -104,6 +104,11 @@ security hardening) is custom code in this theme and needs no plugin.
   body for the "About" section.
 - **Site details** (logo, tagline, contact info, social links, footer
   text): Appearance > Theme Settings.
+- **News page browsing style**: Appearance > Theme Settings > "News page" —
+  choose "Load More button" (the original static site's behavior; every
+  article loads at once, with a button revealing anything past the first
+  6) or "Numbered pages" (real `/news/page/2/`-style pagination with
+  Next/Previous, better once the article count grows large).
 - **Newsletter subscribers**: every "Never Miss an NSML Story" signup on an
   article page is stored in the database and listed under Appearance >
   **Subscribers** — search by email, export the full list to CSV, or

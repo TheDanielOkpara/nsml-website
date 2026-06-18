@@ -5,13 +5,21 @@
  * /news/ URL" step) — WordPress always routes the posts index through
  * home.php in preference to index.php when it exists.
  *
- * Static markup mirrors news.html exactly: one featured article, five
- * standard cards, then any further posts pre-rendered but hidden behind
- * "Load More" (matching the original's fixed reveal, not real pagination
- * — see nsml_render_news_card()). The category filter pills are cosmetic
- * in the original static page too (no real per-category filtering), so
- * that's preserved as-is rather than wired to a taxonomy that doesn't
- * exist in the demo content.
+ * Static markup mirrors news.html exactly: one featured article up top,
+ * then a grid of standard cards. How visitors get past the first page is
+ * an Appearance > Theme Settings > News page choice (nsml_news_index_query()
+ * in inc/theme-settings.php sets posts_per_page accordingly on the main
+ * query before this template ever runs):
+ *
+ * - "Load More" (the original static site's behavior): one big batch of
+ *   posts, with everything past the first 6 pre-rendered but hidden and
+ *   revealed by a button — a fixed client-side reveal, not real paging.
+ * - "Numbered pages": real WordPress pagination (next_posts_link()-style
+ *   /page/2/ URLs), 6 posts per page, via nsml_render_news_pagination().
+ *
+ * The category filter pills are cosmetic in the original static page too
+ * (no real per-category filtering), so that's preserved as-is rather than
+ * wired to a taxonomy that doesn't exist in the demo content.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,15 +28,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$nsml_news_posts    = get_posts(
-	array(
-		'post_type'      => 'post',
-		'posts_per_page' => 60,
-	)
-);
-$nsml_featured_post = array_shift( $nsml_news_posts );
-$nsml_visible_posts = array_splice( $nsml_news_posts, 0, 5 );
-$nsml_extra_posts   = $nsml_news_posts;
+$nsml_numbered_mode  = ( 'numbered' === nsml_theme_setting( 'news_pagination_style' ) );
+$nsml_on_first_page  = ! is_paged();
+$nsml_featured_post  = null;
+$nsml_visible_posts  = array();
+$nsml_extra_posts    = array();
+
+if ( have_posts() ) {
+	$nsml_index = 0;
+	while ( have_posts() ) {
+		the_post();
+		if ( 0 === $nsml_index && $nsml_on_first_page ) {
+			$nsml_featured_post = get_post();
+		} elseif ( $nsml_numbered_mode || $nsml_index < 6 ) {
+			$nsml_visible_posts[] = get_post();
+		} else {
+			$nsml_extra_posts[] = get_post();
+		}
+		$nsml_index++;
+	}
+	wp_reset_postdata();
+}
 ?>
 
 <style>
@@ -357,29 +377,14 @@ $nsml_extra_posts   = $nsml_news_posts;
 		<button class="filter-btn" type="button"><?php esc_html_e( 'Club News', 'nsml' ); ?></button>
 	</div>
 
-	<?php if ( empty( $nsml_featured_post ) ) : ?>
+	<?php if ( empty( $nsml_featured_post ) && empty( $nsml_visible_posts ) ) : ?>
 		<p><?php esc_html_e( 'No news yet — check back soon.', 'nsml' ); ?></p>
 	<?php else : ?>
 		<div class="news-grid">
 
-			<article class="article-featured" data-reveal>
-				<div class="article-img-wrap">
-					<?php if ( has_post_thumbnail( $nsml_featured_post ) ) : ?>
-						<?php echo get_the_post_thumbnail( $nsml_featured_post, 'nsml-card', array( 'class' => 'article-img', 'loading' => 'lazy' ) ); ?>
-					<?php else : ?>
-						<img class="article-img" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/logo.png' ); ?>" alt="<?php echo esc_attr( get_the_title( $nsml_featured_post ) ); ?>" loading="lazy">
-					<?php endif; ?>
-				</div>
-				<div class="article-body">
-					<div class="article-meta">
-						<span class="article-cat"><?php esc_html_e( 'News', 'nsml' ); ?></span>
-						<span class="article-date"><?php echo esc_html( get_the_date( 'F Y', $nsml_featured_post ) ); ?></span>
-					</div>
-					<a href="<?php echo esc_url( get_permalink( $nsml_featured_post ) ); ?>" class="article-title"><?php echo esc_html( get_the_title( $nsml_featured_post ) ); ?></a>
-					<p class="article-excerpt"><?php echo esc_html( get_the_excerpt( $nsml_featured_post ) ); ?></p>
-					<a href="<?php echo esc_url( get_permalink( $nsml_featured_post ) ); ?>" class="article-read-more"><?php esc_html_e( 'Read Full Story', 'nsml' ); ?> <span class="article-read-more-arrow">↗</span></a>
-				</div>
-			</article>
+			<?php if ( $nsml_featured_post ) : ?>
+				<?php nsml_render_news_featured( $nsml_featured_post ); ?>
+			<?php endif; ?>
 
 			<?php foreach ( $nsml_visible_posts as $nsml_post ) : ?>
 				<?php nsml_render_news_card( $nsml_post ); ?>
@@ -391,7 +396,9 @@ $nsml_extra_posts   = $nsml_news_posts;
 
 		</div><!-- /news-grid -->
 
-		<?php if ( ! empty( $nsml_extra_posts ) ) : ?>
+		<?php if ( $nsml_numbered_mode ) : ?>
+			<?php nsml_render_news_pagination(); ?>
+		<?php elseif ( ! empty( $nsml_extra_posts ) ) : ?>
 			<div style="text-align:center;margin-top:3.5rem;" id="loadMoreWrap">
 				<button id="loadMoreBtn" type="button" style="display:inline-flex;align-items:center;gap:0.75rem;cursor:pointer;font-size:0.9375rem;font-weight:600;padding:0.9375rem 2rem;border-radius:9999px;border:1.5px solid var(--border);background:transparent;color:var(--navy);transition:all 0.4s cubic-bezier(0.32,0.72,0,1);font-family:var(--font-b);">
 					<span id="loadMoreLabel"><?php esc_html_e( 'Load More Articles', 'nsml' ); ?></span>

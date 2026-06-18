@@ -149,6 +149,79 @@ function nsml_get_related_posts( $exclude_id, $count = 3 ) {
 }
 
 /**
+ * The single full-width featured card at the top of the News index
+ * (home.php) — only ever the first post on page 1.
+ */
+function nsml_render_news_featured( $post ) {
+	?>
+	<article class="article-featured" data-reveal>
+		<div class="article-img-wrap">
+			<?php if ( has_post_thumbnail( $post ) ) : ?>
+				<?php echo get_the_post_thumbnail( $post, 'nsml-card', array( 'class' => 'article-img', 'loading' => 'lazy' ) ); ?>
+			<?php else : ?>
+				<img class="article-img" src="<?php echo esc_url( NSML_THEME_URI . '/assets/images/logo.png' ); ?>" alt="<?php echo esc_attr( get_the_title( $post ) ); ?>" loading="lazy">
+			<?php endif; ?>
+		</div>
+		<div class="article-body">
+			<div class="article-meta">
+				<span class="article-cat"><?php esc_html_e( 'News', 'nsml' ); ?></span>
+				<span class="article-date"><?php echo esc_html( get_the_date( 'F Y', $post ) ); ?></span>
+			</div>
+			<a href="<?php echo esc_url( get_permalink( $post ) ); ?>" class="article-title"><?php echo esc_html( get_the_title( $post ) ); ?></a>
+			<p class="article-excerpt"><?php echo esc_html( get_the_excerpt( $post ) ); ?></p>
+			<a href="<?php echo esc_url( get_permalink( $post ) ); ?>" class="article-read-more"><?php esc_html_e( 'Read Full Story', 'nsml' ); ?> <span class="article-read-more-arrow">↗</span></a>
+		</div>
+	</article>
+	<?php
+}
+
+/**
+ * Prev/numbers/next pagination for "Numbered pages" mode on the News index,
+ * styled to match the rest of the theme's pill buttons.
+ */
+function nsml_render_news_pagination() {
+	$links = paginate_links(
+		array(
+			'prev_text' => __( '← Previous', 'nsml' ),
+			'next_text' => __( 'Next →', 'nsml' ),
+			'type'      => 'array',
+		)
+	);
+
+	if ( empty( $links ) ) {
+		return;
+	}
+	?>
+	<nav class="nsml-news-pagination" aria-label="<?php esc_attr_e( 'News pagination', 'nsml' ); ?>" style="display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-top:3.5rem;">
+		<?php foreach ( $links as $link ) : ?>
+			<?php echo wp_kses_post( $link ); ?>
+		<?php endforeach; ?>
+	</nav>
+	<style>
+		.nsml-news-pagination .page-numbers {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 2.5rem;
+			height: 2.5rem;
+			padding: 0 1rem;
+			border-radius: 9999px;
+			border: 1.5px solid var(--border);
+			color: var(--navy);
+			font-family: var(--font-b);
+			font-size: 0.875rem;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.3s var(--ease);
+		}
+		.nsml-news-pagination a.page-numbers:hover { border-color: var(--green); color: var(--green-dark); }
+		.nsml-news-pagination .page-numbers.current { background: var(--green); border-color: var(--green); color: #ffffff; }
+		.nsml-news-pagination .page-numbers.dots { border: none; }
+	</style>
+	<?php
+}
+
+/**
  * One "article-card" on the News index (home.php). $hidden marks posts
  * beyond the first 6 — rendered into the page already, just hidden behind
  * the "Load More" reveal, mirroring news.html's `extra-article` markup

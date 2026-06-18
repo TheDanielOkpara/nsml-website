@@ -102,6 +102,12 @@ security hardening) is custom code in this theme and needs no plugin.
   body for the "About" section.
 - **Site details** (logo, tagline, contact info, social links, footer
   text): Appearance > Theme Settings.
+- **Newsletter subscribers**: every "Never Miss an NSML Story" signup on an
+  article page is stored in the database and listed under Appearance >
+  **Subscribers** — search by email, export the full list to CSV, or
+  remove an address. This theme does not send newsletter campaigns
+  itself; when you're ready to mail the list, export the CSV and import
+  it into whatever email tool you use (Mailchimp, Brevo, etc.).
 
 ## Tests
 

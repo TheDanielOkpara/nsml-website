@@ -23,3 +23,4 @@ require_once NSML_THEME_DIR . '/inc/template-tags.php';
 require_once NSML_THEME_DIR . '/inc/theme-settings.php';
 require_once NSML_THEME_DIR . '/inc/custom-importer.php';
 require_once NSML_THEME_DIR . '/inc/contact-form.php';
+require_once NSML_THEME_DIR . '/inc/newsletter.php';

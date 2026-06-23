@@ -9,3 +9,6 @@ images/sports-*.jpg
 # CMS uploads — content, not code; keep the folder via .gitkeep only
 cms/uploads/*
 !cms/uploads/.gitkeep
+
+# Real DB credentials — created on the server, never committed
+cms/includes/config.local.php

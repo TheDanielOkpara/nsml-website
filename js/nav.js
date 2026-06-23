@@ -4,10 +4,10 @@
 
   const links = [
     { href: 'index.html',      label: 'Home' },
-    { href: 'about.html',      label: 'About' },
+    { href: 'about.php',       label: 'About' },
     { href: 'services.html',   label: 'Services' },
-    { href: 'properties.html', label: 'Properties' },
-    { href: 'news.html',       label: 'News' },
+    { href: 'properties.php',  label: 'Properties' },
+    { href: 'news.php',        label: 'News' },
     { href: 'contact.html',    label: 'Contact' },
   ];
 

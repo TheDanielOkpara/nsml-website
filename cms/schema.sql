@@ -1,0 +1,54 @@
+-- NSML CMS schema
+-- Import via cPanel phpMyAdmin (or `mysql -u user -p dbname < schema.sql`)
+
+CREATE TABLE IF NOT EXISTS admin_users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(64) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS blog_posts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  title VARCHAR(255) NOT NULL,
+  excerpt TEXT,
+  body LONGTEXT,
+  cover_image VARCHAR(255),
+  published_at DATE,
+  is_published TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS properties (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  title VARCHAR(255) NOT NULL,
+  tag VARCHAR(64),                  -- e.g. "Flagship Property", "Heritage Race"
+  badge VARCHAR(64),                -- optional ribbon, e.g. "World Athletics"
+  hero_image VARCHAR(255),
+  logo_image VARCHAR(255),
+  description TEXT,
+  stat1_val VARCHAR(32), stat1_lbl VARCHAR(64),
+  stat2_val VARCHAR(32), stat2_lbl VARCHAR(64),
+  stat3_val VARCHAR(32), stat3_lbl VARCHAR(64),
+  detail_url VARCHAR(255),          -- existing static page this card links to
+  is_featured TINYINT(1) NOT NULL DEFAULT 0,
+  is_upcoming TINYINT(1) NOT NULL DEFAULT 0,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS team_members (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  role VARCHAR(255),
+  photo VARCHAR(255),
+  bio TEXT,
+  is_ceo TINYINT(1) NOT NULL DEFAULT 0,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

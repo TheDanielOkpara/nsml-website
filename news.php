@@ -1,3 +1,15 @@
+<?php
+require_once __DIR__ . '/cms/includes/db.php';
+$posts = db()->query("SELECT * FROM blog_posts WHERE is_published = 1 ORDER BY published_at DESC, id DESC")->fetchAll();
+
+function news_excerpt(array $p): string {
+    if (!empty($p['excerpt'])) return $p['excerpt'];
+    return mb_substr(trim(strip_tags($p['body'] ?? '')), 0, 220) . '…';
+}
+function news_date(array $p): string {
+    return $p['published_at'] ? date('F Y', strtotime($p['published_at'])) : '';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -350,396 +362,39 @@
 
     <!-- ARTICLES GRID -->
     <div class="news-grid">
-
-      <article class="article-featured" data-reveal>
+      <?php foreach ($posts as $i => $p): ?>
+      <article class="<?= $i === 0 ? 'article-featured' : ($i >= 7 ? 'article-card extra-article' : 'article-card') ?>" data-reveal<?= $i >= 7 ? ' style="display:none;opacity:0;transform:translateY(2rem);"' : '' ?>>
         <div class="article-img-wrap">
           <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-09-at-09.47.07.jpeg"
-            alt="CEO of Nilayo Sports Management Limited, Mrs. Yetunde Olopade, Wins Prestigious Newstap/SWAN 5-Star Award"
+            src="<?= htmlspecialchars($p['cover_image'] ?: 'images/news-placeholder.jpg') ?>"
+            alt="<?= htmlspecialchars($p['title']) ?>"
             loading="lazy">
         </div>
         <div class="article-body">
           <div class="article-meta">
             <span class="article-cat">News</span>
-            <span class="article-date">March 2026</span>
+            <span class="article-date"><?= htmlspecialchars(news_date($p)) ?></span>
           </div>
-          <a href="ceo-of-nilayo-sports-management-limited-mrs-yetunde-olopade-wins-prestigious-newstap-swan-5-star-award.html" class="article-title">
-            CEO of Nilayo Sports Management Limited, Mrs. Yetunde Olopade, Wins Prestigious Newstap/SWAN 5-Star Award
+          <a href="article.php?slug=<?= urlencode($p['slug']) ?>" class="article-title">
+            <?= htmlspecialchars($p['title']) ?>
           </a>
           <p class="article-excerpt">
-            The Managing Director and Chief Executive Officer of Nilayo Sports Management Limited, Mrs. Yetunde Olopade, has been honoured with the prestigious Newstap/SWAN 5-Star Award, in recognition of her outstanding…
+            <?= htmlspecialchars(news_excerpt($p)) ?>
           </p>
-          <a href="ceo-of-nilayo-sports-management-limited-mrs-yetunde-olopade-wins-prestigious-newstap-swan-5-star-award.html" class="article-read-more">
-            Read Full Story
-            <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card" data-reveal>
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2026/03/sport-c4.jpg-scaled.jpeg"
-            alt="Bayelsa State Government and Nilayo Sports Management Limited Announce the Inaugural Yenagoa City International 10KM Race"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">March 2026</span>
-          </div>
-          <a href="bayelsa-state-government-and-nilayo-sports-management-limited-announce-the-inaugural-yenagoa-city-international-10km-race.html" class="article-title">
-            Bayelsa State Government and Nilayo Sports Management Limited Announce the Inaugural Yenagoa City International 10KM Race
-          </a>
-          <p class="article-excerpt">
-            The Bayelsa State Government is proud to officially announce the debut of the Yenagoa City International 10KM Race, a landmark sporting event set to position the Bayelsa State as a premier destination for global sports…
-          </p>
-          <a href="bayelsa-state-government-and-nilayo-sports-management-limited-announce-the-inaugural-yenagoa-city-international-10km-race.html" class="article-read-more">
+          <a href="article.php?slug=<?= urlencode($p['slug']) ?>" class="article-read-more">
             Read Full Story <span class="article-read-more-arrow">↗</span>
           </a>
         </div>
       </article>
-
-      <article class="article-card" data-reveal>
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-13.15.09.jpeg"
-            alt="Nilayo Sports Management MD, Chief Yetunde Olopade Named Among 2025 Top 50 Most Influential African Women in Sports"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">November 2025</span>
-          </div>
-          <a href="nilayo-sports-management-md-chief-yetunde-olopade-named-among-2025-top-50-most-influential-african-women-in-sports.html" class="article-title">
-            Nilayo Sports Management MD, Chief Yetunde Olopade Named Among 2025 Top 50 Most Influential African Women in Sports
-          </a>
-          <p class="article-excerpt">
-            Nilayo Sports Management Limited (NSML) is proud to announce that our Managing Director, Chief Yetunde Olopade , has been recognized as one of the 2025 Top 50 Most Influential African Women in Sports at an award…
-          </p>
-          <a href="nilayo-sports-management-md-chief-yetunde-olopade-named-among-2025-top-50-most-influential-african-women-in-sports.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card" data-reveal>
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2025/10/IMG_2701.jpg"
-            alt="Chief Yetunde Olopade, MD/CEO, Nilayo Sports Management Limited Congratulates Lagos State on the Historic E1 Lagos Grand Prix"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">October 2025</span>
-          </div>
-          <a href="chief-yetunde-olopade-md-ceo-nilayo-sports-management-limited-congratulates-lagos-state-on-the-historic-e1-lagos-grand-prix.html" class="article-title">
-            Chief Yetunde Olopade, MD/CEO, Nilayo Sports Management Limited Congratulates Lagos State on the Historic E1 Lagos Grand Prix
-          </a>
-          <p class="article-excerpt">
-            Nilayo Sports Management Limited, Africa’s leading sports management company, congratulates the Lagos State Government and His Excellency, Governor Babajide Olusola Sanwo-Olu, on the successful hosting of the E1 Lagos…
-          </p>
-          <a href="chief-yetunde-olopade-md-ceo-nilayo-sports-management-limited-congratulates-lagos-state-on-the-historic-e1-lagos-grand-prix.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card" data-reveal>
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2024/06/WhatsApp-Image-2024-06-14-at-13.29.12.jpeg"
-            alt="Enugu, Nilayo seal deal on marathon, sports festival"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">June 2024</span>
-          </div>
-          <a href="enugu-nilayo-seal-deal-on-marathon-sports-festival.html" class="article-title">
-            Enugu, Nilayo seal deal on marathon, sports festival
-          </a>
-          <p class="article-excerpt">
-            Governor Peter Ndubuisi Mbahi -led Enugu State government has handed the two biggest sports fiestas in the state in the next two years to the management of the Nigeria’s foremost sports management company, Nilayo Sports…
-          </p>
-          <a href="enugu-nilayo-seal-deal-on-marathon-sports-festival.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card" data-reveal>
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2024/06/Febbs-1010-1024x683-1.png"
-            alt="Lotus Bank Abeokuta 10km Race: Nilayo Sports, Febbs Premium Water Sign Partnership Deal"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">June 2024</span>
-          </div>
-          <a href="lotus-bank-abeokuta-10km-race-nilayo-sports-febbs-premium-water-sign-partnership-deal.html" class="article-title">
-            Lotus Bank Abeokuta 10km Race: Nilayo Sports, Febbs Premium Water Sign Partnership Deal
-          </a>
-          <p class="article-excerpt">
-            Organiser of Lotus Bank Abeokuta 10km Race, Nilayo Sports Management Limited (NISML) and Febbs Water has signed a partnership deal that sees the premium drinking water becoming official dehydration water of the marathon…
-          </p>
-          <a href="lotus-bank-abeokuta-10km-race-nilayo-sports-febbs-premium-water-sign-partnership-deal.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2023/07/345d0e61-c666-4cf0-8f75-da572d590436.jpg"
-            alt="Ogun set to host NSF 2024; Olopade, Adebajo, others to lead 16-man committee"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">July 2023</span>
-          </div>
-          <a href="ogun-set-to-host-nsf-2024-olopade-adebajo-others-to-lead-16-man-committee.html" class="article-title">
-            Ogun set to host NSF 2024; Olopade, Adebajo, others to lead 16-man committee
-          </a>
-          <p class="article-excerpt">
-            Ogun State government, on Tuesday, announced its readiness to hold the 2024 National Sports Festival (NSF) in fulfilment of an earlier promise made by the Governor, Prince Dapo Abiodun, as it unveiled leading…
-          </p>
-          <a href="ogun-set-to-host-nsf-2024-olopade-adebajo-others-to-lead-16-man-committee.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2023/02/PHOTO-2022-12-25-12-52-40.jpg"
-            alt="Nilayo Partners FMY&amp;SD to Deliver Cross Country Race in Jos"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">February 2023</span>
-          </div>
-          <a href="nilayo-partners-fmysd-to-deliver-cross-country-race-in-jos.html" class="article-title">
-            Nilayo Partners FMY&amp;SD to Deliver Cross Country Race in Jos
-          </a>
-          <p class="article-excerpt">
-            Nilayo Sports Management Limited is partnering the Federal Ministry of Youth and Sports Development (FMY&amp;SD) to deliver the first Cross Country event in Nigeria in over five decades. The 10km race is scheduled to hold…
-          </p>
-          <a href="nilayo-partners-fmysd-to-deliver-cross-country-race-in-jos.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2023/02/20230203131759_MIK_0151-2-scaled.jpg"
-            alt="Nilayo to sign multiple multi-billion naira deals for Abuja City International Marathon"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">February 2023</span>
-          </div>
-          <a href="nilayo-to-sign-multiple-multi-billion-naira-deals-for-abuja-city-international-marathon.html" class="article-title">
-            Nilayo to sign multiple multi-billion naira deals for Abuja City International Marathon
-          </a>
-          <p class="article-excerpt">
-            The management of Nigeria&#x27;s premium Marathon races organisers, Nilayo Sports Management, led by its Managing Director, Chief Bukola Olopade, will on Thursday, February 9, 2023 at 2pm sign a multiple multi-billion naira…
-          </p>
-          <a href="nilayo-to-sign-multiple-multi-billion-naira-deals-for-abuja-city-international-marathon.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2023/01/ABLCM-Logo.2-.png"
-            alt="ARRANGEMENTS IN TOP GEAR FOR GOLD-LABEL ACCESS BANK LAGOS CITY MARATHON"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">January 2023</span>
-          </div>
-          <a href="arrangements-in-top-gear-for-gold-label-access-bank-lagos-city-marathon.html" class="article-title">
-            ARRANGEMENTS IN TOP GEAR FOR GOLD-LABEL ACCESS BANK LAGOS CITY MARATHON
-          </a>
-          <p class="article-excerpt">
-            The organisers of the Gold-Label Access Bank Lagos City Marathon, Nilayo Sports Management Limited, has declared the organisation’s readiness for all peculiarities of the host City, Lagos, as they conclude preparations…
-          </p>
-          <a href="arrangements-in-top-gear-for-gold-label-access-bank-lagos-city-marathon.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2022/08/Screenshot-2022-08-01-at-09.25.01.jpg"
-            alt="PREMIUM TRUST BANK ANNOUNCED AS OFFICIAL BANKING PARTNER OF ATHLETICS FEDERATION OF NIGERIA"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">August 2022</span>
-          </div>
-          <a href="premium-trust-bank-announced-as-official-banking-partner-of-athletics-federation-of-nigeria.html" class="article-title">
-            PREMIUM TRUST BANK ANNOUNCED AS OFFICIAL BANKING PARTNER OF ATHLETICS FEDERATION OF NIGERIA
-          </a>
-          <p class="article-excerpt">
-            29TH July 2022 – Nilayo Sports Management Limited, marketing consultants of the Athletics Federation of Nigeria has announced Premium Trust Bank as the official banking partner of the federation. Mr Ebidowei Oweifie,…
-          </p>
-          <a href="premium-trust-bank-announced-as-official-banking-partner-of-athletics-federation-of-nigeria.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-27-at-12.08.52-PM.jpeg"
-            alt="DELTA 2022 THEME SONG CHALLENGE"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">July 2022</span>
-          </div>
-          <a href="delta-2022-theme-song-challenge.html" class="article-title">
-            DELTA 2022 THEME SONG CHALLENGE
-          </a>
-          <p class="article-excerpt">
-            Here is an opportunity to grab 500k in the Delta 2022 Theme song Challenge. 1. Download the Festival&#x27;s theme song instrumental on www.delta2022.com 2. Record &amp; Post your verse with the lyrics of your verse and use…
-          </p>
-          <a href="delta-2022-theme-song-challenge.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2022/07/IMG_6612.jpeg"
-            alt="UNVEILING OF THE 21ST NATIONAL SPORTS FESTIVAL DELTA 2022 LOGO &amp; MASCOT"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">July 2022</span>
-          </div>
-          <a href="unveiling-of-the-21st-national-sports-festival-delta-2022-logo-mascot.html" class="article-title">
-            UNVEILING OF THE 21ST NATIONAL SPORTS FESTIVAL DELTA 2022 LOGO &amp; MASCOT
-          </a>
-          <p class="article-excerpt">
-            22nd July 2022- Host Governor, Sen. Ifeanyi Okowa led in attendance other top sporting personalities including the Minister of Youth and Sports Development, Sunday Dare, NOC President, Eng. Habul Gumel, Speaker of the…
-          </p>
-          <a href="unveiling-of-the-21st-national-sports-festival-delta-2022-logo-mascot.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2022/06/Delta-2022-logo-.jpg"
-            alt="PREMIUM TRUST BANK ANNOUNCED AS OFFICIAL BANKING PARTNER OF NATIONAL SPORTS FESTIVAL, DELTA 2022"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">June 2022</span>
-          </div>
-          <a href="premium-trust-bank-announced-as-official-banking-partner-of-national-sports-festival-delta-2022.html" class="article-title">
-            PREMIUM TRUST BANK ANNOUNCED AS OFFICIAL BANKING PARTNER OF NATIONAL SPORTS FESTIVAL, DELTA 2022
-          </a>
-          <p class="article-excerpt">
-            21st June 2022 - Nilayo Sports Management Limited, marketing consultants for National Sports Festival, Delta 2022 has announced Premium Trust Bank as the Official Banking Partner of the Festival. Mr Bukola Olopade, the…
-          </p>
-          <a href="premium-trust-bank-announced-as-official-banking-partner-of-national-sports-festival-delta-2022.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2022/06/BETKING-BLUEYELLOW-LOGO.png"
-            alt="BETKING SPONSORS ALL PARA SPORTS AT NATIONAL SPORTS FESTIVAL, DELTA 2022"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">June 2022</span>
-          </div>
-          <a href="betking-sponsors-all-para-sports-at-national-sports-festival-delta-2022.html" class="article-title">
-            BETKING SPONSORS ALL PARA SPORTS AT NATIONAL SPORTS FESTIVAL, DELTA 2022
-          </a>
-          <p class="article-excerpt">
-            8 TH June 2022 - Nilayo Sports Management Limited, marketing consultants for National Sports Festival, Delta 2022 has announced BetKing Nigeria as the official sponsor of all Para Sports during the Festival. Mr Bukola…
-          </p>
-          <a href="betking-sponsors-all-para-sports-at-national-sports-festival-delta-2022.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="article-card extra-article" data-reveal style="display:none;opacity:0;transform:translateY(2rem);">
-        <div class="article-img-wrap">
-          <img class="article-img"
-            src="https://nilayosports.com/wp-content/uploads/2022/06/c1bf87f8-0d29-47f9-a8be-1ce50a60d93e.jpg"
-            alt="Damilola Pedro Bags FIFA/CIES Award"
-            loading="lazy">
-        </div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="article-cat">News</span>
-            <span class="article-date">June 2022</span>
-          </div>
-          <a href="damilola-pedro-bags-award.html" class="article-title">
-            Damilola Pedro Bags FIFA/CIES Award
-          </a>
-          <p class="article-excerpt">
-            At Nilayo Sports Management Limited, we aim to promote sporting activities from the grassroots level to the international level in Africa and we know that one of the ways to achieve this is by building the capacity of…
-          </p>
-          <a href="damilola-pedro-bags-award.html" class="article-read-more">
-            Read Full Story <span class="article-read-more-arrow">↗</span>
-          </a>
-        </div>
-      </article>
+      <?php endforeach; ?>
+      <?php if (!$posts): ?>
+        <p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:3rem 0;">No articles yet.</p>
+      <?php endif; ?>
 
     </div><!-- /news-grid -->
 
     <!-- LOAD MORE -->
-    <div style="text-align:center;margin-top:3.5rem;" id="loadMoreWrap">
+    <div style="text-align:center;margin-top:3.5rem;<?= count($posts) <= 7 ? 'display:none;' : '' ?>" id="loadMoreWrap">
       <button id="loadMoreBtn" style="display:inline-flex;align-items:center;gap:0.75rem;cursor:pointer;font-size:0.9375rem;font-weight:600;padding:0.9375rem 2rem;border-radius:9999px;border:1.5px solid var(--border);background:transparent;color:var(--navy);transition:all 0.4s cubic-bezier(0.32,0.72,0,1);font-family:var(--font-b);">
         <span id="loadMoreLabel">Load More Articles</span>
         <span id="loadMoreSpinner" style="display:none;width:1.125rem;height:1.125rem;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite;"></span>
@@ -938,10 +593,10 @@
           <div class="f-col-title">Navigate</div>
           <ul class="f-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="about.php">About</a></li>
             <li><a href="services.html">Services</a></li>
-            <li><a href="properties.html">Properties</a></li>
-            <li><a href="news.html">News</a></li>
+            <li><a href="properties.php">Properties</a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>

@@ -5,3 +5,7 @@ Thumbs.db
 # Source/unoptimised asset folders (not referenced from any page)
 images/partners/PARTNERS LOGO/
 images/sports-*.jpg
+
+# CMS uploads — content, not code; keep the folder via .gitkeep only
+cms/uploads/*
+!cms/uploads/.gitkeep

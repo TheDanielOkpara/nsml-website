@@ -1,3 +1,18 @@
+<?php
+require_once __DIR__ . '/cms/includes/db.php';
+$activeProps = db()->query('SELECT * FROM properties WHERE is_upcoming = 0 ORDER BY sort_order ASC, id ASC')->fetchAll();
+$upcomingProps = db()->query('SELECT * FROM properties WHERE is_upcoming = 1 ORDER BY sort_order ASC, id ASC')->fetchAll();
+
+function prop_stats(array $p): array {
+    $stats = [];
+    foreach ([1, 2, 3] as $n) {
+        if (!empty($p["stat{$n}_val"])) {
+            $stats[] = ['val' => $p["stat{$n}_val"], 'lbl' => $p["stat{$n}_lbl"]];
+        }
+    }
+    return $stats;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -394,160 +409,37 @@
     <h2 class="sec-h2">Our <span class="hi">Events</span></h2>
     <div class="props-grid" style="margin-top:3rem">
 
-      <!-- Lagos — FEATURED -->
-      <div class="pcard featured" data-prop>
-        <span class="pcard-badge">World Athletics</span>
+      <?php foreach ($activeProps as $p): ?>
+      <div class="pcard<?= $p['is_featured'] ? ' featured' : '' ?>" data-prop>
+        <?php if ($p['badge']): ?><span class="pcard-badge"><?= htmlspecialchars($p['badge']) ?></span><?php endif; ?>
         <div class="pcard-inner">
           <div class="pcard-img-wrap">
-            <img class="pcard-img" src="images/events/lagos/lagos-card.jpg" alt="Access Bank Lagos City Marathon" loading="lazy">
-          <div class="pcard-event-logo">
-            <img src="images/events/ablcm-logo-[no-year].png" alt="Access Bank Lagos City Marathon logo">
-          </div>
+            <img class="pcard-img" src="<?= htmlspecialchars($p['hero_image'] ?: 'images/events/placeholder.jpg') ?>" alt="<?= htmlspecialchars($p['title']) ?>" loading="lazy">
+            <?php if ($p['logo_image']): ?>
+            <div class="pcard-event-logo">
+              <img src="<?= htmlspecialchars($p['logo_image']) ?>" alt="<?= htmlspecialchars($p['title']) ?> logo">
+            </div>
+            <?php endif; ?>
           </div>
           <div class="pcard-body">
-            <div class="pcard-tag">Flagship Property</div>
-            <a href="lagos-marathon.html" class="pcard-title-link"><div class="pcard-title">Access Bank Lagos City Marathon</div></a>
-            <div class="pcard-desc">Africa's Strongest Marathon Brand 2025 — a World Athletics Global Certification. The 10th anniversary edition delivered in 2025 drew participation from across the globe, backed by Access Bank, KIA Motors, Seven Up, Aquafina, and Airtel. Raises over ₦3 billion annually from the private sector since its inception in 2016.</div>
+            <?php if ($p['tag']): ?><div class="pcard-tag"><?= htmlspecialchars($p['tag']) ?></div><?php endif; ?>
+            <a href="<?= htmlspecialchars($p['detail_url'] ?: '#') ?>" class="pcard-title-link"><div class="pcard-title"><?= htmlspecialchars($p['title']) ?></div></a>
+            <div class="pcard-desc"><?= htmlspecialchars($p['description'] ?? '') ?></div>
+            <?php $stats = prop_stats($p); if ($stats): ?>
             <div class="pcard-stats">
-              <div><div class="pcard-stat-val">440K+</div><div class="pcard-stat-lbl">Participants since 2016</div></div>
-              <div><div class="pcard-stat-val">₦3B+</div><div class="pcard-stat-lbl">Raised annually</div></div>
-              <div><div class="pcard-stat-val">Feb 2027</div><div class="pcard-stat-lbl">Next edition</div></div>
+              <?php foreach ($stats as $s): ?>
+              <div><div class="pcard-stat-val"><?= htmlspecialchars($s['val']) ?></div><div class="pcard-stat-lbl"><?= htmlspecialchars($s['lbl']) ?></div></div>
+              <?php endforeach; ?>
             </div>
-            <a href="lagos-marathon.html" class="pcard-view-btn">View Property ↗</a>
+            <?php endif; ?>
+            <a href="<?= htmlspecialchars($p['detail_url'] ?: '#') ?>" class="pcard-view-btn">View Property ↗</a>
           </div>
         </div>
       </div>
-
-      <!-- Abuja -->
-      <div class="pcard" data-prop>
-        <div class="pcard-inner">
-          <div class="pcard-img-wrap">
-            <img class="pcard-img" src="images/events/abuja-hero.jpg" alt="Abuja City Marathon" loading="lazy">
-          <div class="pcard-event-logo">
-            <img src="images/events/abj-logo-new.png" alt="Abuja City Marathon logo">
-          </div>
-          </div>
-          <div class="pcard-body">
-            <div class="pcard-tag">International</div>
-            <a href="abuja-marathon.html" class="pcard-title-link"><div class="pcard-title">PremiumTrust Bank Abuja City International Half Marathon</div></a>
-            <div class="pcard-desc">The capital's premier long-distance race. Inaugural edition April 2024 with 50,000+ participants. Backed by PremiumTrust Bank, Dana Airlines, Seven Up, Aquafina, and the AFN.</div>
-            <div class="pcard-stats">
-              <div><div class="pcard-stat-val">50K+</div><div class="pcard-stat-lbl">Participants</div></div>
-              <div><div class="pcard-stat-val">Nov 2026</div><div class="pcard-stat-lbl">Next edition</div></div>
-            </div>
-            <a href="abuja-marathon.html" class="pcard-view-btn">View Property ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Abeokuta -->
-      <div class="pcard" data-prop>
-        <div class="pcard-inner">
-          <div class="pcard-img-wrap">
-            <img class="pcard-img" src="images/events/abeokuta-hero.jpg" alt="Abeokuta 10KM Race" loading="lazy">
-          <div class="pcard-event-logo">
-            <img src="images/events/abk-logo.png" alt="Abeokuta 10KM Race logo">
-          </div>
-          </div>
-          <div class="pcard-body">
-            <div class="pcard-tag">Heritage Race</div>
-            <a href="abeokuta-race.html" class="pcard-title-link"><div class="pcard-title">Abeokuta 10KM Race</div></a>
-            <div class="pcard-desc">A race rich in cultural significance since 2019. Long-term commitments from Lotus Bank, Access Bank, Rite Foods, JAC Motors, Airtel, Trophy, Lafarge, and more.</div>
-            <div class="pcard-stats">
-              <div><div class="pcard-stat-val">120K+</div><div class="pcard-stat-lbl">Participants</div></div>
-              <div><div class="pcard-stat-val">Sept 2025</div><div class="pcard-stat-lbl">Next edition</div></div>
-            </div>
-            <a href="abeokuta-race.html" class="pcard-view-btn">View Property ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Enugu -->
-      <div class="pcard" data-prop>
-        <div class="pcard-inner">
-          <div class="pcard-img-wrap">
-            <img class="pcard-img" src="images/events/enugu-hero.jpg" alt="Enugu City Marathon" loading="lazy">
-          <div class="pcard-event-logo">
-            <img src="images/events/enugu-marathon-logo.png" alt="Enugu City Marathon logo">
-          </div>
-          </div>
-          <div class="pcard-body">
-            <div class="pcard-tag">New Property</div>
-            <a href="enugu-marathon.html" class="pcard-title-link"><div class="pcard-title">Enugu City International Marathon</div></a>
-            <div class="pcard-desc">Maiden edition May 2025 with 13,000+ runners. Backed by Pinnacle Oil, Air Peace, World Athletics, Three Crowns, RC Cola, and the Athletics Federation of Nigeria.</div>
-            <div class="pcard-stats">
-              <div><div class="pcard-stat-val">13K+</div><div class="pcard-stat-lbl">Debut runners</div></div>
-              <div><div class="pcard-stat-val">2026</div><div class="pcard-stat-lbl">Next edition</div></div>
-            </div>
-            <a href="enugu-marathon.html" class="pcard-view-btn">View Property ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Yenagoa -->
-      <div class="pcard" data-prop>
-        <div class="pcard-inner">
-          <div class="pcard-img-wrap">
-            <img class="pcard-img" src="images/events/yenagoa-hero.jpg" alt="Yenagoa City International 10KM Race" loading="lazy">
-          <div class="pcard-event-logo">
-            <img src="images/events/yc1km.png" alt="Yenagoa City International 10KM Race logo">
-          </div>
-          </div>
-          <div class="pcard-body">
-            <div class="pcard-tag">New Property</div>
-            <a href="yenagoa-race.html" class="pcard-title-link"><div class="pcard-title">Yenagoa City International 10KM Race</div></a>
-            <div class="pcard-desc">First World Athletics-supervised race in Southern Nigeria. Inaugural edition 2026 with 5,000+ runners. Backed by Bayelsa State Government and strategic partners.</div>
-            <div class="pcard-stats">
-              <div><div class="pcard-stat-val">5K+</div><div class="pcard-stat-lbl">Debut runners</div></div>
-              <div><div class="pcard-stat-val">2027</div><div class="pcard-stat-lbl">Next edition</div></div>
-            </div>
-            <a href="yenagoa-race.html" class="pcard-view-btn">View Property ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stormers -->
-      <div class="pcard" data-prop>
-        <div class="pcard-inner">
-          <div class="pcard-img-wrap">
-            <img class="pcard-img" src="images/events/stormers-hero.jpg" alt="Stormers Sports Club" loading="lazy">
-          <div class="pcard-event-logo">
-            <img src="images/events/stormers-logo.png" alt="Stormers Sports Club logo">
-          </div>
-          </div>
-          <div class="pcard-body">
-            <div class="pcard-tag">Sports Club</div>
-            <a href="stormers-club.html" class="pcard-title-link"><div class="pcard-title">Stormers Sports Club</div></a>
-            <div class="pcard-desc">Back-to-back Lisabi Cup Champions 2024 and 2025. Academy built from Baptist Boys High School talent under long-term contracts. Senior team newly promoted to Nigeria's NNL.</div>
-            <div class="pcard-stats">
-              <div><div class="pcard-stat-val">2x</div><div class="pcard-stat-lbl">Lisabi Champions</div></div>
-              <div><div class="pcard-stat-val">NNL</div><div class="pcard-stat-lbl">Promoted</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ijebu -->
-      <div class="pcard" data-prop>
-        <div class="pcard-inner">
-          <div class="pcard-img-wrap">
-            <img class="pcard-img" src="images/events/ijebu-hero.jpg" alt="Ijebu Heritage Half Marathon" loading="lazy">
-          <div class="pcard-event-logo">
-            <img src="images/events/aihhm-2023-logo.png" alt="Ijebu Heritage Half Marathon logo">
-          </div>
-          </div>
-          <div class="pcard-body">
-            <div class="pcard-tag">Heritage Race</div>
-            <a href="ijebu-marathon.html" class="pcard-title-link"><div class="pcard-title">Ijebu Heritage Half Marathon</div></a>
-            <div class="pcard-desc">A race steeped in cultural significance, delivered in collaboration with Airtel Nigeria. Maiden edition held 17 July 2021 with 5,000+ runners and spectators.</div>
-            <div class="pcard-stats">
-              <div><div class="pcard-stat-val">5K+</div><div class="pcard-stat-lbl">Participants</div></div>
-              <div><div class="pcard-stat-val">2021</div><div class="pcard-stat-lbl">Maiden edition</div></div>
-            </div>
-            <a href="ijebu-marathon.html" class="pcard-view-btn">View Property ↗</a>
-          </div>
-        </div>
-      </div>
+      <?php endforeach; ?>
+      <?php if (!$activeProps): ?>
+        <p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:3rem 0;">No properties yet.</p>
+      <?php endif; ?>
 
     </div>
   </div>
@@ -558,24 +450,28 @@
       <div class="section-tag">Upcoming</div>
       <h2 class="sec-h2">Coming <span class="hi">Soon</span></h2>
       <div class="upcoming-grid">
+        <?php foreach ($upcomingProps as $p): ?>
         <div class="uc" data-reveal>
           <div class="uc-inner">
             <div class="uc-img-wrap">
-              <img class="uc-hero" src="images/events/copa-lagos-hero.jpg" alt="Copa Lagos Beach Soccer">
+              <img class="uc-hero" src="<?= htmlspecialchars($p['hero_image'] ?: 'images/events/placeholder.jpg') ?>" alt="<?= htmlspecialchars($p['title']) ?>">
               <div class="uc-img-overlay"></div>
-              <div class="uc-badge">Upcoming · Dec 2026</div>
+              <?php if ($p['badge']): ?><div class="uc-badge"><?= htmlspecialchars($p['badge']) ?></div><?php endif; ?>
+              <?php if ($p['logo_image']): ?>
               <div class="uc-logo-wrap">
-                <img src="images/events/copa-lagos_web.png" alt="Copa Lagos">
+                <img src="<?= htmlspecialchars($p['logo_image']) ?>" alt="<?= htmlspecialchars($p['title']) ?>">
               </div>
+              <?php endif; ?>
             </div>
             <div class="uc-body">
-              <a href="copa-lagos.html" style="text-decoration:none;color:inherit;">
-                <div class="uc-title">Copa Lagos Beach Soccer</div>
+              <a href="<?= htmlspecialchars($p['detail_url'] ?: '#') ?>" style="text-decoration:none;color:inherit;">
+                <div class="uc-title"><?= htmlspecialchars($p['title']) ?></div>
               </a>
-              <div class="uc-desc">Nigeria's premier beach football and lifestyle event returns to Eko Atlantic City. A three-day high-energy weekend drawing 20,000+ fans, athletes, and lifestyle enthusiasts. Licensee granted by Kinetic Sports — first return since the 2019 edition.</div>
+              <div class="uc-desc"><?= htmlspecialchars($p['description'] ?? '') ?></div>
             </div>
           </div>
         </div>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
@@ -793,10 +689,10 @@
           <div class="f-col-title">Navigate</div>
           <ul class="f-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="about.php">About</a></li>
             <li><a href="services.html">Services</a></li>
-            <li><a href="properties.html">Properties</a></li>
-            <li><a href="news.html">News</a></li>
+            <li><a href="properties.php">Properties</a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>

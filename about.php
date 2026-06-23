@@ -1,3 +1,15 @@
+<?php
+require_once __DIR__ . '/cms/includes/db.php';
+$ceo = db()->query('SELECT * FROM team_members WHERE is_ceo = 1 ORDER BY sort_order ASC LIMIT 1')->fetch();
+$team = db()->query('SELECT * FROM team_members WHERE is_ceo = 0 ORDER BY sort_order ASC, id ASC')->fetchAll();
+
+function initials_of(string $name): string {
+    $parts = preg_split('/\s+/', trim($name));
+    $first = mb_substr($parts[0] ?? '', 0, 1);
+    $last = mb_substr($parts[count($parts) - 1] ?? '', 0, 1);
+    return mb_strtoupper($first . $last);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -538,23 +550,25 @@
     <h2 class="sec-h2">Led by <span class="hi">Excellence</span></h2>
 
     <!-- ── CEO FEATURED CARD (always visible) ──────────────────────── -->
+    <?php if ($ceo): ?>
     <div class="team-ceo" data-reveal>
       <div class="ceo-photo-wrap">
-        <img class="ceo-photo" src="images/team/yetunde.jpg"
-             alt="Olopade Yetunde — MD/CEO"
+        <img class="ceo-photo" src="<?= htmlspecialchars($ceo['photo'] ?: '') ?>"
+             alt="<?= htmlspecialchars($ceo['name']) ?> — <?= htmlspecialchars($ceo['role'] ?? '') ?>"
              onerror="this.style.display='none'">
-        <div class="ceo-fallback" id="ceoFallback">OY</div>
+        <div class="ceo-fallback" id="ceoFallback"><?= htmlspecialchars(initials_of($ceo['name'])) ?></div>
       </div>
       <div class="ceo-details">
         <div class="ceo-badge">
           <span class="eyebrow-dot"></span>
           Managing Director
         </div>
-        <div class="ceo-name">Olopade Yetunde</div>
-        <div class="ceo-role">Chief Executive Officer</div>
-        <p class="ceo-bio">A seasoned expert in events marketing, sponsorship activation, and brand partnerships with over 20 years of experience. Yetunde specialises in large-scale sports events, corporate collaborations, and impactful brand engagements — driving Nilayo's strategic vision and setting industry benchmarks in sports marketing across Africa.</p>
+        <div class="ceo-name"><?= htmlspecialchars($ceo['name']) ?></div>
+        <div class="ceo-role"><?= htmlspecialchars($ceo['role'] ?? '') ?></div>
+        <p class="ceo-bio"><?= htmlspecialchars($ceo['bio'] ?? '') ?></p>
       </div>
     </div>
+    <?php endif; ?>
 
     <!-- ── INTERACTIVE TEAM GRID ───────────────────────────────────────
          Click any card to expand bio below that row.
@@ -562,101 +576,26 @@
     ──────────────────────────────────────────────────────────────────── -->
     <div class="team-grid-outer" id="teamGrid">
 
-      <!-- Team data stored in data-* attributes — bio panel reads these on click -->
-      <div class="tm-card" data-reveal data-index="0"
-           data-name="Olopade Adenike"
-           data-role="Chief Operating Officer"
-           data-photo="images/team/adenike.jpg"
-           data-initials="OA"
-           data-bio="The operational architect behind NSML's growth. Adenike ensures that every sponsorship commitment, event logistics plan, and client relationship is executed to the highest standard. She brings the same precision to a community 10KM race as to a World Athletics-certified marathon — because NSML's reputation is built on delivery, every single time.">
+      <?php foreach ($team as $i => $m): ?>
+      <div class="tm-card" data-reveal data-index="<?= $i ?>"
+           data-name="<?= htmlspecialchars($m['name']) ?>"
+           data-role="<?= htmlspecialchars($m['role'] ?? '') ?>"
+           data-photo="<?= htmlspecialchars($m['photo'] ?: '') ?>"
+           data-initials="<?= htmlspecialchars(initials_of($m['name'])) ?>"
+           data-bio="<?= htmlspecialchars($m['bio'] ?? '') ?>">
         <div class="tm-hint">View Bio</div>
         <div class="tm-photo-wrap">
-          <img class="tm-photo" src="images/team/adenike.jpg"
-               alt="Olopade Adenike" loading="lazy"
+          <img class="tm-photo" src="<?= htmlspecialchars($m['photo'] ?: '') ?>"
+               alt="<?= htmlspecialchars($m['name']) ?>" loading="lazy"
                onerror="this.style.display='none'">
-          <div class="tm-initials">OA</div>
+          <div class="tm-initials"><?= htmlspecialchars(initials_of($m['name'])) ?></div>
         </div>
         <div class="tm-body">
-          <div class="tm-name">Olopade Adenike</div>
-          <div class="tm-role">Chief Operating Officer</div>
+          <div class="tm-name"><?= htmlspecialchars($m['name']) ?></div>
+          <div class="tm-role"><?= htmlspecialchars($m['role'] ?? '') ?></div>
         </div>
       </div>
-
-      <div class="tm-card" data-reveal data-index="1"
-           data-name="Odeh Emmanuel"
-           data-role="Project Lead"
-           data-photo="images/team/emmanuel.jpg"
-           data-initials="OE"
-           data-bio="A results-driven professional with expertise in business development, entrepreneurship, and team leadership. With extensive experience in project execution, Emmanuel drives business growth and operational efficiency. Backed by certifications in Business Administration and Management, his strategic vision and hands-on leadership make him a key asset in project management and business development at Nilayo.">
-        <div class="tm-hint">View Bio</div>
-        <div class="tm-photo-wrap">
-          <img class="tm-photo" src="images/team/emmanuel.jpg"
-               alt="Odeh Emmanuel" loading="lazy"
-               onerror="this.style.display='none'">
-          <div class="tm-initials">OE</div>
-        </div>
-        <div class="tm-body">
-          <div class="tm-name">Odeh Emmanuel</div>
-          <div class="tm-role">Project Lead</div>
-        </div>
-      </div>
-
-      <div class="tm-card" data-reveal data-index="2"
-           data-name="Adekite Bolaji"
-           data-role="Admin"
-           data-photo="images/team/bolaji.jpg"
-           data-initials="AB"
-           data-bio="An experienced HR professional with a BA in English Language, an MBA, and multiple professional certifications. Bolaji specialises in talent management, employee relations, and organisational development — nurturing a dynamic work environment. Committed to excellence and innovation, she drives Nilayo Sports' success by attracting and developing top talent.">
-        <div class="tm-hint">View Bio</div>
-        <div class="tm-photo-wrap">
-          <img class="tm-photo" src="images/team/bolaji.jpg"
-               alt="Adekite Bolaji" loading="lazy"
-               onerror="this.style.display='none'">
-          <div class="tm-initials">AB</div>
-        </div>
-        <div class="tm-body">
-          <div class="tm-name">Adekite Bolaji</div>
-          <div class="tm-role">Admin</div>
-        </div>
-      </div>
-
-      <div class="tm-card" data-reveal data-index="3"
-           data-name="Odi Jide"
-           data-role="Brand &amp; Comms Lead"
-           data-photo="images/team/jide.jpg"
-           data-initials="OJ"
-           data-bio="A seasoned media and communications professional with expertise in broadcast journalism, brand strategy, creative advertising, and media production. With over a decade of experience, Jide blends analytical insight with creative storytelling to strengthen Nilayo's brand presence. A trained journalist from the Nigerian Institute of Journalism and an alumnus of O2 Academy Lagos, he plays a key role in shaping the company's communication and marketing strategies.">
-        <div class="tm-hint">View Bio</div>
-        <div class="tm-photo-wrap">
-          <img class="tm-photo" src="images/team/jide.jpg"
-               alt="Odi Jide" loading="lazy"
-               onerror="this.style.display='none'">
-          <div class="tm-initials">OJ</div>
-        </div>
-        <div class="tm-body">
-          <div class="tm-name">Odi Jide</div>
-          <div class="tm-role">Brand &amp; Comms Lead</div>
-        </div>
-      </div>
-
-      <div class="tm-card" data-reveal data-index="4"
-           data-name="Omoniyi Sandra"
-           data-role="Business Strategist"
-           data-photo="images/team/sandra.jpg"
-           data-initials="OS"
-           data-bio="A specialist in sports management, strategy, and operations with a Master's in Sport Management and Administration and over a decade of experience. Sandra develops strategic solutions that drive revenue and brand growth, excels in forging high-impact partnerships, and creates sustainable business models that elevate sports properties. She combines strategic insight with deep industry expertise to deliver innovative solutions for brands and stakeholders.">
-        <div class="tm-hint">View Bio</div>
-        <div class="tm-photo-wrap">
-          <img class="tm-photo" src="images/team/sandra.jpg"
-               alt="Omoniyi Sandra" loading="lazy"
-               onerror="this.style.display='none'">
-          <div class="tm-initials">OS</div>
-        </div>
-        <div class="tm-body">
-          <div class="tm-name">Omoniyi Sandra</div>
-          <div class="tm-role">Business Strategist</div>
-        </div>
-      </div>
+      <?php endforeach; ?>
 
     </div><!-- /team-grid-outer -->
 
@@ -840,10 +779,10 @@
           <div class="f-col-title">Navigate</div>
           <ul class="f-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="about.php">About</a></li>
             <li><a href="services.html">Services</a></li>
-            <li><a href="properties.html">Properties</a></li>
-            <li><a href="news.html">News</a></li>
+            <li><a href="properties.php">Properties</a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>

@@ -1,11 +1,26 @@
+<?php
+require_once __DIR__ . '/cms/includes/db.php';
+
+$slug = $_GET['slug'] ?? '';
+$stmt = db()->prepare('SELECT * FROM blog_posts WHERE slug = ? AND is_published = 1');
+$stmt->execute([$slug]);
+$post = $stmt->fetch();
+if (!$post) { http_response_code(404); die('Article not found.'); }
+
+$related = db()->prepare('SELECT * FROM blog_posts WHERE is_published = 1 AND id != ? ORDER BY published_at DESC LIMIT 3');
+$related->execute([$post['id']]);
+$related = $related->fetchAll();
+
+$readMins = max(1, (int)round(str_word_count(strip_tags($post['body'] ?? '')) / 200));
+$postDate = $post['published_at'] ? date('F j, Y', strtotime($post['published_at'])) : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- WP: <title><?php wp_title('—', true, 'right'); ?> Nilayo Sports Management</title> -->
-  <title>Nilayo to sign multiple multi-billion naira deals for Abuja City International Marathon — Nilayo Sports Management</title>
-  <meta name="description" content="The management of Nigeria&#x27;s premium Marathon races organisers, Nilayo Sports Management, led by its Managing Director, Chief Bukola Olopade, will on…">
+  <title><?= htmlspecialchars($post['title']) ?> — Nilayo Sports Management</title>
+  <meta name="description" content="<?= htmlspecialchars($post['excerpt'] ?: mb_substr(strip_tags($post['body'] ?? ''), 0, 160)) ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -23,11 +38,10 @@
       background: var(--navy);
     }
 
-    /* WP: style="background-image:url('<?php the_post_thumbnail_url('full'); ?>')" */
     .article-hero-img {
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=85&auto=format&fit=crop') center / cover no-repeat;
+      background: url('<?= htmlspecialchars($post['cover_image'] ?: 'images/news-placeholder.jpg') ?>') center / cover no-repeat;
       filter: saturate(0.85) contrast(1.05);
       transition: transform 0.1s linear;
       will-change: transform;
@@ -88,7 +102,6 @@
       margin-bottom: 1.25rem;
     }
 
-    /* WP: <?php the_title('<h1 class="article-hero-title">', '</h1>'); ?> */
     .article-hero-title {
       font-family: var(--font-d);
       font-size: clamp(1.75rem, 4vw, 3rem);
@@ -659,22 +672,20 @@
            Use get_the_category() for category pill
   ─────────────────────────────────────────── -->
   <div class="article-hero">
-    <div class="article-hero-img" id="heroParallax" style="background-image:url('https://nilayosports.com/wp-content/uploads/2023/02/20230203131759_MIK_0151-2-scaled.jpg')"></div>
+    <div class="article-hero-img" id="heroParallax"></div>
     <div class="article-hero-overlay"></div>
     <div class="article-hero-inner">
       <!-- WP: breadcrumb via Yoast SEO or custom wp_breadcrumb() -->
       <div class="article-breadcrumb">
         <a href="index.html">Home</a>
         <span class="article-breadcrumb-sep">›</span>
-        <a href="news.html">News</a>
+        <a href="news.php">News</a>
         <span class="article-breadcrumb-sep">›</span>
-        <span>Nilayo to sign multiple multi-billion naira deals for…</span>
+        <span><?= htmlspecialchars($post['title']) ?></span>
       </div>
-      <!-- WP: the_category() -->
       <span class="article-hero-cat">News</span>
-      <!-- WP: the_title() -->
       <h1 class="article-hero-title">
-        Nilayo to sign multiple multi-billion naira deals for Abuja City International Marathon
+        <?= htmlspecialchars($post['title']) ?>
       </h1>
     </div>
   </div>
@@ -691,11 +702,9 @@
           <strong>NSML Editorial</strong>
         </div>
         <span class="meta-divider"></span>
-        <!-- WP: the_date('F j, Y') -->
-        <div class="meta-item">February 8, 2023</div>
+        <div class="meta-item"><?= htmlspecialchars($postDate) ?></div>
         <span class="meta-divider"></span>
-        <!-- WP: estimated reading time plugin or custom function -->
-        <div class="meta-item">1 min read</div>
+        <div class="meta-item"><?= $readMins ?> min read</div>
       </div>
       <!-- Share buttons — WP: pass the_permalink() to each URL -->
       <div class="share-row">
@@ -715,38 +724,7 @@
   ─────────────────────────────────────────── -->
   <div class="article-content-wrap">
     <div class="article-body">
-
-      <p class="intro">
-        The management of Nigeria&#x27;s premium Marathon races organisers, Nilayo Sports Management, led by its Managing Director, Chief Bukola Olopade, will on Thursday, February 9, 2023 at 2pm sign a multiple multi-billion naira contract deals that would see the birth of the Abuja City International Marathon.
-      </p>
-
-      <p>
-        In the words of the Nigeria&#x27;s Marathon Generaliso,the Abuja City International Marathon, which is a full marathon of 42 kilometres, has been approved by the Athletics Federation of Nigeria, the Association of International Marathons and Distance Races (AIMS), the Federal Capital Territory, and the Ministry of Sports, Youths and Social development.
-      </p>
-
-      <p>
-        Nilayo Sports Management, the biggest organisers of Marathon races in Africa and indeed in Nigeria, would sign the multi-billion naira contract to organise the Abuja City International Marathon on October 7, 2023, a date that had already been announced by the organisers.
-      </p>
-
-      <p>
-        The Nilayo Sports Management Limited boss noted that, the target is to have a second Gold-Label status full marathon race in Nigeria especially in the beautiful city of Abuja, Nigeria&#x27;s federal capital city.
-      </p>
-
-      <p>
-        The main sponsor of the race would also be unveiled in an elaborate ceremony, where the prize money, the class of runners, the route and other world class incentives will be announced for the Abuja City International Marathon.
-      </p>
-
-      <p>
-        &quot;It would be most delightful to have one full marathon each in the Nigeria&#x27;s financial capital and the nations capital. By the time, the Abuja City International Marathon attains the Gold Label Marathon status, Nigeria would have become one of the very few countries in the world, with two Gold-Label races, in one country. This is a rare attribute in road running in the world. This would tremendously boost the status of Nigeria, and that is what we have been talking about.&quot;
-      </p>
-
-      <!-- Tags (WP: the_tags()) -->
-      <div class="article-tags">
-        <span class="tag-label">Tags</span>
-        <a href="news.html" class="tag-pill">News</a>
-        <a href="news.html" class="tag-pill">NSML</a>
-      </div>
-
+      <?= $post['body'] ?>
 
     </div><!-- /article-body -->
 
@@ -770,25 +748,11 @@
       </div>
     </div>
 
-    <!-- ── PREV / NEXT ARTICLE ─────────────────
-         WP: previous_post_link() and next_post_link()
-    ──────────────────────────────────────── -->
-    <nav class="article-nav" aria-label="Article navigation">
-      <a href="news.html" class="article-nav-link prev">
-        <span class="article-nav-dir">← Previous</span>
-        <span class="article-nav-title">Browse more NSML news</span>
-      </a>
-      <a href="news.html" class="article-nav-link next">
-        <span class="article-nav-dir">Next →</span>
-        <span class="article-nav-title">Browse more NSML news</span>
-      </a>
-    </nav>
-
   </div><!-- /article-content-wrap -->
 
   <!-- ── RELATED ARTICLES ──────────────────────
-       WP: WP_Query with same category, exclude current post
   ─────────────────────────────────────────── -->
+  <?php if ($related): ?>
   <div class="related-section">
     <div class="related-inner">
       <div class="split-header" style="margin-bottom:0">
@@ -796,55 +760,29 @@
           <div class="section-tag">More to Read</div>
           <h2 class="sec-h2">Related <span class="hi">Stories</span></h2>
         </div>
-        <a href="news.html" class="btn btn-outline btn-sm">All News</a>
+        <a href="news.php" class="btn btn-outline btn-sm">All News</a>
       </div>
 
       <div class="related-grid" style="margin-top:2.5rem">
-        <a href="news.html" class="related-card" data-reveal>
+        <?php foreach ($related as $r): ?>
+        <a href="article.php?slug=<?= urlencode($r['slug']) ?>" class="related-card" data-reveal>
           <div class="related-img-wrap">
             <img class="related-img"
-              src="https://images.unsplash.com/photo-1594882645126-14ac19a5a2f3?w=840&q=80&auto=format&fit=crop"
-              alt="NSML News"
+              src="<?= htmlspecialchars($r['cover_image'] ?: 'images/news-placeholder.jpg') ?>"
+              alt="<?= htmlspecialchars($r['title']) ?>"
               loading="lazy">
           </div>
           <div class="related-body">
             <span class="related-cat">News</span>
-            <div class="related-title">More stories from Nilayo Sports Management</div>
-            <div class="related-date">Latest</div>
+            <div class="related-title"><?= htmlspecialchars($r['title']) ?></div>
+            <div class="related-date"><?= $r['published_at'] ? htmlspecialchars(date('F Y', strtotime($r['published_at']))) : '' ?></div>
           </div>
         </a>
-
-        <a href="news.html" class="related-card" data-reveal>
-          <div class="related-img-wrap">
-            <img class="related-img"
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=840&q=80&auto=format&fit=crop"
-              alt="NSML News"
-              loading="lazy">
-          </div>
-          <div class="related-body">
-            <span class="related-cat">News</span>
-            <div class="related-title">Catch up on partnership announcements and event recaps</div>
-            <div class="related-date">Latest</div>
-          </div>
-        </a>
-
-        <a href="news.html" class="related-card" data-reveal>
-          <div class="related-img-wrap">
-            <img class="related-img"
-              src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=840&q=80&auto=format&fit=crop"
-              alt="NSML News"
-              loading="lazy">
-          </div>
-          <div class="related-body">
-            <span class="related-cat">News</span>
-            <div class="related-title">Explore the full NSML newsroom for more updates</div>
-            <div class="related-date">Latest</div>
-          </div>
-        </a>
-
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
+  <?php endif; ?>
 
   <!-- ── NEWSLETTER CTA ──────────────────────── -->
   <div style="background:var(--navy);padding:5rem 1.5rem;border-top:3px solid var(--green);">
@@ -1043,10 +981,10 @@
           <div class="f-col-title">Navigate</div>
           <ul class="f-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="about.php">About</a></li>
             <li><a href="services.html">Services</a></li>
-            <li><a href="properties.html">Properties</a></li>
-            <li><a href="news.html">News</a></li>
+            <li><a href="properties.php">Properties</a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>

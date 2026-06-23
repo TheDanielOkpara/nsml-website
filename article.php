@@ -1133,8 +1133,23 @@ $postDate = $post['published_at'] ? date('F j, Y', strtotime($post['published_at
         }
 
         anlError.style.display = 'none';
-        anlForm.querySelector('div').style.display = 'none';
-        anlSuccess.style.display = 'flex';
+        const fd = new FormData();
+        fd.append('email', val);
+        fetch('subscribe.php', { method: 'POST', body: fd })
+          .then(res => res.json())
+          .then(data => {
+            if (data.ok) {
+              anlForm.querySelector('div').style.display = 'none';
+              anlSuccess.style.display = 'flex';
+            } else {
+              anlError.textContent   = data.error || 'Something went wrong. Please try again.';
+              anlError.style.display = 'block';
+            }
+          })
+          .catch(() => {
+            anlError.textContent   = 'Network error. Please try again.';
+            anlError.style.display = 'block';
+          });
       });
 
       anlEmail.addEventListener('input', () => {

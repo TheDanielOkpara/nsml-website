@@ -69,6 +69,16 @@ $properties = [
      'description' => "Nigeria's premier beach football and lifestyle event returns to Eko Atlantic City. A three-day high-energy weekend drawing 20,000+ fans, athletes, and lifestyle enthusiasts. Licensee granted by Kinetic Sports — first return since the 2019 edition.",
      'stat1_val' => null, 'stat1_lbl' => null, 'stat2_val' => null, 'stat2_lbl' => null, 'stat3_val' => null, 'stat3_lbl' => null,
      'detail_url' => 'copa-lagos.html', 'is_featured' => 0, 'is_upcoming' => 1, 'sort_order' => 0],
+    ['slug' => 'kaduna-marathon', 'title' => 'Kaduna Half Marathon', 'tag' => 'Northern Nigeria', 'badge' => null,
+     'hero_image' => 'images/events/kaduna/kaduna-04.jpg', 'logo_image' => 'images/events/kaduna-marathon-logo.png',
+     'description' => 'A 21.1km road race that made history as the first World Athletics-supervised marathon event in Northern Nigeria. The inaugural 2021 edition drew over 7,000 runners to the streets of Kaduna.',
+     'stat1_val' => '7K+', 'stat1_lbl' => 'Runners — inaugural edition', 'stat2_val' => '21.1 KM', 'stat2_lbl' => 'Race distance', 'stat3_val' => '2021', 'stat3_lbl' => 'Inaugural edition',
+     'detail_url' => 'kaduna-marathon.html', 'is_featured' => 0, 'is_upcoming' => 0, 'sort_order' => 7],
+    ['slug' => 'iau-remo-championship', 'title' => 'IAU African Championship Remo', 'tag' => 'International · Ultra-Distance', 'badge' => null,
+     'hero_image' => 'images/events/remo/remo-03.jpg', 'logo_image' => 'images/events/iau-remo-logo.png',
+     'description' => 'International ultra-distance running came to Remo, Ogun State, for its inaugural 2019 edition. Sanctioned by the International Association of Ultrarunners (IAU), it drew over 5,000 participants and spectators.',
+     'stat1_val' => '5K+', 'stat1_lbl' => 'Participants — inaugural edition', 'stat2_val' => 'Ultra', 'stat2_lbl' => 'Distance championship', 'stat3_val' => '2019', 'stat3_lbl' => 'Inaugural edition',
+     'detail_url' => 'iau-remo-championship.html', 'is_featured' => 0, 'is_upcoming' => 0, 'sort_order' => 8],
 ];
 
 $propStmt = $pdo->prepare(

@@ -744,11 +744,26 @@ function news_date(array $p): string {
           newsEmailEl.focus();
           return;
         }
-        // Simulate subscription
-        newsForm.style.display      = 'none';
-        newsDiscl.style.display     = 'none';
-        newsErrEl.style.display     = 'none';
-        newsSuccess.style.display   = 'flex';
+        // Real subscription to the PHP backend
+        const fd = new FormData();
+        fd.append('email', newsEmailEl.value.trim());
+        fetch('subscribe.php', { method: 'POST', body: fd })
+          .then(res => res.json())
+          .then(data => {
+            if (data.ok) {
+              newsForm.style.display    = 'none';
+              newsDiscl.style.display   = 'none';
+              newsErrEl.style.display   = 'none';
+              newsSuccess.style.display = 'flex';
+            } else {
+              newsErrEl.textContent   = data.error || 'Something went wrong. Please try again.';
+              newsErrEl.style.display = 'block';
+            }
+          })
+          .catch(() => {
+            newsErrEl.textContent   = 'Network error. Please try again.';
+            newsErrEl.style.display = 'block';
+          });
       });
     }
 

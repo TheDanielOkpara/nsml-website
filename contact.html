@@ -825,19 +825,33 @@
         return;
       }
 
-      // Simulate submission
+      // Real submission to the PHP backend
       submitBtn.disabled = true;
       const label = document.getElementById('submitLabel');
       label.textContent = 'Sending…';
 
-      setTimeout(() => {
-        // Hide form, show success
-        form.style.display = 'none';
-        document.querySelector('.form-title').style.display = 'none';
-        document.querySelector('.form-sub').style.display   = 'none';
-        const success = document.getElementById('formSuccess');
-        success.style.display = 'flex';
-      }, 1200);
+      fetch('contact-submit.php', {
+        method: 'POST',
+        body: new FormData(form),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            form.style.display = 'none';
+            document.querySelector('.form-title').style.display = 'none';
+            document.querySelector('.form-sub').style.display   = 'none';
+            document.getElementById('formSuccess').style.display = 'flex';
+          } else {
+            alert(data.error || 'Something went wrong. Please try again.');
+            submitBtn.disabled = false;
+            label.textContent = 'Send Message';
+          }
+        })
+        .catch(() => {
+          alert('Network error. Please try again.');
+          submitBtn.disabled = false;
+          label.textContent = 'Send Message';
+        });
     });
 
     /* ── NAV SCROLL STATE ──────────────────── */

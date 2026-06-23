@@ -47,6 +47,8 @@ $admin = current_admin();
     <a href="blog.php" class="<?= ($activeNav ?? '') === 'blog' ? 'active' : '' ?>">Blog Posts</a>
     <a href="properties.php" class="<?= ($activeNav ?? '') === 'properties' ? 'active' : '' ?>">Properties</a>
     <a href="team.php" class="<?= ($activeNav ?? '') === 'team' ? 'active' : '' ?>">Team</a>
+    <a href="messages.php" class="<?= ($activeNav ?? '') === 'messages' ? 'active' : '' ?>">Messages</a>
+    <a href="subscribers.php" class="<?= ($activeNav ?? '') === 'subscribers' ? 'active' : '' ?>">Subscribers</a>
     <a href="logout.php" style="margin-top:1.5rem;">Log out (<?= htmlspecialchars($admin['username']) ?>)</a>
   </nav>
   <main>

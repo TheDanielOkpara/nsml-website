@@ -78,7 +78,12 @@ require __DIR__ . '/layout-top.php';
   <div class="field">
     <label>Cover image</label>
     <input type="file" name="cover_image" accept="image/jpeg,image/png,image/webp">
-    <?php if ($post['cover_image']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($post['cover_image']) ?>" target="_blank">view image</a></div><?php endif; ?>
+    <?php if ($post['cover_image']): ?>
+      <div class="preview-thumb-wrap">
+        <img class="preview-thumb preview-thumb-wide" src="<?= htmlspecialchars($post['cover_image']) ?>" alt="">
+        <div class="current-file">Current: <a href="<?= htmlspecialchars($post['cover_image']) ?>" target="_blank">view full size</a></div>
+      </div>
+    <?php endif; ?>
   </div>
 
   <div class="field">
@@ -109,6 +114,9 @@ require __DIR__ . '/layout-top.php';
   <div class="form-actions">
     <button type="submit" class="btn">Save Post</button>
     <a href="blog.php" class="btn secondary">Cancel</a>
+    <?php if ($id && $post['is_published']): ?>
+      <a href="https://nilayosports.com/<?= rawurlencode($post['slug']) ?>" class="btn secondary" target="_blank" style="margin-left:auto;">View &amp; Share Live Article ↗</a>
+    <?php endif; ?>
   </div>
 </form>
 </div>

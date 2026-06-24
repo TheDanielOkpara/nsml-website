@@ -91,12 +91,22 @@ require __DIR__ . '/layout-top.php';
       <div class="field">
         <label>Hero image</label>
         <input type="file" name="hero_image" accept="image/jpeg,image/png,image/webp">
-        <?php if ($p['hero_image']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($p['hero_image']) ?>" target="_blank">view</a></div><?php endif; ?>
+        <?php if ($p['hero_image']): ?>
+          <div class="preview-thumb-wrap">
+            <img class="preview-thumb" src="<?= htmlspecialchars($p['hero_image']) ?>" alt="">
+            <div class="current-file"><a href="<?= htmlspecialchars($p['hero_image']) ?>" target="_blank">view full size</a></div>
+          </div>
+        <?php endif; ?>
       </div>
       <div class="field">
         <label>Logo image</label>
         <input type="file" name="logo_image" accept="image/jpeg,image/png,image/webp">
-        <?php if ($p['logo_image']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($p['logo_image']) ?>" target="_blank">view</a></div><?php endif; ?>
+        <?php if ($p['logo_image']): ?>
+          <div class="preview-thumb-wrap">
+            <img class="preview-thumb" src="<?= htmlspecialchars($p['logo_image']) ?>" alt="">
+            <div class="current-file"><a href="<?= htmlspecialchars($p['logo_image']) ?>" target="_blank">view full size</a></div>
+          </div>
+        <?php endif; ?>
       </div>
       <div class="field"><label>Detail page link</label><input type="text" name="detail_url" value="<?= htmlspecialchars($p['detail_url'] ?? '') ?>" placeholder="e.g. ijebu-marathon.html"></div>
     </div>
@@ -133,6 +143,9 @@ require __DIR__ . '/layout-top.php';
   <div class="form-actions">
     <button type="submit" class="btn">Save Property</button>
     <a href="properties.php" class="btn secondary">Cancel</a>
+    <?php if ($id): ?>
+      <a href="property-images.php?property_id=<?= $id ?>" class="btn secondary" style="margin-left:auto;">Manage Gallery Images</a>
+    <?php endif; ?>
   </div>
 </form>
 </div>

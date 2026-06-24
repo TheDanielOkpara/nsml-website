@@ -32,7 +32,7 @@ require __DIR__ . '/layout-top.php';
   <tbody>
   <?php foreach ($rows as $m): ?>
     <tr>
-      <td><?php if ($m['photo']): ?><img class="thumb" src="../<?= htmlspecialchars($m['photo']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No photo</div><?php endif; ?></td>
+      <td><?php if ($m['photo']): ?><img class="thumb" src="<?= htmlspecialchars($m['photo']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No photo</div><?php endif; ?></td>
       <td style="font-weight:600;"><?= htmlspecialchars($m['name']) ?></td>
       <td><?= htmlspecialchars($m['role'] ?? '') ?></td>
       <td><span class="pill <?= $m['is_ceo'] ? 'yes' : 'no' ?>"><?= $m['is_ceo'] ? 'Yes' : 'No' ?></span></td>

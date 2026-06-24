@@ -122,6 +122,16 @@ $navItems = [
   .current-file a { color:var(--green-dark); font-weight:600; text-decoration:none; }
   .current-file a:hover { text-decoration:underline; }
   .form-actions { display:flex; gap:0.625rem; margin-top:1.75rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+  .preview-thumb-wrap { display:flex; align-items:center; gap:0.75rem; margin-top:0.5rem; }
+  .preview-thumb { height:64px; width:64px; border-radius:var(--r-sm); object-fit:cover; display:block; border:1px solid var(--border); background:var(--bg); }
+  .preview-thumb-wide { height:80px; width:140px; }
+
+  /* ── GALLERY ── */
+  .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:1rem; margin-top:1rem; }
+  .gallery-item { position:relative; border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; background:var(--bg); }
+  .gallery-item img { width:100%; height:120px; object-fit:cover; display:block; }
+  .gallery-item-actions { display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.5rem 0.625rem; background:#fff; border-top:1px solid var(--border); }
+  .gallery-item-actions input[type=number] { width:3.5rem; padding:0.3rem 0.4rem; font-size:0.8rem; }
 
   /* ── TABLE ── */
   table { width:100%; border-collapse:collapse; background:#fff; font-size:0.875rem; }

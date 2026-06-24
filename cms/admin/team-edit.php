@@ -61,7 +61,12 @@ require __DIR__ . '/layout-top.php';
   <div class="field">
     <label>Photo</label>
     <input type="file" name="photo" accept="image/jpeg,image/png,image/webp">
-    <?php if ($m['photo']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($m['photo']) ?>" target="_blank">view</a></div><?php endif; ?>
+    <?php if ($m['photo']): ?>
+      <div class="preview-thumb-wrap">
+        <img class="preview-thumb" src="<?= htmlspecialchars($m['photo']) ?>" alt="">
+        <div class="current-file"><a href="<?= htmlspecialchars($m['photo']) ?>" target="_blank">view full size</a></div>
+      </div>
+    <?php endif; ?>
   </div>
 
   <div class="field"><label>Bio</label><textarea name="bio" rows="5"><?= htmlspecialchars($m['bio'] ?? '') ?></textarea></div>

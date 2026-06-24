@@ -32,11 +32,12 @@ require __DIR__ . '/layout-top.php';
   <tbody>
   <?php foreach ($posts as $p): ?>
     <tr>
-      <td><?php if ($p['cover_image']): ?><img class="thumb" src="../<?= htmlspecialchars($p['cover_image']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No image</div><?php endif; ?></td>
+      <td><?php if ($p['cover_image']): ?><img class="thumb" src="<?= htmlspecialchars($p['cover_image']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No image</div><?php endif; ?></td>
       <td style="font-weight:600;"><?= htmlspecialchars($p['title']) ?></td>
       <td><?= htmlspecialchars($p['published_at'] ?? '—') ?></td>
       <td><span class="pill <?= $p['is_published'] ? 'live' : 'draft' ?>"><?= $p['is_published'] ? 'Published' : 'Draft' ?></span></td>
       <td class="actions-cell">
+        <?php if ($p['is_published']): ?><a href="https://nilayosports.com/<?= rawurlencode($p['slug']) ?>" class="btn sm secondary" target="_blank">View</a><?php endif; ?>
         <a href="blog-edit.php?id=<?= $p['id'] ?>" class="btn sm secondary">Edit</a>
         <a href="blog.php?delete=<?= $p['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this post?');">Delete</a>
       </td>

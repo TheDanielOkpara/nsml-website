@@ -488,7 +488,7 @@
         <!-- To add photos: replace the placeholder divs below with img tags.
              Example: <img src="images/events/photo-name.jpg" alt="Event photo" loading="lazy" class="gallery-img"> -->
       </p>
-      <div class="prop-gallery-grid">
+      <div class="prop-gallery-grid" id="propGalleryGrid">
 
         <!-- SLOT 1 — drop photo here -->
         <div class="gallery-slot">
@@ -541,6 +541,23 @@
         </div>
 
       </div>
+      <script>
+        (function () {
+          var grid = document.getElementById('propGalleryGrid');
+          if (!grid) return;
+          fetch('/property-gallery.php?page=yenagoa-race.html')
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (!data.images || !data.images.length) return;
+              grid.innerHTML = data.images.map(function (src, i) {
+                var wide = (i % 5 === 2) ? ' gallery-slot-wide' : '';
+                return '<div class="gallery-slot' + wide + '"><div class="gallery-img-wrap">' +
+                  '<img src="' + src + '" alt="" loading="lazy" class="gallery-img"></div></div>';
+              }).join('');
+            })
+            .catch(function () {});
+        })();
+      </script>
     </div>
   </div>
 

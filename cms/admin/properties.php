@@ -32,12 +32,13 @@ require __DIR__ . '/layout-top.php';
   <tbody>
   <?php foreach ($rows as $p): ?>
     <tr>
-      <td><?php if ($p['hero_image']): ?><img class="thumb" src="../<?= htmlspecialchars($p['hero_image']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No image</div><?php endif; ?></td>
+      <td><?php if ($p['hero_image']): ?><img class="thumb" src="<?= htmlspecialchars($p['hero_image']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No image</div><?php endif; ?></td>
       <td style="font-weight:600;"><?= htmlspecialchars($p['title']) ?></td>
       <td><?= htmlspecialchars($p['tag'] ?? '') ?></td>
       <td><span class="pill <?= $p['is_featured'] ? 'yes' : 'no' ?>"><?= $p['is_featured'] ? 'Yes' : 'No' ?></span></td>
       <td><span class="pill <?= $p['is_upcoming'] ? 'yes' : 'no' ?>"><?= $p['is_upcoming'] ? 'Yes' : 'No' ?></span></td>
       <td class="actions-cell">
+        <a href="property-images.php?property_id=<?= $p['id'] ?>" class="btn sm secondary">Gallery</a>
         <a href="properties-edit.php?id=<?= $p['id'] ?>" class="btn sm secondary">Edit</a>
         <a href="properties.php?delete=<?= $p['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this property?');">Delete</a>
       </td>

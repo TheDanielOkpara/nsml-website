@@ -481,7 +481,7 @@
     <div style="max-width:72rem;margin:0 auto;">
       <div class="section-tag">Event Gallery</div>
       <h2 class="sec-h2" style="margin-bottom:2rem;">From the <span class="hi">Ground</span></h2>
-      <div class="prop-gallery-grid">
+      <div class="prop-gallery-grid" id="propGalleryGrid">
 
         <div class="gallery-slot">
           <div class="gallery-img-wrap">
@@ -529,6 +529,23 @@
         </div>
 
       </div>
+      <script>
+        (function () {
+          var grid = document.getElementById('propGalleryGrid');
+          if (!grid) return;
+          fetch('/property-gallery.php?page=ijebu-marathon.html')
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (!data.images || !data.images.length) return;
+              grid.innerHTML = data.images.map(function (src, i) {
+                var wide = (i % 5 === 2) ? ' gallery-slot-wide' : '';
+                return '<div class="gallery-slot' + wide + '"><div class="gallery-img-wrap">' +
+                  '<img src="' + src + '" alt="" loading="lazy" class="gallery-img"></div></div>';
+              }).join('');
+            })
+            .catch(function () {});
+        })();
+      </script>
     </div>
   </div>
 

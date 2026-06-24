@@ -43,7 +43,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2023/01/ABLCM-Logo.2-.png',
+  'images/news/ABLCM-Logo.2-.png',
   '2023-01-10',
   1
 )
@@ -59,7 +59,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2026/03/sport-c4.jpg-scaled.jpeg',
+  'images/news/sport-c4.jpg-scaled.jpeg',
   '2026-03-09',
   1
 )
@@ -103,7 +103,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2022/06/BETKING-BLUEYELLOW-LOGO.png',
+  'images/news/BETKING-BLUEYELLOW-LOGO.png',
   '2022-06-17',
   1
 )
@@ -143,7 +143,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-09-at-09.47.07.jpeg',
+  'images/news/WhatsApp-Image-2026-03-09-at-09.47.07.jpeg',
   '2026-03-09',
   1
 )
@@ -175,7 +175,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2025/10/IMG_2701.jpg',
+  'images/news/IMG_2701.jpg',
   '2025-10-13',
   1
 )
@@ -211,7 +211,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2022/06/c1bf87f8-0d29-47f9-a8be-1ce50a60d93e.jpg',
+  'images/news/c1bf87f8-0d29-47f9-a8be-1ce50a60d93e.jpg',
   '2022-06-16',
   1
 )
@@ -231,7 +231,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-27-at-12.08.52-PM.jpeg',
+  'images/news/WhatsApp-Image-2022-07-27-at-12.08.52-PM.jpeg',
   '2022-07-29',
   1
 )
@@ -271,7 +271,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2024/06/WhatsApp-Image-2024-06-14-at-13.29.12.jpeg',
+  'images/news/WhatsApp-Image-2024-06-14-at-13.29.12.jpeg',
   '2024-06-14',
   1
 )
@@ -339,7 +339,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2024/06/Febbs-1010-1024x683-1.png',
+  'images/news/Febbs-1010-1024x683-1.png',
   '2024-06-14',
   1
 )
@@ -383,7 +383,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2023/02/PHOTO-2022-12-25-12-52-40.jpg',
+  'images/news/PHOTO-2022-12-25-12-52-40.jpg',
   '2023-02-10',
   1
 )
@@ -399,7 +399,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-13.15.09.jpeg',
+  'images/news/WhatsApp-Image-2025-11-21-at-13.15.09.jpeg',
   '2025-11-21',
   1
 )
@@ -435,7 +435,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2023/02/20230203131759_MIK_0151-2-scaled.jpg',
+  'images/news/20230203131759_MIK_0151-2-scaled.jpg',
   '2023-02-08',
   1
 )
@@ -487,7 +487,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2023/07/345d0e61-c666-4cf0-8f75-da572d590436.jpg',
+  'images/news/345d0e61-c666-4cf0-8f75-da572d590436.jpg',
   '2023-07-11',
   1
 )
@@ -543,7 +543,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2022/08/Screenshot-2022-08-01-at-09.25.01.jpg',
+  'images/news/Screenshot-2022-08-01-at-09.25.01.jpg',
   '2022-08-01',
   1
 )
@@ -599,7 +599,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2022/06/Delta-2022-logo-.jpg',
+  'images/news/Delta-2022-logo-.jpg',
   '2022-06-21',
   1
 )
@@ -647,7 +647,7 @@ INSERT INTO blog_posts (slug, title, excerpt, body, cover_image, published_at, i
 
       <!-- Tags (WP: the_tags()) -->
       ',
-  'https://nilayosports.com/wp-content/uploads/2022/07/IMG_6612.jpeg',
+  'images/news/IMG_6612.jpeg',
   '2022-07-22',
   1
 )

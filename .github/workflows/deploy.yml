@@ -28,4 +28,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa \
               -i ~/.ssh/deploy_key -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
-              'cd ~/public_html && git fetch origin main && git reset --hard origin/main && echo "Deployed: $(git rev-parse --short HEAD)"'
+              'cd ~/public_html && git fetch origin main && git reset --hard FETCH_HEAD && echo "Deployed: $(git rev-parse --short HEAD)"'

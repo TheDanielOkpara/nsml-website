@@ -1,0 +1,32 @@
+# NSML — clean (extensionless) URLs
+Options -MultiViews
+RewriteEngine On
+
+# Never touch the CMS backend (admin panel, includes, uploads)
+RewriteRule ^cms/ - [L]
+
+# index.html / index.php  →  /
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{THE_REQUEST} \s/+index\.(html|php)[\s?] [NC]
+RewriteRule ^ / [R=301,L]
+
+# Any other direct .html / .php request (GET) → its extensionless URL (301)
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{THE_REQUEST} \s/+([^.\s?]+)\.(html|php)[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Serve an extensionless URL from the matching .html file
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^.]+?)/?$ $1.html [L]
+
+# …or from the matching .php file
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^([^.]+?)/?$ $1.php [L]
+
+# Article pretty URLs: /<slug>  →  article.php?slug=<slug>
+# (only runs when no real file/dir matched above)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([A-Za-z0-9_-]+)/?$ article.php?slug=$1 [L,QSA]

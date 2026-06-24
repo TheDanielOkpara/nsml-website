@@ -21,6 +21,23 @@ $postDate = $post['published_at'] ? date('F j, Y', strtotime($post['published_at
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($post['title']) ?> — Nilayo Sports Management</title>
   <meta name="description" content="<?= htmlspecialchars($post['excerpt'] ?: mb_substr(strip_tags($post['body'] ?? ''), 0, 160)) ?>">
+<?php
+  $ogDesc = $post['excerpt'] ?: mb_substr(strip_tags($post['body'] ?? ''), 0, 200);
+  $ogImg  = $post['cover_image'] ?: 'images/og-image.jpg';
+  // Make the image an absolute URL (cover_image may already be a local path or an external URL)
+  if (!preg_match('#^https?://#', $ogImg)) { $ogImg = 'https://nilayosports.com/' . ltrim($ogImg, '/'); }
+  $ogUrl  = 'https://nilayosports.com/' . rawurlencode($post['slug']);
+?>
+  <!-- Open Graph / social sharing (per-article) -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="<?= htmlspecialchars($ogUrl) ?>">
+  <meta property="og:title" content="<?= htmlspecialchars($post['title']) ?>">
+  <meta property="og:description" content="<?= htmlspecialchars($ogDesc) ?>">
+  <meta property="og:image" content="<?= htmlspecialchars($ogImg) ?>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?= htmlspecialchars($post['title']) ?>">
+  <meta name="twitter:description" content="<?= htmlspecialchars($ogDesc) ?>">
+  <meta name="twitter:image" content="<?= htmlspecialchars($ogImg) ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -677,9 +694,9 @@ $postDate = $post['published_at'] ? date('F j, Y', strtotime($post['published_at
     <div class="article-hero-inner">
       <!-- WP: breadcrumb via Yoast SEO or custom wp_breadcrumb() -->
       <div class="article-breadcrumb">
-        <a href="index.html">Home</a>
+        <a href="/">Home</a>
         <span class="article-breadcrumb-sep">›</span>
-        <a href="news.php">News</a>
+        <a href="news">News</a>
         <span class="article-breadcrumb-sep">›</span>
         <span><?= htmlspecialchars($post['title']) ?></span>
       </div>
@@ -760,12 +777,12 @@ $postDate = $post['published_at'] ? date('F j, Y', strtotime($post['published_at
           <div class="section-tag">More to Read</div>
           <h2 class="sec-h2">Related <span class="hi">Stories</span></h2>
         </div>
-        <a href="news.php" class="btn btn-outline btn-sm">All News</a>
+        <a href="news" class="btn btn-outline btn-sm">All News</a>
       </div>
 
       <div class="related-grid" style="margin-top:2.5rem">
         <?php foreach ($related as $r): ?>
-        <a href="article.php?slug=<?= urlencode($r['slug']) ?>" class="related-card" data-reveal>
+        <a href="/<?= urlencode($r['slug']) ?>" class="related-card" data-reveal>
           <div class="related-img-wrap">
             <img class="related-img"
               src="<?= htmlspecialchars($r['cover_image'] ?: 'images/news-placeholder.jpg') ?>"
@@ -974,31 +991,31 @@ $postDate = $post['published_at'] ? date('F j, Y', strtotime($post['published_at
     <div class="footer-inner">
       <div class="footer-top">
         <div>
-          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
           <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
           <ul class="f-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.php">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="properties.php">Properties</a></li>
-            <li><a href="news.php">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="services">Services</a></li>
+            <li><a href="properties">Properties</a></li>
+            <li><a href="news">News</a></li>
+            <li><a href="contact">Contact</a></li>
           </ul>
         </div>
         <div>
           <div class="f-col-title">Properties</div>
           <ul class="f-links">
-            <li><a href="lagos-marathon.html">Lagos City Marathon</a></li>
-            <li><a href="abuja-marathon.html">Abuja City Marathon</a></li>
-            <li><a href="abeokuta-race.html">Abeokuta 10KM Race</a></li>
-            <li><a href="ijebu-marathon.html">Ijebu Heritage Half Marathon</a></li>
-            <li><a href="copa-lagos.html">Copa Lagos Beach Soccer</a></li>
-            <li><a href="enugu-marathon.html">Enugu City Marathon</a></li>
-            <li><a href="yenagoa-race.html">Yenagoa 10KM Race</a></li>
-            <li><a href="stormers-club.html">Stormers Sports Club</a></li>
+            <li><a href="lagos-marathon">Lagos City Marathon</a></li>
+            <li><a href="abuja-marathon">Abuja City Marathon</a></li>
+            <li><a href="abeokuta-race">Abeokuta 10KM Race</a></li>
+            <li><a href="ijebu-marathon">Ijebu Heritage Half Marathon</a></li>
+            <li><a href="copa-lagos">Copa Lagos Beach Soccer</a></li>
+            <li><a href="enugu-marathon">Enugu City Marathon</a></li>
+            <li><a href="yenagoa-race">Yenagoa 10KM Race</a></li>
+            <li><a href="stormers-club">Stormers Sports Club</a></li>
           </ul>
         </div>
         <div class="footer-social-col">

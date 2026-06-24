@@ -20,6 +20,17 @@ function prop_stats(array $p): array {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Properties — Nilayo Sports Management</title>
   <meta name="description" content="NSML's portfolio of world-class sporting events across Africa — Lagos City Marathon, Abuja City Marathon, Copa Lagos Beach Soccer, and more.">
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nilayosports.com/properties">
+  <meta property="og:title" content="Properties — Nilayo Sports Management">
+  <meta property="og:description" content="NSML's portfolio of world-class sporting events across Africa — Lagos City Marathon, Abuja City Marathon, Copa Lagos Beach Soccer, and more.">
+  <meta property="og:image" content="https://nilayosports.com/images/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Properties — Nilayo Sports Management">
+  <meta name="twitter:description" content="NSML's portfolio of world-class sporting events across Africa — Lagos City Marathon, Abuja City Marathon, Copa Lagos Beach Soccer, and more.">
+  <meta name="twitter:image" content="https://nilayosports.com/images/og-image.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -682,29 +693,29 @@ function prop_stats(array $p): array {
     <div class="footer-inner">
       <div class="footer-top">
         <div>
-          <a href="index.html" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
+          <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
           <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
           <ul class="f-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.php">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="properties.php">Properties</a></li>
-            <li><a href="news.php">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="services">Services</a></li>
+            <li><a href="properties">Properties</a></li>
+            <li><a href="news">News</a></li>
+            <li><a href="contact">Contact</a></li>
           </ul>
         </div>
         <div>
           <div class="f-col-title">Properties</div>
           <ul class="f-links">
-            <li><a href="lagos-marathon.html">Lagos City Marathon</a></li>
-            <li><a href="abuja-marathon.html">Abuja City Marathon</a></li>
-            <li><a href="abeokuta-race.html">Abeokuta 10KM Race</a></li>
-            <li><a href="ijebu-marathon.html">Ijebu Heritage Half Marathon</a></li>
-            <li><a href="copa-lagos.html">Copa Lagos Beach Soccer</a></li>
-            <li><a href="stormers-club.html">Stormers Sports Club</a></li>
+            <li><a href="lagos-marathon">Lagos City Marathon</a></li>
+            <li><a href="abuja-marathon">Abuja City Marathon</a></li>
+            <li><a href="abeokuta-race">Abeokuta 10KM Race</a></li>
+            <li><a href="ijebu-marathon">Ijebu Heritage Half Marathon</a></li>
+            <li><a href="copa-lagos">Copa Lagos Beach Soccer</a></li>
+            <li><a href="stormers-club">Stormers Sports Club</a></li>
           </ul>
         </div>
         <div class="footer-social-col">

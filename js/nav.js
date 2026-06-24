@@ -1,26 +1,27 @@
 /* Shared navigation component — injected on every page */
 (function () {
-  const path = window.location.pathname.replace(/\/$/, '').split('/').pop() || 'index.html';
+  let path = window.location.pathname.replace(/\/+$/, '');
+  if (path === '') path = '/';
 
   const links = [
-    { href: 'index.html',      label: 'Home' },
-    { href: 'about.php',       label: 'About' },
-    { href: 'services.html',   label: 'Services' },
-    { href: 'properties.php',  label: 'Properties' },
-    { href: 'news.php',        label: 'News' },
-    { href: 'contact.html',    label: 'Contact' },
+    { href: '/',           label: 'Home' },
+    { href: '/about',      label: 'About' },
+    { href: '/services',   label: 'Services' },
+    { href: '/properties', label: 'Properties' },
+    { href: '/news',       label: 'News' },
+    { href: '/contact',    label: 'Contact' },
   ];
 
   const navHTML = `
     <nav class="nav" id="mainNav">
       <div class="nav-pill" id="navPill">
-        <a href="index.html" class="nav-logo">
+        <a href="/" class="nav-logo">
           <img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="nav-logo-img">
         </a>
         <div class="nav-links">
           ${links.map(l => `<a href="${l.href}" class="${path === l.href ? 'active' : ''}">${l.label}</a>`).join('')}
         </div>
-        <a href="contact.html" class="nav-cta">
+        <a href="/contact" class="nav-cta">
           <span>Partner With Us</span>
           <span class="nav-cta-arrow">↗</span>
         </a>
@@ -32,7 +33,7 @@
 
     <div class="mob-overlay" id="mobOverlay">
       ${links.map(l => `<a href="${l.href}">${l.label}</a>`).join('')}
-      <a href="contact.html">Partner With Us</a>
+      <a href="/contact">Partner With Us</a>
     </div>
   `;
 

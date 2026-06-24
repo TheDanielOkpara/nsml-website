@@ -479,6 +479,7 @@ function prop_stats(array $p): array {
                 <div class="uc-title"><?= htmlspecialchars($p['title']) ?></div>
               </a>
               <div class="uc-desc"><?= htmlspecialchars($p['description'] ?? '') ?></div>
+              <a href="<?= htmlspecialchars($p['detail_url'] ?: '#') ?>" class="pcard-view-btn">View Property ↗</a>
             </div>
           </div>
         </div>

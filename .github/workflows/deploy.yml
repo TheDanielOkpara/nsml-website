@@ -21,6 +21,7 @@ jobs:
           username: ${{ secrets.CPANEL_SSH_USER }}
           port: ${{ secrets.CPANEL_SSH_PORT }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
           script: |
             cd ~/public_html
             git fetch origin main

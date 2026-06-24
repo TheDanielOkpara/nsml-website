@@ -5,7 +5,11 @@ $slug = $_GET['slug'] ?? '';
 $stmt = db()->prepare('SELECT * FROM blog_posts WHERE slug = ? AND is_published = 1');
 $stmt->execute([$slug]);
 $post = $stmt->fetch();
-if (!$post) { http_response_code(404); die('Article not found.'); }
+if (!$post) {
+    http_response_code(404);
+    readfile(__DIR__ . '/404.html');
+    exit;
+}
 
 $related = db()->prepare('SELECT * FROM blog_posts WHERE is_published = 1 AND id != ? ORDER BY published_at DESC LIMIT 3');
 $related->execute([$post['id']]);

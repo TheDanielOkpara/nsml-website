@@ -1,6 +1,7 @@
 # NSML — clean (extensionless) URLs
 Options -MultiViews
 RewriteEngine On
+ErrorDocument 404 /404.html
 
 # Never touch the CMS backend (admin panel, includes, uploads)
 RewriteRule ^cms/ - [L]

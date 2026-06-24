@@ -1,29 +1,31 @@
 name: Deploy to cPanel
 
-# Runs on every push to main. SSHes into the cPanel server and runs a
-# git pull inside public_html (which is itself the cloned repo). Untracked
-# files on the server — config.local.php and cms/uploads — are preserved,
-# because git pull only touches tracked files.
+# Runs on every push to main. Connects over SSH using the runner's native
+# OpenSSH client (which supports the server's older key-exchange algorithm)
+# and resets public_html to origin/main. Untracked files on the server —
+# config.local.php and cms/uploads — are preserved (reset --hard only
+# touches tracked files).
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}   # also allows manual "Run workflow" from the Actions tab
+  workflow_dispatch: {}   # allows manual "Run workflow" from the Actions tab
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Pull latest code on the server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.CPANEL_SSH_HOST }}
-          username: ${{ secrets.CPANEL_SSH_USER }}
-          port: ${{ secrets.CPANEL_SSH_PORT }}
-          key: ${{ secrets.CPANEL_SSH_KEY }}
-          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
-          script: |
-            cd ~/public_html
-            git fetch origin main
-            git reset --hard origin/main
-            echo "Deployed commit: $(git rev-parse --short HEAD)"
+      - name: Deploy via SSH (git reset on server)
+        env:
+          SSH_KEY:  ${{ secrets.CPANEL_SSH_KEY }}
+          SSH_HOST: ${{ secrets.CPANEL_SSH_HOST }}
+          SSH_USER: ${{ secrets.CPANEL_SSH_USER }}
+          SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa \
+              -i ~/.ssh/deploy_key -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+              'cd ~/public_html && git fetch origin main && git reset --hard origin/main && echo "Deployed: $(git rev-parse --short HEAD)"'

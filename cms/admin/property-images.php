@@ -97,7 +97,7 @@ require __DIR__ . '/layout-top.php';
     <div class="gallery-grid">
       <?php foreach ($images as $img): ?>
         <div class="gallery-item">
-          <img src="<?= htmlspecialchars($img['image_path']) ?>" alt="">
+          <img src="<?= htmlspecialchars(asset_url($img['image_path'])) ?>" alt="">
           <div class="gallery-item-actions">
             <label style="font-size:0.75rem; color:var(--text-muted); display:flex; align-items:center; gap:0.35rem;">
               Order

@@ -80,8 +80,8 @@ require __DIR__ . '/layout-top.php';
     <input type="file" name="cover_image" accept="image/jpeg,image/png,image/webp">
     <?php if ($post['cover_image']): ?>
       <div class="preview-thumb-wrap">
-        <img class="preview-thumb preview-thumb-wide" src="<?= htmlspecialchars($post['cover_image']) ?>" alt="">
-        <div class="current-file">Current: <a href="<?= htmlspecialchars($post['cover_image']) ?>" target="_blank">view full size</a></div>
+        <img class="preview-thumb preview-thumb-wide" src="<?= htmlspecialchars(asset_url($post['cover_image'])) ?>" alt="">
+        <div class="current-file">Current: <a href="<?= htmlspecialchars(asset_url($post['cover_image'])) ?>" target="_blank">view full size</a></div>
       </div>
     <?php endif; ?>
   </div>

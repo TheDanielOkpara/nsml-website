@@ -93,8 +93,8 @@ require __DIR__ . '/layout-top.php';
         <input type="file" name="hero_image" accept="image/jpeg,image/png,image/webp">
         <?php if ($p['hero_image']): ?>
           <div class="preview-thumb-wrap">
-            <img class="preview-thumb" src="<?= htmlspecialchars($p['hero_image']) ?>" alt="">
-            <div class="current-file"><a href="<?= htmlspecialchars($p['hero_image']) ?>" target="_blank">view full size</a></div>
+            <img class="preview-thumb" src="<?= htmlspecialchars(asset_url($p['hero_image'])) ?>" alt="">
+            <div class="current-file"><a href="<?= htmlspecialchars(asset_url($p['hero_image'])) ?>" target="_blank">view full size</a></div>
           </div>
         <?php endif; ?>
       </div>
@@ -103,8 +103,8 @@ require __DIR__ . '/layout-top.php';
         <input type="file" name="logo_image" accept="image/jpeg,image/png,image/webp">
         <?php if ($p['logo_image']): ?>
           <div class="preview-thumb-wrap">
-            <img class="preview-thumb" src="<?= htmlspecialchars($p['logo_image']) ?>" alt="">
-            <div class="current-file"><a href="<?= htmlspecialchars($p['logo_image']) ?>" target="_blank">view full size</a></div>
+            <img class="preview-thumb" src="<?= htmlspecialchars(asset_url($p['logo_image'])) ?>" alt="">
+            <div class="current-file"><a href="<?= htmlspecialchars(asset_url($p['logo_image'])) ?>" target="_blank">view full size</a></div>
           </div>
         <?php endif; ?>
       </div>

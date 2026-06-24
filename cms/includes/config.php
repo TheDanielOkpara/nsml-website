@@ -27,3 +27,18 @@ defined('UPLOADS_URL') || define('UPLOADS_URL', '/cms/uploads');
 // (a cPanel mailbox) as the From so it isn't flagged as spoofed.
 defined('CONTACT_NOTIFY_TO')   || define('CONTACT_NOTIFY_TO', getenv('CONTACT_NOTIFY_TO') ?: 'info@nilayosports.com');
 defined('CONTACT_NOTIFY_FROM') || define('CONTACT_NOTIFY_FROM', getenv('CONTACT_NOTIFY_FROM') ?: 'no-reply@nilayosports.com');
+
+// Normalizes a stored image path into a root-absolute browser URL. Older
+// seed data stores paths like "images/news/foo.jpg" with no leading slash,
+// which only resolves correctly from the site root — not from an admin page
+// nested under /cms/admin/. New uploads already store absolute paths (e.g.
+// "/cms/uploads/foo.jpg"), so this is a no-op for those.
+function asset_url(?string $path): string {
+    if (!$path) {
+        return '';
+    }
+    if (preg_match('#^(https?://|/)#i', $path)) {
+        return $path;
+    }
+    return '/' . $path;
+}

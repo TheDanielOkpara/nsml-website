@@ -33,24 +33,41 @@ foreach ($posts as $p) {
     }
 }
 
-// Static property pages (e.g. lagos-marathon.html) may already have real
-// photos hardcoded into their gallery section from before the DB-backed
-// gallery existed. Find any such photos for properties that don't have any
-// property_images rows yet, so they can be imported instead of re-uploaded.
-function extract_existing_gallery_images(string $detailUrl): array {
-    $filename = basename($detailUrl);
-    if ($filename === '' || !str_ends_with($filename, '.html')) {
+// Each property has a folder of real event photos under images/events/ left
+// over from the old WordPress site (e.g. images/events/lagos/), predating the
+// DB-backed gallery. The folder name doesn't always match the property slug,
+// so it's mapped explicitly here. Find these for properties that don't have
+// any property_images rows yet, so they can be imported instead of re-uploaded.
+const PROPERTY_GALLERY_FOLDERS = [
+    'lagos-marathon' => 'lagos',
+    'abuja-marathon' => 'abuja',
+    'abeokuta-race' => 'abeokuta',
+    'enugu-marathon' => 'enugu',
+    'yenagoa-race' => 'yenagoa',
+    'stormers-club' => 'stormers',
+    'ijebu-marathon' => 'ijebu',
+    'kaduna-marathon' => 'kaduna',
+    'iau-remo-championship' => 'remo',
+    'copa-lagos' => 'copa-lagos',
+];
+
+function extract_existing_gallery_images(string $slug): array {
+    $folder = PROPERTY_GALLERY_FOLDERS[$slug] ?? null;
+    if (!$folder) {
         return [];
     }
-    $path = __DIR__ . '/../../' . $filename;
-    if (!is_file($path)) {
+    $dir = __DIR__ . '/../../images/events/' . $folder;
+    if (!is_dir($dir)) {
         return [];
     }
-    $html = file_get_contents($path);
-    $html = preg_replace('#<script\b[^>]*>.*?</script>#is', '', $html);
-    $html = preg_replace('/<!--.*?-->/s', '', $html);
-    preg_match_all('/<img\s+src="([^"]+)"[^>]*class="gallery-img"/i', $html, $m);
-    return $m[1] ?? [];
+    // A handful of these folders also hold non-photo assets (hero/card images
+    // already used elsewhere, or sponsor/brand infographics) mixed in with the
+    // real event photos — exclude those explicitly so they don't get imported.
+    $excluded = ['lagos-hero.jpg', 'lagos-card.jpg', 'ab-gold.png', 'brand-finance-2025.png', 'brand-finance-2025-region.png'];
+    $files = array_values(array_diff(scandir($dir), ['.', '..', '.gitkeep'], $excluded));
+    $files = array_filter($files, fn($f) => preg_match('/\.(jpe?g|png|webp)$/i', $f));
+    natsort($files);
+    return array_map(fn($f) => 'images/events/' . $folder . '/' . $f, $files);
 }
 
 $properties = db()->query('SELECT * FROM properties')->fetchAll();
@@ -61,7 +78,7 @@ foreach ($properties as $prop) {
     if ((int)$countStmt->fetch()['c'] > 0) {
         continue;
     }
-    $images = extract_existing_gallery_images($prop['detail_url'] ?? '');
+    $images = extract_existing_gallery_images($prop['slug'] ?? '');
     if ($images) {
         $galleryImport[] = ['property' => $prop, 'images' => $images];
     }

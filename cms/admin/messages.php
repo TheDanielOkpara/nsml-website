@@ -18,27 +18,34 @@ $activeNav = 'messages';
 require __DIR__ . '/layout-top.php';
 ?>
 
-<h1>Contact Messages</h1>
+<div class="topbar">
+  <div class="topbar-text">
+    <h1>Contact Messages</h1>
+    <p class="page-sub" style="margin:0;">Submissions from the site's contact form.</p>
+  </div>
+</div>
 <?php if (!empty($_GET['deleted'])): ?><div class="flash">Message deleted.</div><?php endif; ?>
 
+<div class="panel">
 <table>
   <thead><tr><th>Received</th><th>Name</th><th>Email</th><th>Interest</th><th>Message</th><th></th></tr></thead>
   <tbody>
   <?php foreach ($rows as $m): ?>
-    <tr style="<?= $m['is_read'] ? '' : 'font-weight:600;background:#fbfdff;' ?>">
-      <td><?= htmlspecialchars(date('M j, Y g:ia', strtotime($m['created_at']))) ?></td>
-      <td><?= htmlspecialchars(trim($m['first_name'] . ' ' . $m['last_name'])) ?><?= $m['phone'] ? '<br><span style="font-weight:400;color:#888;font-size:0.8rem;">' . htmlspecialchars($m['phone']) . '</span>' : '' ?></td>
-      <td><a href="mailto:<?= htmlspecialchars($m['email']) ?>"><?= htmlspecialchars($m['email']) ?></a></td>
+    <tr style="<?= $m['is_read'] ? '' : 'background:#fffaf0;' ?>">
+      <td style="white-space:nowrap;color:var(--text-muted);"><?= htmlspecialchars(date('M j, Y g:ia', strtotime($m['created_at']))) ?></td>
+      <td style="font-weight:600;"><?= htmlspecialchars(trim($m['first_name'] . ' ' . $m['last_name'])) ?><?php if (!$m['is_read']): ?> <span class="pill unread">New</span><?php endif; ?><?= $m['phone'] ? '<br><span style="font-weight:400;color:var(--text-muted);font-size:0.8rem;">' . htmlspecialchars($m['phone']) . '</span>' : '' ?></td>
+      <td><a href="mailto:<?= htmlspecialchars($m['email']) ?>" style="color:var(--green-dark);text-decoration:none;font-weight:500;"><?= htmlspecialchars($m['email']) ?></a></td>
       <td><?= htmlspecialchars($m['interest'] ?? '') ?></td>
-      <td style="max-width:340px;font-weight:400;"><?= nl2br(htmlspecialchars(mb_substr($m['message'] ?? '', 0, 400))) ?></td>
-      <td style="white-space:nowrap;">
-        <?php if (!$m['is_read']): ?><a href="messages.php?read=<?= $m['id'] ?>" class="btn secondary">Mark read</a><?php endif; ?>
-        <a href="messages.php?delete=<?= $m['id'] ?>" class="btn danger" onclick="return confirm('Delete this message?');">Delete</a>
+      <td style="max-width:340px;color:var(--text-sub);"><?= nl2br(htmlspecialchars(mb_substr($m['message'] ?? '', 0, 400))) ?></td>
+      <td class="actions-cell">
+        <?php if (!$m['is_read']): ?><a href="messages.php?read=<?= $m['id'] ?>" class="btn sm secondary">Mark read</a><?php endif; ?>
+        <a href="messages.php?delete=<?= $m['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this message?');">Delete</a>
       </td>
     </tr>
   <?php endforeach; ?>
-  <?php if (!$rows): ?><tr><td colspan="6">No messages yet.</td></tr><?php endif; ?>
+  <?php if (!$rows): ?><tr><td colspan="6" class="empty-cell">No messages yet.</td></tr><?php endif; ?>
   </tbody>
 </table>
+</div>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

@@ -48,7 +48,7 @@ $activeNav = 'team';
 require __DIR__ . '/layout-top.php';
 ?>
 
-<h1><?= $id ? 'Edit Team Member' : 'New Team Member' ?></h1>
+<div class="topbar"><div class="topbar-text"><h1><?= $id ? 'Edit Team Member' : 'New Team Member' ?></h1></div></div>
 <?php if ($error): ?><div class="flash error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
 <div class="card">
@@ -59,20 +59,22 @@ require __DIR__ . '/layout-top.php';
   <div class="field"><label>Role</label><input type="text" name="role" value="<?= htmlspecialchars($m['role'] ?? '') ?>"></div>
 
   <div class="field">
-    <label>Photo <?php if ($m['photo']): ?>(current: <a href="../<?= htmlspecialchars($m['photo']) ?>" target="_blank">view</a>)<?php endif; ?></label>
+    <label>Photo</label>
     <input type="file" name="photo" accept="image/jpeg,image/png,image/webp">
+    <?php if ($m['photo']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($m['photo']) ?>" target="_blank">view</a></div><?php endif; ?>
   </div>
 
   <div class="field"><label>Bio</label><textarea name="bio" rows="5"><?= htmlspecialchars($m['bio'] ?? '') ?></textarea></div>
 
-  <div class="row3">
-    <div class="field"><label><input type="checkbox" name="is_ceo" value="1" <?= $m['is_ceo'] ? 'checked' : '' ?> style="width:auto;"> Featured as CEO card</label></div>
+  <div class="row2">
+    <div class="field"><label class="checkbox-field"><input type="checkbox" name="is_ceo" value="1" <?= $m['is_ceo'] ? 'checked' : '' ?>> Featured as CEO card</label></div>
     <div class="field"><label>Sort order</label><input type="number" name="sort_order" value="<?= (int)$m['sort_order'] ?>"></div>
-    <div></div>
   </div>
 
-  <button type="submit" class="btn">Save Member</button>
-  <a href="team.php" class="btn secondary">Cancel</a>
+  <div class="form-actions">
+    <button type="submit" class="btn">Save Member</button>
+    <a href="team.php" class="btn secondary">Cancel</a>
+  </div>
 </form>
 </div>
 

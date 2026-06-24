@@ -16,31 +16,36 @@ require __DIR__ . '/layout-top.php';
 ?>
 
 <div class="topbar">
-  <h1>Properties</h1>
+  <div class="topbar-text">
+    <h1>Properties</h1>
+    <p class="page-sub" style="margin:0;">Events and properties shown on the Properties page.</p>
+  </div>
   <a href="properties-edit.php" class="btn">+ New Property</a>
 </div>
 
 <?php if (!empty($_GET['saved'])): ?><div class="flash">Property saved.</div><?php endif; ?>
 <?php if (!empty($_GET['deleted'])): ?><div class="flash">Property deleted.</div><?php endif; ?>
 
+<div class="panel">
 <table>
   <thead><tr><th>Hero</th><th>Title</th><th>Tag</th><th>Featured</th><th>Upcoming</th><th></th></tr></thead>
   <tbody>
   <?php foreach ($rows as $p): ?>
     <tr>
-      <td><?php if ($p['hero_image']): ?><img class="thumb" src="../<?= htmlspecialchars($p['hero_image']) ?>" alt=""><?php endif; ?></td>
-      <td><?= htmlspecialchars($p['title']) ?></td>
+      <td><?php if ($p['hero_image']): ?><img class="thumb" src="../<?= htmlspecialchars($p['hero_image']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No image</div><?php endif; ?></td>
+      <td style="font-weight:600;"><?= htmlspecialchars($p['title']) ?></td>
       <td><?= htmlspecialchars($p['tag'] ?? '') ?></td>
-      <td><?= $p['is_featured'] ? 'Yes' : '' ?></td>
-      <td><?= $p['is_upcoming'] ? 'Yes' : '' ?></td>
-      <td>
-        <a href="properties-edit.php?id=<?= $p['id'] ?>" class="btn secondary">Edit</a>
-        <a href="properties.php?delete=<?= $p['id'] ?>" class="btn danger" onclick="return confirm('Delete this property?');">Delete</a>
+      <td><span class="pill <?= $p['is_featured'] ? 'yes' : 'no' ?>"><?= $p['is_featured'] ? 'Yes' : 'No' ?></span></td>
+      <td><span class="pill <?= $p['is_upcoming'] ? 'yes' : 'no' ?>"><?= $p['is_upcoming'] ? 'Yes' : 'No' ?></span></td>
+      <td class="actions-cell">
+        <a href="properties-edit.php?id=<?= $p['id'] ?>" class="btn sm secondary">Edit</a>
+        <a href="properties.php?delete=<?= $p['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this property?');">Delete</a>
       </td>
     </tr>
   <?php endforeach; ?>
-  <?php if (!$rows): ?><tr><td colspan="6">No properties yet.</td></tr><?php endif; ?>
+  <?php if (!$rows): ?><tr><td colspan="6" class="empty-cell">No properties yet.</td></tr><?php endif; ?>
   </tbody>
 </table>
+</div>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

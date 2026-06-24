@@ -26,25 +26,30 @@ require __DIR__ . '/layout-top.php';
 ?>
 
 <div class="topbar">
-  <h1>Newsletter Subscribers (<?= count($rows) ?>)</h1>
+  <div class="topbar-text">
+    <h1>Newsletter Subscribers</h1>
+    <p class="page-sub" style="margin:0;"><?= count($rows) ?> total subscribers.</p>
+  </div>
   <a href="subscribers.php?export=1" class="btn">Export CSV</a>
 </div>
 
 <?php if (!empty($_GET['deleted'])): ?><div class="flash">Subscriber removed.</div><?php endif; ?>
 
+<div class="panel">
 <table>
   <thead><tr><th>Email</th><th>Subscribed</th><th>Status</th><th></th></tr></thead>
   <tbody>
   <?php foreach ($rows as $s): ?>
     <tr>
-      <td><?= htmlspecialchars($s['email']) ?></td>
-      <td><?= htmlspecialchars(date('M j, Y g:ia', strtotime($s['created_at']))) ?></td>
-      <td><?= $s['is_active'] ? 'Active' : 'Unsubscribed' ?></td>
-      <td><a href="subscribers.php?delete=<?= $s['id'] ?>" class="btn danger" onclick="return confirm('Remove this subscriber?');">Delete</a></td>
+      <td style="font-weight:600;"><?= htmlspecialchars($s['email']) ?></td>
+      <td style="color:var(--text-muted);"><?= htmlspecialchars(date('M j, Y g:ia', strtotime($s['created_at']))) ?></td>
+      <td><span class="pill <?= $s['is_active'] ? 'yes' : 'no' ?>"><?= $s['is_active'] ? 'Active' : 'Unsubscribed' ?></span></td>
+      <td class="actions-cell"><a href="subscribers.php?delete=<?= $s['id'] ?>" class="btn sm danger" onclick="return confirm('Remove this subscriber?');">Delete</a></td>
     </tr>
   <?php endforeach; ?>
-  <?php if (!$rows): ?><tr><td colspan="4">No subscribers yet.</td></tr><?php endif; ?>
+  <?php if (!$rows): ?><tr><td colspan="4" class="empty-cell">No subscribers yet.</td></tr><?php endif; ?>
   </tbody>
 </table>
+</div>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

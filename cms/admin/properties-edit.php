@@ -66,61 +66,74 @@ $activeNav = 'properties';
 require __DIR__ . '/layout-top.php';
 ?>
 
-<h1><?= $id ? 'Edit Property' : 'New Property' ?></h1>
+<div class="topbar"><div class="topbar-text"><h1><?= $id ? 'Edit Property' : 'New Property' ?></h1></div></div>
 <?php if ($error): ?><div class="flash error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-<div class="card">
+<div class="card" style="max-width:820px;">
 <form method="post" enctype="multipart/form-data">
   <input type="hidden" name="csrf" value="<?= htmlspecialchars($token) ?>">
 
   <div class="field"><label>Title</label><input type="text" name="title" value="<?= htmlspecialchars($p['title']) ?>" required></div>
   <div class="field"><label>Slug</label><input type="text" name="slug" value="<?= htmlspecialchars($p['slug']) ?>"></div>
 
-  <div class="row3">
-    <div class="field"><label>Tag (e.g. "Heritage Race")</label><input type="text" name="tag" value="<?= htmlspecialchars($p['tag'] ?? '') ?>"></div>
-    <div class="field"><label>Badge (optional ribbon)</label><input type="text" name="badge" value="<?= htmlspecialchars($p['badge'] ?? '') ?>"></div>
-    <div class="field"><label>Sort order</label><input type="number" name="sort_order" value="<?= (int)$p['sort_order'] ?>"></div>
+  <div class="field-group">
+    <div class="field-group-title">Display</div>
+    <div class="row3">
+      <div class="field"><label>Tag <span class="hint">e.g. "Heritage Race"</span></label><input type="text" name="tag" value="<?= htmlspecialchars($p['tag'] ?? '') ?>"></div>
+      <div class="field"><label>Badge <span class="hint">optional ribbon</span></label><input type="text" name="badge" value="<?= htmlspecialchars($p['badge'] ?? '') ?>"></div>
+      <div class="field"><label>Sort order</label><input type="number" name="sort_order" value="<?= (int)$p['sort_order'] ?>"></div>
+    </div>
   </div>
 
-  <div class="row3">
-    <div class="field">
-      <label>Hero image <?php if ($p['hero_image']): ?>(current: <a href="../<?= htmlspecialchars($p['hero_image']) ?>" target="_blank">view</a>)<?php endif; ?></label>
-      <input type="file" name="hero_image" accept="image/jpeg,image/png,image/webp">
+  <div class="field-group">
+    <div class="field-group-title">Media &amp; Link</div>
+    <div class="row3">
+      <div class="field">
+        <label>Hero image</label>
+        <input type="file" name="hero_image" accept="image/jpeg,image/png,image/webp">
+        <?php if ($p['hero_image']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($p['hero_image']) ?>" target="_blank">view</a></div><?php endif; ?>
+      </div>
+      <div class="field">
+        <label>Logo image</label>
+        <input type="file" name="logo_image" accept="image/jpeg,image/png,image/webp">
+        <?php if ($p['logo_image']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($p['logo_image']) ?>" target="_blank">view</a></div><?php endif; ?>
+      </div>
+      <div class="field"><label>Detail page link</label><input type="text" name="detail_url" value="<?= htmlspecialchars($p['detail_url'] ?? '') ?>" placeholder="e.g. ijebu-marathon.html"></div>
     </div>
-    <div class="field">
-      <label>Logo image <?php if ($p['logo_image']): ?>(current: <a href="../<?= htmlspecialchars($p['logo_image']) ?>" target="_blank">view</a>)<?php endif; ?></label>
-      <input type="file" name="logo_image" accept="image/jpeg,image/png,image/webp">
-    </div>
-    <div class="field"><label>Detail page link</label><input type="text" name="detail_url" value="<?= htmlspecialchars($p['detail_url'] ?? '') ?>" placeholder="e.g. ijebu-marathon.html"></div>
   </div>
 
   <div class="field"><label>Description</label><textarea name="description" rows="4"><?= htmlspecialchars($p['description'] ?? '') ?></textarea></div>
 
-  <div class="row3">
-    <div class="field"><label>Stat 1 value</label><input type="text" name="stat1_val" value="<?= htmlspecialchars($p['stat1_val'] ?? '') ?>"></div>
-    <div class="field"><label>Stat 1 label</label><input type="text" name="stat1_lbl" value="<?= htmlspecialchars($p['stat1_lbl'] ?? '') ?>"></div>
-    <div></div>
-  </div>
-  <div class="row3">
-    <div class="field"><label>Stat 2 value</label><input type="text" name="stat2_val" value="<?= htmlspecialchars($p['stat2_val'] ?? '') ?>"></div>
-    <div class="field"><label>Stat 2 label</label><input type="text" name="stat2_lbl" value="<?= htmlspecialchars($p['stat2_lbl'] ?? '') ?>"></div>
-    <div></div>
-  </div>
-  <div class="row3">
-    <div class="field"><label>Stat 3 value</label><input type="text" name="stat3_val" value="<?= htmlspecialchars($p['stat3_val'] ?? '') ?>"></div>
-    <div class="field"><label>Stat 3 label</label><input type="text" name="stat3_lbl" value="<?= htmlspecialchars($p['stat3_lbl'] ?? '') ?>"></div>
-    <div></div>
+  <div class="field-group">
+    <div class="field-group-title">Stats</div>
+    <div class="row3">
+      <div class="field"><label>Stat 1 value</label><input type="text" name="stat1_val" value="<?= htmlspecialchars($p['stat1_val'] ?? '') ?>"></div>
+      <div class="field"><label>Stat 1 label</label><input type="text" name="stat1_lbl" value="<?= htmlspecialchars($p['stat1_lbl'] ?? '') ?>"></div>
+      <div></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label>Stat 2 value</label><input type="text" name="stat2_val" value="<?= htmlspecialchars($p['stat2_val'] ?? '') ?>"></div>
+      <div class="field"><label>Stat 2 label</label><input type="text" name="stat2_lbl" value="<?= htmlspecialchars($p['stat2_lbl'] ?? '') ?>"></div>
+      <div></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label>Stat 3 value</label><input type="text" name="stat3_val" value="<?= htmlspecialchars($p['stat3_val'] ?? '') ?>"></div>
+      <div class="field"><label>Stat 3 label</label><input type="text" name="stat3_lbl" value="<?= htmlspecialchars($p['stat3_lbl'] ?? '') ?>"></div>
+      <div></div>
+    </div>
   </div>
 
   <div class="field">
-    <label><input type="checkbox" name="is_featured" value="1" <?= $p['is_featured'] ? 'checked' : '' ?> style="width:auto;"> Featured (wide card at top)</label>
+    <label class="checkbox-field"><input type="checkbox" name="is_featured" value="1" <?= $p['is_featured'] ? 'checked' : '' ?>> Featured (wide card at top)</label>
   </div>
   <div class="field">
-    <label><input type="checkbox" name="is_upcoming" value="1" <?= $p['is_upcoming'] ? 'checked' : '' ?> style="width:auto;"> Upcoming (shows in "Coming Soon" band)</label>
+    <label class="checkbox-field"><input type="checkbox" name="is_upcoming" value="1" <?= $p['is_upcoming'] ? 'checked' : '' ?>> Upcoming (shows in "Coming Soon" band)</label>
   </div>
 
-  <button type="submit" class="btn">Save Property</button>
-  <a href="properties.php" class="btn secondary">Cancel</a>
+  <div class="form-actions">
+    <button type="submit" class="btn">Save Property</button>
+    <a href="properties.php" class="btn secondary">Cancel</a>
+  </div>
 </form>
 </div>
 

@@ -16,30 +16,35 @@ require __DIR__ . '/layout-top.php';
 ?>
 
 <div class="topbar">
-  <h1>Blog Posts</h1>
+  <div class="topbar-text">
+    <h1>Blog Posts</h1>
+    <p class="page-sub" style="margin:0;">Manage articles shown on the News page.</p>
+  </div>
   <a href="blog-edit.php" class="btn">+ New Post</a>
 </div>
 
 <?php if (!empty($_GET['saved'])): ?><div class="flash">Post saved.</div><?php endif; ?>
 <?php if (!empty($_GET['deleted'])): ?><div class="flash">Post deleted.</div><?php endif; ?>
 
+<div class="panel">
 <table>
   <thead><tr><th>Cover</th><th>Title</th><th>Published</th><th>Status</th><th></th></tr></thead>
   <tbody>
   <?php foreach ($posts as $p): ?>
     <tr>
-      <td><?php if ($p['cover_image']): ?><img class="thumb" src="../<?= htmlspecialchars($p['cover_image']) ?>" alt=""><?php endif; ?></td>
-      <td><?= htmlspecialchars($p['title']) ?></td>
+      <td><?php if ($p['cover_image']): ?><img class="thumb" src="../<?= htmlspecialchars($p['cover_image']) ?>" alt=""><?php else: ?><div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.6875rem;">No image</div><?php endif; ?></td>
+      <td style="font-weight:600;"><?= htmlspecialchars($p['title']) ?></td>
       <td><?= htmlspecialchars($p['published_at'] ?? '—') ?></td>
-      <td><?= $p['is_published'] ? 'Published' : 'Draft' ?></td>
-      <td>
-        <a href="blog-edit.php?id=<?= $p['id'] ?>" class="btn secondary">Edit</a>
-        <a href="blog.php?delete=<?= $p['id'] ?>" class="btn danger" onclick="return confirm('Delete this post?');">Delete</a>
+      <td><span class="pill <?= $p['is_published'] ? 'live' : 'draft' ?>"><?= $p['is_published'] ? 'Published' : 'Draft' ?></span></td>
+      <td class="actions-cell">
+        <a href="blog-edit.php?id=<?= $p['id'] ?>" class="btn sm secondary">Edit</a>
+        <a href="blog.php?delete=<?= $p['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this post?');">Delete</a>
       </td>
     </tr>
   <?php endforeach; ?>
-  <?php if (!$posts): ?><tr><td colspan="5">No posts yet.</td></tr><?php endif; ?>
+  <?php if (!$posts): ?><tr><td colspan="5" class="empty-cell">No posts yet.</td></tr><?php endif; ?>
   </tbody>
 </table>
+</div>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

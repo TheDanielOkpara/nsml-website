@@ -53,11 +53,16 @@ $activeNav = 'blog';
 require __DIR__ . '/layout-top.php';
 ?>
 
-<h1><?= $id ? 'Edit Post' : 'New Post' ?></h1>
+<div class="topbar">
+  <div class="topbar-text">
+    <h1><?= $id ? 'Edit Post' : 'New Post' ?></h1>
+    <p class="page-sub" style="margin:0;">Write the article body just like in a document editor — no HTML needed.</p>
+  </div>
+</div>
 <?php if ($error): ?><div class="flash error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-<div class="card">
-<form method="post" enctype="multipart/form-data">
+<div class="card" style="max-width:820px;">
+<form method="post" enctype="multipart/form-data" id="postForm">
   <input type="hidden" name="csrf" value="<?= htmlspecialchars($token) ?>">
 
   <div class="field">
@@ -66,26 +71,28 @@ require __DIR__ . '/layout-top.php';
   </div>
 
   <div class="field">
-    <label>Slug (URL — leave blank to auto-generate from title)</label>
+    <label>Slug <span class="hint">URL — leave blank to auto-generate from title</span></label>
     <input type="text" name="slug" value="<?= htmlspecialchars($post['slug']) ?>" placeholder="e.g. enugu-nilayo-seal-deal">
   </div>
 
   <div class="field">
-    <label>Cover image <?php if ($post['cover_image']): ?>(current: <a href="../<?= htmlspecialchars($post['cover_image']) ?>" target="_blank">view</a>)<?php endif; ?></label>
+    <label>Cover image</label>
     <input type="file" name="cover_image" accept="image/jpeg,image/png,image/webp">
+    <?php if ($post['cover_image']): ?><div class="current-file">Current: <a href="../<?= htmlspecialchars($post['cover_image']) ?>" target="_blank">view image</a></div><?php endif; ?>
   </div>
 
   <div class="field">
-    <label>Excerpt (shown on the news listing card)</label>
+    <label>Excerpt <span class="hint">shown on the news listing card</span></label>
     <textarea name="excerpt" rows="3"><?= htmlspecialchars($post['excerpt']) ?></textarea>
   </div>
 
   <div class="field">
-    <label>Body (full article — HTML allowed, e.g. &lt;p&gt; paragraphs)</label>
-    <textarea name="body" rows="14"><?= htmlspecialchars($post['body']) ?></textarea>
+    <label>Body</label>
+    <div id="bodyEditor" style="background:#fff;"><?= $post['body'] ?></div>
+    <textarea name="body" id="bodyInput" style="display:none;"></textarea>
   </div>
 
-  <div class="row3">
+  <div class="row2">
     <div class="field">
       <label>Published date</label>
       <input type="date" name="published_at" value="<?= htmlspecialchars($post['published_at'] ?? '') ?>">
@@ -99,9 +106,35 @@ require __DIR__ . '/layout-top.php';
     </div>
   </div>
 
-  <button type="submit" class="btn">Save Post</button>
-  <a href="blog.php" class="btn secondary">Cancel</a>
+  <div class="form-actions">
+    <button type="submit" class="btn">Save Post</button>
+    <a href="blog.php" class="btn secondary">Cancel</a>
+  </div>
 </form>
 </div>
+
+<link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+<style>
+  #bodyEditor .ql-editor { min-height:320px; font-size:0.9375rem; line-height:1.7; font-family:inherit; }
+  .ql-toolbar.ql-snow { border-color:var(--border); border-radius:var(--r-sm) var(--r-sm) 0 0; background:var(--bg); }
+  .ql-container.ql-snow { border-color:var(--border); border-radius:0 0 var(--r-sm) var(--r-sm); }
+</style>
+<script>
+  const quill = new Quill('#bodyEditor', {
+    theme: 'snow',
+    modules: { toolbar: [
+      [{ header: [2, 3, false] }],
+      ['bold', 'italic', 'underline'],
+      ['blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image'],
+      ['clean'],
+    ] },
+  });
+  document.getElementById('postForm').addEventListener('submit', () => {
+    document.getElementById('bodyInput').value = quill.root.innerHTML;
+  });
+</script>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

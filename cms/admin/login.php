@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/auth.php';
 
 if (current_admin()) {
-    header('Location: blog.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -10,7 +10,7 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     if (attempt_login($_POST['username'] ?? '', $_POST['password'] ?? '')) {
-        header('Location: blog.php');
+        header('Location: index.php');
         exit;
     }
     $error = 'Invalid username or password.';
@@ -21,21 +21,38 @@ $token = csrf_token();
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Log in — NSML CMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#0d1f3c; height:100vh; margin:0; display:flex; align-items:center; justify-content:center; }
-  form { background:#fff; padding:2.5rem; border-radius:0.75rem; width:320px; }
-  h1 { font-size:1.25rem; margin:0 0 1.5rem; }
-  .field { margin-bottom:1rem; }
-  label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:0.35rem; }
-  input { width:100%; padding:0.6rem 0.7rem; border:1px solid #e3e7ee; border-radius:0.4rem; font-size:0.9rem; box-sizing:border-box; }
-  button { width:100%; background:#1f9d55; color:#fff; border:none; padding:0.7rem; border-radius:0.4rem; font-size:0.95rem; cursor:pointer; margin-top:0.5rem; }
-  .error { background:#fdecea; color:#922b21; padding:0.6rem 0.8rem; border-radius:0.4rem; font-size:0.85rem; margin-bottom:1rem; }
+  * { box-sizing: border-box; }
+  body {
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:#0d1f3c;
+    background-image: radial-gradient(circle at 15% 20%, rgba(31,157,85,0.18), transparent 45%),
+                       radial-gradient(circle at 85% 85%, rgba(31,157,85,0.12), transparent 45%);
+    height:100vh; margin:0; display:flex; align-items:center; justify-content:center;
+  }
+  .login-card { background:#fff; padding:2.5rem; border-radius:1rem; width:340px; box-shadow:0 20px 60px rgba(0,0,0,0.35); }
+  .login-mark { width:42px; height:42px; border-radius:0.65rem; background:#1f9d55; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.125rem; margin-bottom:1.25rem; }
+  h1 { font-size:1.25rem; font-weight:800; letter-spacing:-0.02em; margin:0 0 0.25rem; color:#0d1f3c; }
+  .sub { font-size:0.875rem; color:#8e96a8; margin:0 0 1.5rem; }
+  .field { margin-bottom:1.1rem; }
+  label { display:block; font-size:0.8125rem; font-weight:600; margin-bottom:0.4rem; color:#1a2238; }
+  input { width:100%; padding:0.65rem 0.8rem; border:1.5px solid #e6e9f0; border-radius:0.5rem; font-size:0.9rem; font-family:inherit; outline:none; transition:border-color 0.2s, box-shadow 0.2s; }
+  input:focus { border-color:#1f9d55; box-shadow:0 0 0 3px rgba(31,157,85,0.12); }
+  button { width:100%; background:#1f9d55; color:#fff; border:none; padding:0.75rem; border-radius:9999px; font-size:0.9375rem; font-weight:700; cursor:pointer; margin-top:0.5rem; font-family:inherit; transition:background 0.2s; }
+  button:hover { background:#187a42; }
+  .error { background:#fdecea; color:#922b21; padding:0.65rem 0.875rem; border-radius:0.5rem; font-size:0.8125rem; margin-bottom:1.25rem; font-weight:500; }
 </style>
 </head>
 <body>
-<form method="post">
-  <h1>NSML CMS Login</h1>
+<form method="post" class="login-card">
+  <div class="login-mark">N</div>
+  <h1>Welcome back</h1>
+  <p class="sub">Sign in to manage NSML's site content.</p>
   <?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
   <input type="hidden" name="csrf" value="<?= htmlspecialchars($token) ?>">
   <div class="field"><label>Username</label><input type="text" name="username" required autofocus></div>

@@ -33,13 +33,58 @@ foreach ($posts as $p) {
     }
 }
 
+// Static property pages (e.g. lagos-marathon.html) may already have real
+// photos hardcoded into their gallery section from before the DB-backed
+// gallery existed. Find any such photos for properties that don't have any
+// property_images rows yet, so they can be imported instead of re-uploaded.
+function extract_existing_gallery_images(string $detailUrl): array {
+    $filename = basename($detailUrl);
+    if ($filename === '' || !str_ends_with($filename, '.html')) {
+        return [];
+    }
+    $path = __DIR__ . '/../../' . $filename;
+    if (!is_file($path)) {
+        return [];
+    }
+    $html = file_get_contents($path);
+    $html = preg_replace('#<script\b[^>]*>.*?</script>#is', '', $html);
+    $html = preg_replace('/<!--.*?-->/s', '', $html);
+    preg_match_all('/<img\s+src="([^"]+)"[^>]*class="gallery-img"/i', $html, $m);
+    return $m[1] ?? [];
+}
+
+$properties = db()->query('SELECT * FROM properties')->fetchAll();
+$galleryImport = [];
+foreach ($properties as $prop) {
+    $countStmt = db()->prepare('SELECT COUNT(*) c FROM property_images WHERE property_id = ?');
+    $countStmt->execute([$prop['id']]);
+    if ((int)$countStmt->fetch()['c'] > 0) {
+        continue;
+    }
+    $images = extract_existing_gallery_images($prop['detail_url'] ?? '');
+    if ($images) {
+        $galleryImport[] = ['property' => $prop, 'images' => $images];
+    }
+}
+
 $applied = false;
+$galleryImported = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
-    foreach ($affected as $a) {
-        db()->prepare('UPDATE blog_posts SET body = ?, excerpt = ? WHERE id = ?')->execute([$a['after'], $a['excerpt_after'], $a['id']]);
+    if (($_POST['action'] ?? '') === 'import_gallery') {
+        foreach ($galleryImport as $entry) {
+            foreach ($entry['images'] as $i => $path) {
+                db()->prepare('INSERT INTO property_images (property_id, image_path, sort_order) VALUES (?, ?, ?)')
+                    ->execute([$entry['property']['id'], $path, $i + 1]);
+            }
+        }
+        $galleryImported = true;
+    } else {
+        foreach ($affected as $a) {
+            db()->prepare('UPDATE blog_posts SET body = ?, excerpt = ? WHERE id = ?')->execute([$a['after'], $a['excerpt_after'], $a['id']]);
+        }
+        $applied = true;
     }
-    $applied = true;
 }
 
 $token = csrf_token();
@@ -93,7 +138,49 @@ require __DIR__ . '/layout-top.php';
 
   <form method="post">
     <input type="hidden" name="csrf" value="<?= htmlspecialchars($token) ?>">
+    <input type="hidden" name="action" value="clean_content">
     <button type="submit" class="btn">Apply Fix to <?= count($affected) ?> Post<?= count($affected) === 1 ? '' : 's' ?></button>
+  </form>
+<?php endif; ?>
+
+<div class="topbar" style="margin-top:2rem;">
+  <div class="topbar-text">
+    <h1>Import Existing Gallery Photos</h1>
+    <p class="page-sub" style="margin:0;">Finds property pages with photos already hardcoded into their gallery section (from before the database-backed gallery existed) and imports them so they show up here.</p>
+  </div>
+</div>
+
+<?php if ($galleryImported): ?>
+  <div class="flash">Imported gallery photos for <?= count($galleryImport) ?> propert<?= count($galleryImport) === 1 ? 'y' : 'ies' ?>.</div>
+<?php elseif (!$galleryImport): ?>
+  <div class="flash">Nothing to import — every property either already has gallery photos in the database or has no existing photos on its page.</div>
+<?php else: ?>
+  <div class="flash error">Found <?= count($galleryImport) ?> propert<?= count($galleryImport) === 1 ? 'y' : 'ies' ?> with existing photos that aren't in the database yet.</div>
+
+  <div class="panel" style="margin-bottom:1.5rem;">
+    <table>
+      <thead><tr><th>Property</th><th>Photos to import</th></tr></thead>
+      <tbody>
+      <?php foreach ($galleryImport as $entry): ?>
+        <tr>
+          <td style="font-weight:600; white-space:nowrap;"><?= htmlspecialchars($entry['property']['title']) ?></td>
+          <td>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+              <?php foreach ($entry['images'] as $path): ?>
+                <img src="<?= htmlspecialchars(asset_url($path)) ?>" alt="" style="width:80px; height:60px; object-fit:cover; border-radius:var(--r-sm);">
+              <?php endforeach; ?>
+            </div>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+
+  <form method="post">
+    <input type="hidden" name="csrf" value="<?= htmlspecialchars($token) ?>">
+    <input type="hidden" name="action" value="import_gallery">
+    <button type="submit" class="btn">Import <?= array_sum(array_map(fn($e) => count($e['images']), $galleryImport)) ?> Photo<?= array_sum(array_map(fn($e) => count($e['images']), $galleryImport)) === 1 ? '' : 's' ?> for <?= count($galleryImport) ?> Propert<?= count($galleryImport) === 1 ? 'y' : 'ies' ?></button>
   </form>
 <?php endif; ?>
 

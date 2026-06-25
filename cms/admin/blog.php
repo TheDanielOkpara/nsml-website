@@ -39,7 +39,7 @@ require __DIR__ . '/layout-top.php';
       <td class="actions-cell">
         <?php if ($p['is_published']): ?><a href="https://nilayosports.com/<?= rawurlencode($p['slug']) ?>" class="btn sm secondary" target="_blank">View</a><?php endif; ?>
         <a href="blog-edit.php?id=<?= $p['id'] ?>" class="btn sm secondary">Edit</a>
-        <a href="blog.php?delete=<?= $p['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this post?');">Delete</a>
+        <a href="blog.php?delete=<?= $p['id'] ?>" class="btn sm danger" data-confirm="This will permanently delete the post. This can't be undone.">Delete</a>
       </td>
     </tr>
   <?php endforeach; ?>

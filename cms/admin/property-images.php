@@ -103,7 +103,7 @@ require __DIR__ . '/layout-top.php';
               Order
               <input type="number" name="sort_order[<?= $img['id'] ?>]" value="<?= (int)$img['sort_order'] ?>">
             </label>
-            <a href="property-images.php?property_id=<?= $propertyId ?>&delete=<?= $img['id'] ?>" class="btn sm danger" onclick="return confirm('Remove this image?');">Delete</a>
+            <a href="property-images.php?property_id=<?= $propertyId ?>&delete=<?= $img['id'] ?>" class="btn sm danger" data-confirm="This will remove the image from the gallery." data-confirm-ok="Remove">Delete</a>
           </div>
         </div>
       <?php endforeach; ?>

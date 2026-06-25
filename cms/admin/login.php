@@ -35,7 +35,8 @@ $token = csrf_token();
     -webkit-font-smoothing:antialiased;
   }
   .login-card { background:#fff; padding:2.25rem; border-radius:13px; width:360px; max-width:100%; border:1px solid #e6e8ef; box-shadow:0 12px 40px -12px rgba(13,31,60,0.18); }
-  .login-mark { width:40px; height:40px; border-radius:9px; background:#1f9d55; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.0625rem; margin-bottom:1.375rem; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14); }
+  .login-mark { height:36px; margin-bottom:1.375rem; }
+  .login-mark img { height:100%; width:auto; display:block; }
   h1 { font-size:1.1875rem; font-weight:700; letter-spacing:-0.02em; margin:0 0 0.25rem; color:#16213d; }
   .sub { font-size:0.875rem; color:#525c75; margin:0 0 1.5rem; }
   .field { margin-bottom:1rem; }
@@ -50,7 +51,7 @@ $token = csrf_token();
 </head>
 <body>
 <form method="post" class="login-card">
-  <div class="login-mark">N</div>
+  <div class="login-mark"><img src="/images/logo.png" alt="NSML"></div>
   <h1>Welcome back</h1>
   <p class="sub">Sign in to manage NSML's site content.</p>
   <?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>

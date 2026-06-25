@@ -38,7 +38,7 @@ require __DIR__ . '/layout-top.php';
       <td><span class="pill <?= $m['is_ceo'] ? 'yes' : 'no' ?>"><?= $m['is_ceo'] ? 'Yes' : 'No' ?></span></td>
       <td class="actions-cell">
         <a href="team-edit.php?id=<?= $m['id'] ?>" class="btn sm secondary">Edit</a>
-        <a href="team.php?delete=<?= $m['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this team member?');">Delete</a>
+        <a href="team.php?delete=<?= $m['id'] ?>" class="btn sm danger" data-confirm="This will remove them from the team page. This can't be undone.">Delete</a>
       </td>
     </tr>
   <?php endforeach; ?>

@@ -76,7 +76,7 @@ require __DIR__ . '/layout-top.php';
     </div>
     <?php if ($recentMsgs): ?>
       <?php foreach ($recentMsgs as $m): ?>
-      <a href="messages.php" class="row-link">
+      <a href="messages.php?id=<?= $m['id'] ?>" class="row-link">
         <div class="rl-main">
           <div class="rl-title"><?= htmlspecialchars(trim($m['first_name'] . ' ' . $m['last_name'])) ?: 'Anonymous' ?></div>
           <div class="rl-sub"><?= htmlspecialchars($m['email']) ?></div>

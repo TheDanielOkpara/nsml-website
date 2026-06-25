@@ -40,7 +40,7 @@ require __DIR__ . '/layout-top.php';
       <td class="actions-cell">
         <a href="property-images.php?property_id=<?= $p['id'] ?>" class="btn sm secondary">Gallery</a>
         <a href="properties-edit.php?id=<?= $p['id'] ?>" class="btn sm secondary">Edit</a>
-        <a href="properties.php?delete=<?= $p['id'] ?>" class="btn sm danger" onclick="return confirm('Delete this property?');">Delete</a>
+        <a href="properties.php?delete=<?= $p['id'] ?>" class="btn sm danger" data-confirm="This will permanently delete the property and its page. This can't be undone.">Delete</a>
       </td>
     </tr>
   <?php endforeach; ?>

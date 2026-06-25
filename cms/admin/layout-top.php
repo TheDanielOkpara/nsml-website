@@ -16,6 +16,7 @@ $navItems = [
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>if (localStorage.getItem('nsmlNavCollapsed') === '1') document.documentElement.classList.add('nav-collapsed');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars($pageTitle ?? 'Admin') ?> — NSML CMS</title>
@@ -52,19 +53,41 @@ $navItems = [
 
   .shell { display:flex; min-height:100vh; }
 
-  /* ───────────── SIDEBAR ───────────── */
+  /* ───────────── FLOATING SIDEBAR ───────────── */
+  :root { --nav-w:240px; --nav-w-collapsed:76px; --nav-gap:1rem; }
   nav.side {
-    width:244px; background:var(--navy); color:#fff; padding:1.25rem 0.875rem 1rem;
-    flex-shrink:0; position:sticky; top:0; height:100vh; display:flex; flex-direction:column;
+    width:var(--nav-w); background:var(--navy); color:#fff; padding:1.125rem 0.75rem 0.875rem;
+    flex-shrink:0; position:fixed; top:var(--nav-gap); left:var(--nav-gap); bottom:var(--nav-gap);
+    display:flex; flex-direction:column; border-radius:18px; box-shadow:0 16px 40px -16px rgba(13,31,60,0.45);
+    transition:width 0.2s var(--ease); z-index:20; overflow:hidden;
   }
-  nav.side .brand { display:flex; align-items:center; gap:0.625rem; font-weight:700; font-size:0.9375rem; letter-spacing:-0.01em; margin:0.25rem 0.5rem 1.5rem; color:#fff; }
-  nav.side .brand-mark { width:30px; height:30px; border-radius:8px; background:var(--green); display:flex; align-items:center; justify-content:center; font-size:0.875rem; font-weight:800; flex-shrink:0; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12); }
-  nav.side .nav-eyebrow { font-size:0.6875rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); padding:0 0.75rem; margin-bottom:0.5rem; }
-  nav.side .nav-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; flex:1; }
+  html.nav-collapsed nav.side { width:var(--nav-w-collapsed); }
+  main { flex:1; min-width:0; margin-left:calc(var(--nav-w) + var(--nav-gap) * 2); padding:2rem 2rem 4rem; transition:margin-left 0.2s var(--ease); }
+  html.nav-collapsed main { margin-left:calc(var(--nav-w-collapsed) + var(--nav-gap) * 2); }
+  main > * { max-width:1120px; margin-left:auto; margin-right:auto; }
+
+  nav.side .brand { display:flex; align-items:center; margin:0.25rem 0.25rem 1.25rem; height:30px; }
+  nav.side .brand-logo-wrap { width:auto; height:30px; overflow:hidden; display:flex; align-items:center; transition:width 0.2s var(--ease); }
+  nav.side .brand-logo-wrap img { height:30px; width:auto; display:block; flex-shrink:0; }
+  html.nav-collapsed nav.side .brand-logo-wrap { width:30px; }
+
+  .nav-toggle {
+    position:absolute; top:1.4rem; right:-12px; width:24px; height:24px; border-radius:50%;
+    background:var(--surface); border:1px solid var(--border-strong); color:var(--text-sub);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:var(--shadow-sm);
+    transition:transform 0.2s var(--ease), background 0.16s; z-index:21;
+  }
+  .nav-toggle:hover { background:var(--surface-2); }
+  .nav-toggle svg { width:13px; height:13px; transition:transform 0.2s var(--ease); }
+  html.nav-collapsed .nav-toggle svg { transform:rotate(180deg); }
+
+  nav.side .nav-eyebrow { font-size:0.6875rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); padding:0 0.75rem; margin-bottom:0.5rem; white-space:nowrap; }
+  html.nav-collapsed nav.side .nav-eyebrow { opacity:0; }
+  nav.side .nav-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; flex:1; overflow-y:auto; }
   nav.side .nav-link {
     display:flex; align-items:center; gap:0.7rem; color:rgba(255,255,255,0.62); text-decoration:none;
     padding:0.5rem 0.75rem; border-radius:var(--r-sm); font-size:0.875rem; font-weight:500; position:relative;
-    transition:background 0.16s var(--ease), color 0.16s var(--ease);
+    transition:background 0.16s var(--ease), color 0.16s var(--ease); white-space:nowrap; overflow:hidden;
   }
   nav.side .nav-link svg { width:17px; height:17px; flex-shrink:0; opacity:0.72; transition:opacity 0.16s, color 0.16s; }
   nav.side .nav-link:hover { background:rgba(255,255,255,0.06); color:#fff; }
@@ -74,10 +97,17 @@ $navItems = [
   nav.side .nav-foot { padding-top:0.75rem; margin-top:0.5rem; border-top:1px solid rgba(255,255,255,0.09); }
   nav.side .nav-user { display:flex; align-items:center; gap:0.625rem; padding:0.5rem 0.75rem 0.625rem; }
   nav.side .nav-user-avatar { width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,0.13); display:flex; align-items:center; justify-content:center; font-size:0.8125rem; font-weight:700; color:#fff; flex-shrink:0; }
-  nav.side .nav-user-name { font-size:0.8125rem; font-weight:600; color:#fff; line-height:1.2; }
-  nav.side .nav-user-role { font-size:0.6875rem; color:rgba(255,255,255,0.45); }
+  nav.side .nav-user-name { font-size:0.8125rem; font-weight:600; color:#fff; line-height:1.2; white-space:nowrap; }
+  nav.side .nav-user-role { font-size:0.6875rem; color:rgba(255,255,255,0.45); white-space:nowrap; }
+  html.nav-collapsed nav.side .nav-user span:not(.nav-user-avatar),
+  html.nav-collapsed nav.side .nav-link span:not(.nav-link-icon) { display:none; }
 
-  main { flex:1; padding:2.25rem 2.75rem 4rem; max-width:1200px; min-width:0; }
+  @media (max-width:900px) {
+    nav.side { width:var(--nav-w-collapsed) !important; }
+    main { margin-left:calc(var(--nav-w-collapsed) + var(--nav-gap) * 2) !important; padding:1.5rem 1.25rem 3rem; }
+    nav.side .brand-word, .nav-eyebrow, nav.side .nav-user span:not(.nav-user-avatar), nav.side .nav-link span:not(.nav-link-icon) { display:none !important; }
+    .nav-toggle { display:none; }
+  }
 
   h1 { font-size:1.5rem; font-weight:700; letter-spacing:-0.025em; margin:0 0 0.3rem; color:var(--ink); }
   h2 { font-size:1.0625rem; font-weight:650; letter-spacing:-0.01em; margin:0 0 1rem; color:var(--ink); }
@@ -215,22 +245,60 @@ $navItems = [
   .flash::before { content:''; width:7px; height:7px; border-radius:50%; background:currentColor; flex-shrink:0; }
   .flash.error { background:var(--red-tint); border-color:var(--red-border); color:#922b21; }
 
-  @media (max-width: 1000px) { .dash-cols { grid-template-columns:1fr; } }
-  @media (max-width: 900px) {
-    nav.side { width:64px; padding:1.25rem 0.5rem; }
-    nav.side .brand span, nav.side .nav-link span, nav.side .nav-eyebrow,
-    nav.side .nav-user-name, nav.side .nav-user-role { display:none; }
-    nav.side .brand, nav.side .nav-link, nav.side .nav-user { justify-content:center; }
-    main { padding:1.5rem 1.25rem 3rem; }
-    .row3, .row2 { grid-template-columns:1fr; }
+  /* ───────────── MAIL EXPERIENCE (Messages) ───────────── */
+  .mail-panel { display:flex; height:min(680px, calc(100vh - 14rem)); }
+  .mail-list { width:320px; flex-shrink:0; border-right:1px solid var(--hairline); overflow-y:auto; }
+  .mail-list-item { display:block; padding:0.875rem 1.125rem; border-bottom:1px solid var(--hairline); text-decoration:none; color:inherit; transition:background 0.14s var(--ease); }
+  .mail-list-item:hover { background:var(--surface-2); }
+  .mail-list-item.active { background:var(--green-tint); }
+  .mli-top { display:flex; justify-content:space-between; align-items:baseline; gap:0.5rem; margin-bottom:0.2rem; }
+  .mli-name { font-size:0.875rem; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; gap:0.4rem; }
+  .mli-dot { width:7px; height:7px; border-radius:50%; background:var(--green); flex-shrink:0; }
+  .mli-time { font-size:0.75rem; color:var(--text-muted); flex-shrink:0; }
+  .mli-subject { font-size:0.8125rem; font-weight:500; color:var(--text-sub); margin-bottom:0.15rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .mli-snippet { font-size:0.8125rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  .mail-detail { flex:1; min-width:0; overflow-y:auto; padding:1.75rem 2rem; }
+  .mail-detail-head { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:1rem; }
+  .mail-detail-actions { display:flex; gap:0.5rem; flex-shrink:0; }
+  .mail-from { font-size:0.875rem; color:var(--text-sub); }
+  .mail-from-name { font-weight:600; color:var(--ink); }
+  .mail-from a { color:var(--green-deep); text-decoration:none; font-weight:500; }
+  .mail-detail-date { font-size:0.8125rem; color:var(--text-muted); padding-bottom:1.25rem; margin-bottom:1.25rem; border-bottom:1px solid var(--hairline); }
+  .mail-body { font-size:0.9375rem; line-height:1.65; color:var(--text); white-space:pre-wrap; }
+  @media (max-width: 760px) {
+    .mail-panel { flex-direction:column; height:auto; }
+    .mail-list { width:100%; max-height:280px; border-right:none; border-bottom:1px solid var(--hairline); }
   }
+
+  /* ───────────── CONFIRM MODAL ───────────── */
+  .modal-overlay {
+    position:fixed; inset:0; background:rgba(13,31,60,0.32); display:none; align-items:center; justify-content:center;
+    z-index:100; padding:1.5rem;
+  }
+  .modal-overlay.open { display:flex; }
+  .modal-box {
+    background:var(--surface); border-radius:var(--r-lg); padding:1.5rem; width:360px; max-width:100%;
+    box-shadow:0 24px 60px -16px rgba(13,31,60,0.35); border:1px solid var(--border);
+  }
+  .modal-box h3 { margin:0 0 0.5rem; font-size:1.0625rem; font-weight:700; color:var(--ink); }
+  .modal-box p { margin:0 0 1.375rem; font-size:0.875rem; color:var(--text-sub); }
+  .modal-actions { display:flex; justify-content:flex-end; gap:0.625rem; }
+
+  @media (max-width: 1000px) { .dash-cols { grid-template-columns:1fr; } }
+  @media (max-width: 900px) { .row3, .row2 { grid-template-columns:1fr; } }
   @media (prefers-reduced-motion: reduce) { * { transition-duration:0.01ms !important; } }
 </style>
 </head>
 <body>
 <div class="shell">
   <nav class="side">
-    <div class="brand"><span class="brand-mark">N</span><span>NSML CMS</span></div>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Collapse navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="brand">
+      <span class="brand-logo-wrap"><img src="/images/logo.png" alt="NSML"></span>
+    </div>
     <div class="nav-eyebrow">Manage</div>
     <ul class="nav-list">
       <?php foreach ($navItems as $item): ?>

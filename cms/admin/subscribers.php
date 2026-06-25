@@ -44,7 +44,7 @@ require __DIR__ . '/layout-top.php';
       <td style="font-weight:600;"><?= htmlspecialchars($s['email']) ?></td>
       <td style="color:var(--text-muted);"><?= htmlspecialchars(date('M j, Y g:ia', strtotime($s['created_at']))) ?></td>
       <td><span class="pill <?= $s['is_active'] ? 'yes' : 'no' ?>"><?= $s['is_active'] ? 'Active' : 'Unsubscribed' ?></span></td>
-      <td class="actions-cell"><a href="subscribers.php?delete=<?= $s['id'] ?>" class="btn sm danger" onclick="return confirm('Remove this subscriber?');">Delete</a></td>
+      <td class="actions-cell"><a href="subscribers.php?delete=<?= $s['id'] ?>" class="btn sm danger" data-confirm="This will remove them from the newsletter list." data-confirm-ok="Remove">Delete</a></td>
     </tr>
   <?php endforeach; ?>
   <?php if (!$rows): ?><tr><td colspan="4" class="empty-cell">No subscribers yet.</td></tr><?php endif; ?>

@@ -51,3 +51,27 @@ function csrf_check(): void {
         die('Invalid CSRF token.');
     }
 }
+
+// Brute-force throttling for login.php, keyed by IP. Self-creates its table
+// so no manual migration step is needed on deploy.
+function login_is_rate_limited(string $ip, int $maxAttempts = 5, int $windowMinutes = 15): bool {
+    db()->exec('CREATE TABLE IF NOT EXISTS login_attempts (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        ip_address VARCHAR(45) NOT NULL,
+        attempted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_ip_time (ip_address, attempted_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+
+    $windowMinutes = (int) $windowMinutes;
+    $stmt = db()->prepare("SELECT COUNT(*) FROM login_attempts WHERE ip_address = ? AND attempted_at > NOW() - INTERVAL $windowMinutes MINUTE");
+    $stmt->execute([$ip]);
+    return (int) $stmt->fetchColumn() >= $maxAttempts;
+}
+
+function login_record_failed_attempt(string $ip): void {
+    db()->prepare('INSERT INTO login_attempts (ip_address) VALUES (?)')->execute([$ip]);
+}
+
+function login_clear_attempts(string $ip): void {
+    db()->prepare('DELETE FROM login_attempts WHERE ip_address = ?')->execute([$ip]);
+}

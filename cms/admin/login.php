@@ -6,14 +6,20 @@ if (current_admin()) {
     exit;
 }
 
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
-    if (attempt_login($_POST['username'] ?? '', $_POST['password'] ?? '')) {
+    if (login_is_rate_limited($ip)) {
+        $error = 'Too many failed attempts. Please wait 15 minutes and try again.';
+    } elseif (attempt_login($_POST['username'] ?? '', $_POST['password'] ?? '')) {
+        login_clear_attempts($ip);
         header('Location: index.php');
         exit;
+    } else {
+        login_record_failed_attempt($ip);
+        $error = 'Invalid username or password.';
     }
-    $error = 'Invalid username or password.';
 }
 $token = csrf_token();
 ?>

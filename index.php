@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/cms/includes/db.php';
+ensure_event_banners_table();
+$eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORDER BY sort_order ASC, id DESC')->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -485,6 +490,9 @@
 
     .home-news-card:hover img { transform: scale(1.05) !important; filter: saturate(1.1) contrast(1.08) !important; }
 
+    .event-banner-link { display: block; border-radius: var(--r-lg); overflow: hidden; box-shadow: 0 12px 32px -14px rgba(13,31,60,0.25); transition: transform 0.4s cubic-bezier(0.32,0.72,0,1), box-shadow 0.4s cubic-bezier(0.32,0.72,0,1); }
+    .event-banner-link:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(13,31,60,0.32); }
+
     @media (max-width: 768px) {
       #homeNewsGrid { grid-template-columns: 1fr !important; }
     }
@@ -739,6 +747,21 @@
       </div>
     </div>
   </div>
+
+  <?php if ($eventBanners): ?>
+  <!-- ── NEXT EVENTS ──────────────────────────────── -->
+  <div class="section-wrap" style="padding-bottom:0;">
+    <div class="section-tag">Upcoming</div>
+    <h2 class="sec-h2" style="margin-bottom:1.75rem;">Next <span class="hi">Events</span></h2>
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+      <?php foreach ($eventBanners as $banner): ?>
+      <a href="<?= htmlspecialchars($banner['link_url']) ?>" target="_blank" rel="noopener" data-reveal class="event-banner-link">
+        <img src="<?= htmlspecialchars($banner['image_path']) ?>" alt="<?= htmlspecialchars($banner['title'] ?: 'Upcoming event') ?>" loading="lazy" style="width:100%; height:auto; display:block;">
+      </a>
+      <?php endforeach; ?>
+    </div>
+  </div>
+  <?php endif; ?>
 
   <!-- ── FEATURED NEWS ────────────────────────────── -->
   <div class="section-wrap">

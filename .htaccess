@@ -1,5 +1,6 @@
 # NSML — clean (extensionless) URLs
 Options -MultiViews
+DirectoryIndex index.php index.html
 RewriteEngine On
 ErrorDocument 404 /404.html
 

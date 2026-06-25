@@ -59,7 +59,7 @@ $navItems = [
     width:var(--nav-w); background:var(--navy); color:#fff; padding:1.125rem 0.75rem 0.875rem;
     flex-shrink:0; position:fixed; top:var(--nav-gap); left:var(--nav-gap); bottom:var(--nav-gap);
     display:flex; flex-direction:column; border-radius:18px; box-shadow:0 16px 40px -16px rgba(13,31,60,0.45);
-    transition:width 0.2s var(--ease); z-index:20; overflow:hidden;
+    transition:width 0.2s var(--ease); z-index:20;
   }
   html.nav-collapsed nav.side { width:var(--nav-w-collapsed); }
   main { flex:1; min-width:0; margin-left:calc(var(--nav-w) + var(--nav-gap) * 2); padding:2rem 2rem 4rem; transition:margin-left 0.2s var(--ease); }

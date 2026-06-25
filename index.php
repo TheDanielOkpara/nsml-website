@@ -557,7 +557,7 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
         <span class="tick">440,000+ Participants</span><span class="tick-dot"></span>
         <span class="tick hi">World Athletics Certified</span><span class="tick-dot"></span>
         <span class="tick">Africa's Strongest Marathon Brand 2025</span><span class="tick-dot"></span>
-        <span class="tick hi">Abuja City Marathon</span><span class="tick-dot"></span>
+        <span class="tick hi">Abuja City Half Marathon</span><span class="tick-dot"></span>
         <span class="tick">Copa Lagos Beach Soccer</span><span class="tick-dot"></span>
         <span class="tick hi">Abeokuta 10KM Race</span><span class="tick-dot"></span>
         <span class="tick">Enugu City Marathon</span><span class="tick-dot"></span>
@@ -570,7 +570,7 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
         <span class="tick">440,000+ Participants</span><span class="tick-dot"></span>
         <span class="tick hi">World Athletics Certified</span><span class="tick-dot"></span>
         <span class="tick">Africa's Strongest Marathon Brand 2025</span><span class="tick-dot"></span>
-        <span class="tick hi">Abuja City Marathon</span><span class="tick-dot"></span>
+        <span class="tick hi">Abuja City Half Marathon</span><span class="tick-dot"></span>
         <span class="tick">Copa Lagos Beach Soccer</span><span class="tick-dot"></span>
         <span class="tick hi">Abeokuta 10KM Race</span><span class="tick-dot"></span>
         <span class="tick">Enugu City Marathon</span><span class="tick-dot"></span>
@@ -869,7 +869,7 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
           <div class="f-col-title">Properties</div>
           <ul class="f-links">
             <li><a href="lagos-marathon">Lagos City Marathon</a></li>
-            <li><a href="abuja-marathon">Abuja City Marathon</a></li>
+            <li><a href="abuja-marathon">Abuja City Half Marathon</a></li>
             <li><a href="abeokuta-race">Abeokuta 10KM Race</a></li>
             <li><a href="ijebu-marathon">Ijebu Heritage Half Marathon</a></li>
             <li><a href="copa-lagos">Copa Lagos Beach Soccer</a></li>

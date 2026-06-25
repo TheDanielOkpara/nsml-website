@@ -654,7 +654,7 @@ function initials_of(string $name): string {
           <div class="f-col-title">Properties</div>
           <ul class="f-links">
             <li><a href="lagos-marathon">Lagos City Marathon</a></li>
-            <li><a href="abuja-marathon">Abuja City Marathon</a></li>
+            <li><a href="abuja-marathon">Abuja City Half Marathon</a></li>
             <li><a href="abeokuta-race">Abeokuta 10KM Race</a></li>
             <li><a href="ijebu-marathon">Ijebu Heritage Half Marathon</a></li>
             <li><a href="copa-lagos">Copa Lagos Beach Soccer</a></li>

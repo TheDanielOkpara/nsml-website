@@ -27,6 +27,19 @@ CREATE TABLE IF NOT EXISTS event_banners (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Also self-created and self-seeded on demand by ensure_partner_logos_table()
+-- in includes/db.php, listed here for local-dev parity.
+CREATE TABLE IF NOT EXISTS partner_logos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  image_path VARCHAR(500) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  link_url VARCHAR(500),
+  row_num TINYINT NOT NULL DEFAULT 1,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS blog_posts (
   id INT AUTO_INCREMENT PRIMARY KEY,
   slug VARCHAR(255) NOT NULL UNIQUE,

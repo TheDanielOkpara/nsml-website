@@ -9,6 +9,7 @@ $navItems = [
     ['key' => 'properties',  'href' => 'properties.php',  'label' => 'Properties',  'icon' => 'M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z'],
     ['key' => 'events',      'href' => 'events.php',      'label' => 'Next Events', 'icon' => 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'],
     ['key' => 'team',        'href' => 'team.php',        'label' => 'Team',        'icon' => 'M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75'],
+    ['key' => 'partners',    'href' => 'partners.php',    'label' => 'Partner Logos', 'icon' => 'M14 9V5a3 3 0 0 0-6 0v4M5 9h14l1 11H4z'],
     ['key' => 'messages',    'href' => 'messages.php',    'label' => 'Messages',    'icon' => 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z'],
     ['key' => 'subscribers', 'href' => 'subscribers.php', 'label' => 'Subscribers', 'icon' => 'M22 6 12 13 2 6m0 0v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z'],
     ['key' => 'tools',       'href' => 'fix-content.php', 'label' => 'Tools',       'icon' => 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94L6.3 20.7a2.12 2.12 0 0 1-3-3L10.6 10.4a6 6 0 0 1 7.94-7.94L14.7 6.3z'],

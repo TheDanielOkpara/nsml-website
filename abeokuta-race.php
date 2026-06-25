@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yenagoa City International 10KM Race — Nilayo Sports Management</title>
-  <meta name="description" content="Learn about Yenagoa City International 10KM Race — a Nilayo Sports Management property.">
+  <title>Abeokuta 10KM Race — Nilayo Sports Management</title>
+  <meta name="description" content="Learn about Abeokuta 10KM Race — a Nilayo Sports Management property.">
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://nilayosports.com/yenagoa-race">
-  <meta property="og:title" content="Yenagoa City International 10KM Race — Nilayo Sports Management">
-  <meta property="og:description" content="Learn about Yenagoa City International 10KM Race — a Nilayo Sports Management property.">
-  <meta property="og:image" content="https://nilayosports.com/images/events/yenagoa-hero.jpg">
+  <meta property="og:url" content="https://nilayosports.com/abeokuta-race">
+  <meta property="og:title" content="Abeokuta 10KM Race — Nilayo Sports Management">
+  <meta property="og:description" content="Learn about Abeokuta 10KM Race — a Nilayo Sports Management property.">
+  <meta property="og:image" content="https://nilayosports.com/images/events/abeokuta-hero.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Yenagoa City International 10KM Race — Nilayo Sports Management">
-  <meta name="twitter:description" content="Learn about Yenagoa City International 10KM Race — a Nilayo Sports Management property.">
-  <meta name="twitter:image" content="https://nilayosports.com/images/events/yenagoa-hero.jpg">
+  <meta name="twitter:title" content="Abeokuta 10KM Race — Nilayo Sports Management">
+  <meta name="twitter:description" content="Learn about Abeokuta 10KM Race — a Nilayo Sports Management property.">
+  <meta name="twitter:image" content="https://nilayosports.com/images/events/abeokuta-hero.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +38,7 @@
     .prop-hero-bg {
       position: absolute;
       inset: 0;
-      background: url('images/events/yenagoa-hero.jpg') center / cover no-repeat;
+      background: url('images/events/abeokuta-hero.jpg') center top / cover no-repeat;
       filter: contrast(1.08) brightness(0.85);
       will-change: transform;
     }
@@ -405,18 +405,16 @@
     <div class="prop-hero-overlay"></div>
     <div class="prop-hero-inner">
       <a href="properties" class="prop-back">← All Properties</a>
-      <span class="prop-page-badge">World Athletics Supervised</span>
+      
       <div class="event-logo-wrap">
-        <img src="images/events/yc1km.png" alt="Event Logo" class="event-logo">
+        <img src="images/events/abk-logo.png" alt="Event Logo" class="event-logo">
       </div>
-      <div class="prop-hero-tag">New Property</div>
-      <h1 class="prop-hero-title">Yenagoa City International 10KM Race</h1>
-      <div class="prop-hero-location">📍 Yenagoa, Bayelsa State</div>
+      <div class="prop-hero-tag">Heritage Race</div>
+      <h1 class="prop-hero-title">Abeokuta 10KM Race</h1>
+      <div class="prop-hero-location">📍 Abeokuta, Ogun State</div>
       <div class="prop-hero-actions">
-        <a href="https://www.yenagoacity10kmrace.com/" target="_blank" rel="noopener" class="btn btn-fill">
-          <span>Visit Official Website</span>
-          <span class="btn-icon">↗</span>
-        </a>
+        
+        <a href="https://abeokutamarathon.com/" target="_blank" rel="noopener" class="btn btn-fill"><span>Visit Official Website</span><span class="btn-icon">↗</span></a>
         <a href="contact" class="btn btn-outline-white">Partner With Us</a>
       </div>
     </div>
@@ -427,19 +425,19 @@
     <div class="prop-stats-inner">
       
         <div class="prop-stat-item">
-          <div class="prop-stat-val">5,000+</div>
-          <div class="prop-stat-lbl">Runners & Spectators</div>
+          <div class="prop-stat-val">120K+</div>
+          <div class="prop-stat-lbl">Cumulative Participants</div>
         </div>
         <div class="prop-stat-item">
-          <div class="prop-stat-val">2026</div>
-          <div class="prop-stat-lbl">Inaugural Year</div>
+          <div class="prop-stat-val">2019</div>
+          <div class="prop-stat-lbl">Since</div>
         </div>
         <div class="prop-stat-item">
-          <div class="prop-stat-val">1st</div>
-          <div class="prop-stat-lbl">World Athletics Race in Southern Nigeria</div>
+          <div class="prop-stat-val">Annual</div>
+          <div class="prop-stat-lbl">Frequency</div>
         </div>
         <div class="prop-stat-item">
-          <div class="prop-stat-val">2027</div>
+          <div class="prop-stat-val">Sept 2025</div>
           <div class="prop-stat-lbl">Next Edition</div>
         </div>
     </div>
@@ -449,13 +447,13 @@
   <div class="prop-content">
     <div class="prop-body" data-reveal>
       <div class="section-tag">About This Property</div>
-      <p>The Yenagoa City International 10KM Race made history in 2026 as the first World Athletics-supervised road race in Southern Nigeria. With over 5,000 runners and spectators in its debut edition, the event established Bayelsa State as a new frontier for competitive road racing in Nigeria.</p>
-    <p>NSML serves as Project Consultant, bringing its decade-long track record of delivering world-class sporting events to the Niger Delta region. The event is backed by the Bayelsa State Government and strategic partners committed to making it a recurring landmark event.</p>
-    <p>As the first World Athletics-supervised race south of the Niger Bridge, the Yenagoa City International 10KM Race is both a sporting and cultural landmark — opening the door for mass-participation athletics in one of Nigeria's most dynamic regions.</p>
+      <p>The Abeokuta 10KM Race is one of Nigeria's most beloved road races — a race rich in cultural significance and continental participation. Since its inaugural edition in 2019, the event has drawn over 120,000 cumulative participants, establishing itself as the defining sporting event of the ancient Egba capital.</p>
+    <p>NSML serves as Project Consultant and Patent Owner, managing sponsorship, brand partnerships, and event delivery. The race has attracted long-term commitments from national and global brands who recognise the unique audience reach and cultural resonance of Abeokuta as a venue.</p>
+    <p>The next edition is set for September 2025, with an expanded sponsor lineup and growing international participant numbers. The race has become an annual celebration of sport, culture, and community in Ogun State.</p>
       
         <div class="prop-next">
           <span class="eyebrow-dot"></span>
-          Next Edition: <strong>2027</strong>
+          Next Edition: <strong>September 2025</strong>
         </div>
     </div>
 
@@ -463,13 +461,13 @@
       <div class="prop-sidebar-card" data-reveal>
         <div class="prop-sidebar-card-inner">
           <div class="prop-sidebar-title">Sponsors & Partners</div>
-          <img src="images/events/sponsors/yenagoa-sponsors.jpg" alt="Yenagoa 10KM Race Sponsors & Partners" style="width:100%;border-radius:0.625rem;margin-top:0.75rem;display:block;">
+          <img src="images/events/sponsors/abeokuta-sponsors.jpg" alt="Abeokuta 10KM Race Sponsors & Partners" style="width:100%;border-radius:0.625rem;margin-top:0.75rem;display:block;">
         </div>
       </div>
 
       <div class="prop-sidebar-card" data-reveal>
         <div class="prop-sidebar-card-inner">
-          <div class="prop-sidebar-title">Consultant and Organized By</div>
+          <div class="prop-sidebar-title">Owned and Organized By</div>
           <div style="font-size:0.9375rem;color:var(--text-sub);line-height:1.65;">
             <strong style="display:block;color:var(--navy);font-family:var(--font-d);margin-bottom:0.25rem;">Nilayo Sports Management Ltd</strong>
             <a href="contact" style="color:var(--green);font-weight:600;text-decoration:none;font-size:0.875rem;display:inline-flex;align-items:center;gap:0.375rem;margin-top:0.875rem;">Get in touch ↗</a>
@@ -545,7 +543,7 @@
         (function () {
           var grid = document.getElementById('propGalleryGrid');
           if (!grid) return;
-          fetch('/property-gallery.php?page=yenagoa-race.html')
+          fetch('/property-gallery.php?page=abeokuta-race.html')
             .then(function (r) { return r.json(); })
             .then(function (data) {
               if (!data.images || !data.images.length) return;
@@ -573,154 +571,7 @@
 
   <!-- FOOTER -->
   
-  <!-- PARTNERS LOGO MARQUEE -->
-  <div class="partners">
-    <div class="partners-lbl">Trusted Partners &amp; Affiliations</div>
-    <div class="partners-track">
-      <div class="partners-set">
-        <img src="images/partners/web/world-athletics.png" alt="World Athletics" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/pngroyale.com-access-bank-plc-logo.png" alt="Access Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/premium-trust-logo-colour-png.png" alt="PremiumTrust Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/airtel-logo.png" alt="Airtel Nigeria" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/new-kia-logo.png" alt="KIA Motors" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/afnlogo.png" alt="AFN" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/dana.png" alt="Dana Airlines" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/air-peace-icon-2048x407-x77lwkmv.png" alt="Air Peace" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/pinnacle-logo.png" alt="Pinnacle Oil" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/aquavie.png" alt="Aquavie" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/firstbank-logo.png" alt="First Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/keystone.png" alt="Keystone Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/new-mtn-logo.png" alt="MTN" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/unilever.png" alt="Unilever" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/rite-logo.png" alt="Rite Foods" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/valuejet_approved_logo_png.png" alt="Value Jet" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/kenya_airways-logo.wine.png" alt="Kenya Airways" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/casio-logo.png" alt="Casio" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/ogun-state-logo.png" alt="Ogun State" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/bayelsa-sports-logo.png" alt="Bayelsa Sports" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/ramecgroup-logo.png" alt="Ramec Group" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/greenlife-pharmaceuticals-logo.png" alt="Greenlife" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/febbs-premium-drinking-water.png" alt="FEBBS Water" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/binad-table-water.png" alt="Binad Water" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/tcm-logo.png" alt="TCM" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/rexona_logo_2015.svg.png" alt="Rexona" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/premier-cool-deo-01.png" alt="Premier Cool" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/vitabol-hd-logo.png" alt="Vitabol" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/waka.png" alt="Waka" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/what-network-logo.png" alt="What Network" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/robb-logo.png" alt="Robb" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/rpp-logo.png" alt="RPP" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/ogsaa.png" alt="OGSAA" loading="lazy" class="partner-logo">
-      </div>
-      <div class="partners-set" aria-hidden="true">
-        <img src="images/partners/web/world-athletics.png" alt="World Athletics" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/pngroyale.com-access-bank-plc-logo.png" alt="Access Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/premium-trust-logo-colour-png.png" alt="PremiumTrust Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/airtel-logo.png" alt="Airtel Nigeria" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/new-kia-logo.png" alt="KIA Motors" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/afnlogo.png" alt="AFN" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/dana.png" alt="Dana Airlines" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/air-peace-icon-2048x407-x77lwkmv.png" alt="Air Peace" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/pinnacle-logo.png" alt="Pinnacle Oil" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/aquavie.png" alt="Aquavie" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/firstbank-logo.png" alt="First Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/keystone.png" alt="Keystone Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/new-mtn-logo.png" alt="MTN" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/unilever.png" alt="Unilever" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/rite-logo.png" alt="Rite Foods" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/valuejet_approved_logo_png.png" alt="Value Jet" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/kenya_airways-logo.wine.png" alt="Kenya Airways" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/casio-logo.png" alt="Casio" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/ogun-state-logo.png" alt="Ogun State" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/bayelsa-sports-logo.png" alt="Bayelsa Sports" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/ramecgroup-logo.png" alt="Ramec Group" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/greenlife-pharmaceuticals-logo.png" alt="Greenlife" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/febbs-premium-drinking-water.png" alt="FEBBS Water" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/binad-table-water.png" alt="Binad Water" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/tcm-logo.png" alt="TCM" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/rexona_logo_2015.svg.png" alt="Rexona" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/premier-cool-deo-01.png" alt="Premier Cool" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/vitabol-hd-logo.png" alt="Vitabol" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/waka.png" alt="Waka" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/what-network-logo.png" alt="What Network" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/robb-logo.png" alt="Robb" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/rpp-logo.png" alt="RPP" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/ogsaa.png" alt="OGSAA" loading="lazy" class="partner-logo">
-      </div>
-    </div>
-    <div class="partners-track partners-track-reverse">
-      <div class="partners-set">
-        <img src="images/partners/web/bet9ja-logo.png" alt="Bet9ja" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/cashtoken.png" alt="Cash Token" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/channelstv-logo-new-1024x941.png" alt="Channels TV" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/eko-atlantic-logo-clean.png" alt="Eko Atlantic" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/nord.png" alt="Nord" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/brila-green-logo-with-fm-.png" alt="Brila FM" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lasaa.png" alt="LASAA" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/fatgbems.png" alt="Fatgbems" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/hertage.png" alt="Heritage Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/oraimo_logo2.0.png" alt="Oraimo" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/easytipping-front-logo.png" alt="EasyTipping" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/2sure-logo.png" alt="2Sure" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lssc-new-logo.png" alt="LSSC" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/royal-crown-cola-logo-aefc4cb9e1-seeklogo.com.png" alt="Royal Crown Cola" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/comag-logo-2023-new.png" alt="Comag" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/conference-hotel-logo.png" alt="Conference Hotel" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/aims.png" alt="AIMS" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/fct.png" alt="FCT" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lag.png" alt="LAG" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/peculiar.png" alt="Peculiar" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/cr.png" alt="CR" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/joy.png" alt="Joy" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/mf-logo1.png" alt="MF" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lockup-transparent-background-01.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/logo_31710a86f0b01cc31d0a2f0c263ad8d4_2x.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/layer-1-copy-3.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/img_0537.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/img_0538.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/aron-.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/2017_1large_atb.png" alt="ATB" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/1519896687213.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/1280px-suzuki_logo_2.svg.png" alt="Suzuki" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/png-clipart-bayelsa-state-osun-state-rivers-state-kaduna-state-coat-of-arms-osun-state-bayelsa-state-rivers-state-removebg-preview.png" alt="Bayelsa State" loading="lazy" class="partner-logo">
-      </div>
-      <div class="partners-set" aria-hidden="true">
-        <img src="images/partners/web/bet9ja-logo.png" alt="Bet9ja" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/cashtoken.png" alt="Cash Token" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/channelstv-logo-new-1024x941.png" alt="Channels TV" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/eko-atlantic-logo-clean.png" alt="Eko Atlantic" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/nord.png" alt="Nord" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/brila-green-logo-with-fm-.png" alt="Brila FM" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lasaa.png" alt="LASAA" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/fatgbems.png" alt="Fatgbems" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/hertage.png" alt="Heritage Bank" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/oraimo_logo2.0.png" alt="Oraimo" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/easytipping-front-logo.png" alt="EasyTipping" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/2sure-logo.png" alt="2Sure" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lssc-new-logo.png" alt="LSSC" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/royal-crown-cola-logo-aefc4cb9e1-seeklogo.com.png" alt="Royal Crown Cola" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/comag-logo-2023-new.png" alt="Comag" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/conference-hotel-logo.png" alt="Conference Hotel" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/aims.png" alt="AIMS" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/fct.png" alt="FCT" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lag.png" alt="LAG" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/peculiar.png" alt="Peculiar" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/cr.png" alt="CR" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/joy.png" alt="Joy" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/mf-logo1.png" alt="MF" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/lockup-transparent-background-01.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/logo_31710a86f0b01cc31d0a2f0c263ad8d4_2x.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/layer-1-copy-3.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/img_0537.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/img_0538.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/aron-.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/2017_1large_atb.png" alt="ATB" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/1519896687213.png" alt="Partner" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/1280px-suzuki_logo_2.svg.png" alt="Suzuki" loading="lazy" class="partner-logo">
-        <img src="images/partners/web/png-clipart-bayelsa-state-osun-state-rivers-state-kaduna-state-coat-of-arms-osun-state-bayelsa-state-rivers-state-removebg-preview.png" alt="Bayelsa State" loading="lazy" class="partner-logo">
-      </div>
-    </div>
-  </div>
+  <?php require __DIR__ . '/cms/partials/partners-marquee.php'; ?>
 
 <footer>
     <div class="footer-inner">

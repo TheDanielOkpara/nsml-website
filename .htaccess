@@ -3,6 +3,10 @@ Options -MultiViews
 RewriteEngine On
 ErrorDocument 404 /404.html
 
+# Force HTTPS everywhere, including the CMS backend.
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 # Never touch the CMS backend (admin panel, includes, uploads)
 RewriteRule ^cms/ - [L]
 

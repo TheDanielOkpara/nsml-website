@@ -30,22 +30,22 @@ $token = csrf_token();
   * { box-sizing: border-box; }
   body {
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    background:#0d1f3c;
-    background-image: radial-gradient(circle at 15% 20%, rgba(31,157,85,0.18), transparent 45%),
-                       radial-gradient(circle at 85% 85%, rgba(31,157,85,0.12), transparent 45%);
-    height:100vh; margin:0; display:flex; align-items:center; justify-content:center;
+    background:#f5f6f9; color:#19213a;
+    height:100vh; margin:0; display:flex; align-items:center; justify-content:center; padding:1.5rem;
+    -webkit-font-smoothing:antialiased;
   }
-  .login-card { background:#fff; padding:2.5rem; border-radius:1rem; width:340px; box-shadow:0 20px 60px rgba(0,0,0,0.35); }
-  .login-mark { width:42px; height:42px; border-radius:0.65rem; background:#1f9d55; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.125rem; margin-bottom:1.25rem; }
-  h1 { font-size:1.25rem; font-weight:800; letter-spacing:-0.02em; margin:0 0 0.25rem; color:#0d1f3c; }
-  .sub { font-size:0.875rem; color:#8e96a8; margin:0 0 1.5rem; }
-  .field { margin-bottom:1.1rem; }
-  label { display:block; font-size:0.8125rem; font-weight:600; margin-bottom:0.4rem; color:#1a2238; }
-  input { width:100%; padding:0.65rem 0.8rem; border:1.5px solid #e6e9f0; border-radius:0.5rem; font-size:0.9rem; font-family:inherit; outline:none; transition:border-color 0.2s, box-shadow 0.2s; }
+  .login-card { background:#fff; padding:2.25rem; border-radius:13px; width:360px; max-width:100%; border:1px solid #e6e8ef; box-shadow:0 12px 40px -12px rgba(13,31,60,0.18); }
+  .login-mark { width:40px; height:40px; border-radius:9px; background:#1f9d55; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.0625rem; margin-bottom:1.375rem; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14); }
+  h1 { font-size:1.1875rem; font-weight:700; letter-spacing:-0.02em; margin:0 0 0.25rem; color:#16213d; }
+  .sub { font-size:0.875rem; color:#525c75; margin:0 0 1.5rem; }
+  .field { margin-bottom:1rem; }
+  label { display:block; font-size:0.8125rem; font-weight:600; margin-bottom:0.4rem; color:#19213a; }
+  input { width:100%; padding:0.6rem 0.75rem; border:1px solid #d6dae3; border-radius:7px; font-size:0.9rem; font-family:inherit; outline:none; color:#19213a; transition:border-color 0.16s, box-shadow 0.16s; }
   input:focus { border-color:#1f9d55; box-shadow:0 0 0 3px rgba(31,157,85,0.12); }
-  button { width:100%; background:#1f9d55; color:#fff; border:none; padding:0.75rem; border-radius:9999px; font-size:0.9375rem; font-weight:700; cursor:pointer; margin-top:0.5rem; font-family:inherit; transition:background 0.2s; }
-  button:hover { background:#187a42; }
-  .error { background:#fdecea; color:#922b21; padding:0.65rem 0.875rem; border-radius:0.5rem; font-size:0.8125rem; margin-bottom:1.25rem; font-weight:500; }
+  button { width:100%; background:#1f9d55; color:#fff; border:none; padding:0.7rem; border-radius:7px; font-size:0.9375rem; font-weight:600; cursor:pointer; margin-top:0.625rem; font-family:inherit; transition:background 0.16s, transform 0.1s; }
+  button:hover { background:#178a49; }
+  button:active { transform:translateY(1px); }
+  .error { background:#fdecea; color:#922b21; padding:0.65rem 0.875rem; border-radius:7px; font-size:0.8125rem; margin-bottom:1.25rem; font-weight:500; }
 </style>
 </head>
 <body>

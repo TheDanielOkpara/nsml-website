@@ -48,17 +48,34 @@ try {
     exit;
 }
 
-// Best-effort email notification — failure here doesn't fail the submission.
-$subject = "New contact enquiry: {$interest}";
-$body = "New enquiry from the NSML website:\n\n"
-      . "Name: {$first} {$last}\n"
-      . "Email: {$email}\n"
-      . "Phone: {$phone}\n"
+// Email notification to the NSML inbox. Stored-in-DB already succeeded, so a
+// mail failure never fails the request — but we make delivery as reliable as
+// cPanel/Exim allows.
+$fullName = trim($first . ' ' . $last);
+$subject  = "New enquiry: {$interest} — {$fullName}";
+$body = "You have a new enquiry from the nilayosports.com contact form.\n\n"
+      . "Name:     {$fullName}\n"
+      . "Email:    {$email}\n"
+      . "Phone:    " . ($phone !== '' ? $phone : '—') . "\n"
       . "Interest: {$interest}\n\n"
-      . "Message:\n{$message}\n";
-$headers = 'From: ' . CONTACT_NOTIFY_FROM . "\r\n"
-         . 'Reply-To: ' . $email . "\r\n"
-         . 'Content-Type: text/plain; charset=utf-8';
-@mail(CONTACT_NOTIFY_TO, $subject, $body, $headers);
+      . "Message:\n{$message}\n\n"
+      . "--\nReply directly to this email to respond to {$first}.\n";
+
+$fromAddr = CONTACT_NOTIFY_FROM;
+$headers  = implode("\r\n", [
+    'From: NSML Website <' . $fromAddr . '>',
+    // Reply-To is the visitor, so staff can reply straight from their inbox.
+    'Reply-To: ' . $fullName . ' <' . $email . '>',
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset=UTF-8',
+    'X-Mailer: NSML-Contact',
+]);
+
+// The 5th arg (-f envelope sender) sets a proper Return-Path so Exim doesn't
+// fall back to the web-server user, which is the usual reason cPanel mail()
+// notifications get spam-filtered or silently dropped. RFC2047-encode the
+// subject so names with accents/symbols survive.
+$encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+@mail(CONTACT_NOTIFY_TO, $encodedSubject, $body, $headers, '-f' . $fromAddr);
 
 echo json_encode(['ok' => true]);

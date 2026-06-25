@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/listing.php';
 require_login();
 
 if (isset($_GET['delete'])) {
@@ -19,7 +20,13 @@ if (isset($_GET['export'])) {
     exit;
 }
 
-$rows = db()->query('SELECT * FROM subscribers ORDER BY created_at DESC, id DESC')->fetchAll();
+$totalCount = (int) db()->query('SELECT COUNT(*) FROM subscribers')->fetchColumn();
+$result = paginate_query(
+    'SELECT COUNT(*) FROM subscribers %WHERE%',
+    'SELECT * FROM subscribers %WHERE% ORDER BY created_at DESC, id DESC',
+    ['email']
+);
+$rows = $result['rows'];
 $pageTitle = 'Subscribers';
 $activeNav = 'subscribers';
 require __DIR__ . '/layout-top.php';
@@ -28,12 +35,13 @@ require __DIR__ . '/layout-top.php';
 <div class="topbar">
   <div class="topbar-text">
     <h1>Newsletter Subscribers</h1>
-    <p class="page-sub" style="margin:0;"><?= count($rows) ?> total subscribers.</p>
+    <p class="page-sub" style="margin:0;"><?= $totalCount ?> total subscribers.</p>
   </div>
   <a href="subscribers.php?export=1" class="btn">Export CSV</a>
 </div>
 
 <?php if (!empty($_GET['deleted'])): ?><div class="flash">Subscriber removed.</div><?php endif; ?>
+<?php render_search_box('Search by email…'); ?>
 
 <div class="panel">
 <table>
@@ -47,9 +55,10 @@ require __DIR__ . '/layout-top.php';
       <td class="actions-cell"><a href="subscribers.php?delete=<?= $s['id'] ?>" class="btn sm danger" data-confirm="This will remove them from the newsletter list." data-confirm-ok="Remove">Delete</a></td>
     </tr>
   <?php endforeach; ?>
-  <?php if (!$rows): ?><tr><td colspan="4" class="empty-cell">No subscribers yet.</td></tr><?php endif; ?>
+  <?php if (!$rows): ?><tr><td colspan="4" class="empty-cell"><?= $result['q'] !== '' ? 'No subscribers match your search.' : 'No subscribers yet.' ?></td></tr><?php endif; ?>
   </tbody>
 </table>
+<?php render_pagination($result['page'], $result['totalPages']); ?>
 </div>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

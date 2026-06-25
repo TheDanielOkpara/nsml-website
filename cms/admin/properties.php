@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/listing.php';
 require_login();
 
 if (isset($_GET['delete'])) {
@@ -9,7 +10,12 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-$rows = db()->query('SELECT * FROM properties ORDER BY sort_order ASC, id ASC')->fetchAll();
+$result = paginate_query(
+    'SELECT COUNT(*) FROM properties %WHERE%',
+    'SELECT * FROM properties %WHERE% ORDER BY sort_order ASC, id ASC',
+    ['title', 'tag']
+);
+$rows = $result['rows'];
 $pageTitle = 'Properties';
 $activeNav = 'properties';
 require __DIR__ . '/layout-top.php';
@@ -25,6 +31,7 @@ require __DIR__ . '/layout-top.php';
 
 <?php if (!empty($_GET['saved'])): ?><div class="flash">Property saved.</div><?php endif; ?>
 <?php if (!empty($_GET['deleted'])): ?><div class="flash">Property deleted.</div><?php endif; ?>
+<?php render_search_box('Search properties by title or tag…'); ?>
 
 <div class="panel">
 <table>
@@ -44,9 +51,10 @@ require __DIR__ . '/layout-top.php';
       </td>
     </tr>
   <?php endforeach; ?>
-  <?php if (!$rows): ?><tr><td colspan="6" class="empty-cell">No properties yet.</td></tr><?php endif; ?>
+  <?php if (!$rows): ?><tr><td colspan="6" class="empty-cell"><?= $result['q'] !== '' ? 'No properties match your search.' : 'No properties yet.' ?></td></tr><?php endif; ?>
   </tbody>
 </table>
+<?php render_pagination($result['page'], $result['totalPages']); ?>
 </div>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

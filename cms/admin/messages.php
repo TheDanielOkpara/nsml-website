@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/listing.php';
 require_login();
 
 if (isset($_GET['delete'])) {
@@ -9,13 +10,23 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-$rows = db()->query('SELECT * FROM contact_submissions ORDER BY created_at DESC, id DESC')->fetchAll();
+$result = paginate_query(
+    'SELECT COUNT(*) FROM contact_submissions %WHERE%',
+    'SELECT * FROM contact_submissions %WHERE% ORDER BY created_at DESC, id DESC',
+    ['first_name', 'last_name', 'email', 'interest', 'message'],
+    20
+);
+$rows = $result['rows'];
 
-// Pick the open message: the one in ?id=, or the first in the list.
+// Pick the open message: the one in ?id=, the first on the current page, or none.
+// Fetched independently of the list filter so a deep link (e.g. from the dashboard)
+// still opens the right message even if it's filtered/paginated out of the list.
 $selectedId = isset($_GET['id']) ? (int) $_GET['id'] : ($rows[0]['id'] ?? null);
 $selected = null;
-foreach ($rows as $m) {
-    if ((int) $m['id'] === $selectedId) { $selected = $m; break; }
+if ($selectedId) {
+    $stmt = db()->prepare('SELECT * FROM contact_submissions WHERE id = ?');
+    $stmt->execute([$selectedId]);
+    $selected = $stmt->fetch() ?: null;
 }
 
 // Opening a message reads it, like a mail client.
@@ -50,14 +61,16 @@ function relTime(string $datetime): string {
 
 <div class="panel mail-panel">
   <div class="mail-list">
+    <div class="mail-list-search"><?php render_search_box('Search messages…'); ?></div>
+    <div class="mail-list-scroll">
     <?php if (!$rows): ?>
       <div class="empty-state" style="padding:3rem 1.25rem;">
-        <div class="es-title">No messages yet</div>
-        <div class="es-text">Contact-form submissions will appear here.</div>
+        <div class="es-title"><?= $result['q'] !== '' ? 'No matches' : 'No messages yet' ?></div>
+        <div class="es-text"><?= $result['q'] !== '' ? 'Try a different search term.' : "Contact-form submissions will appear here." ?></div>
       </div>
     <?php endif; ?>
     <?php foreach ($rows as $m): ?>
-      <a href="messages.php?id=<?= $m['id'] ?>" class="mail-list-item <?= (int)$m['id'] === $selectedId ? 'active' : '' ?>">
+      <a href="messages.php?id=<?= $m['id'] ?><?= $result['q'] !== '' ? '&q=' . rawurlencode($result['q']) : '' ?>" class="mail-list-item <?= (int)$m['id'] === $selectedId ? 'active' : '' ?>">
         <div class="mli-top">
           <span class="mli-name"><?php if (!$m['is_read']): ?><span class="mli-dot"></span><?php endif; ?><?= htmlspecialchars(trim($m['first_name'] . ' ' . $m['last_name'])) ?: 'Anonymous' ?></span>
           <span class="mli-time"><?= relTime($m['created_at']) ?></span>
@@ -66,6 +79,8 @@ function relTime(string $datetime): string {
         <div class="mli-snippet"><?= htmlspecialchars(mb_substr($m['message'] ?? '', 0, 80)) ?></div>
       </a>
     <?php endforeach; ?>
+    </div>
+    <?php render_pagination($result['page'], $result['totalPages']); ?>
   </div>
 
   <div class="mail-detail">

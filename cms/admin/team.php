@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/listing.php';
 require_login();
 
 if (isset($_GET['delete'])) {
@@ -9,7 +10,12 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-$rows = db()->query('SELECT * FROM team_members ORDER BY is_ceo DESC, sort_order ASC, id ASC')->fetchAll();
+$result = paginate_query(
+    'SELECT COUNT(*) FROM team_members %WHERE%',
+    'SELECT * FROM team_members %WHERE% ORDER BY is_ceo DESC, sort_order ASC, id ASC',
+    ['name', 'role']
+);
+$rows = $result['rows'];
 $pageTitle = 'Team';
 $activeNav = 'team';
 require __DIR__ . '/layout-top.php';
@@ -25,6 +31,7 @@ require __DIR__ . '/layout-top.php';
 
 <?php if (!empty($_GET['saved'])): ?><div class="flash">Team member saved.</div><?php endif; ?>
 <?php if (!empty($_GET['deleted'])): ?><div class="flash">Team member deleted.</div><?php endif; ?>
+<?php render_search_box('Search team by name or role…'); ?>
 
 <div class="panel">
 <table>
@@ -42,9 +49,10 @@ require __DIR__ . '/layout-top.php';
       </td>
     </tr>
   <?php endforeach; ?>
-  <?php if (!$rows): ?><tr><td colspan="5" class="empty-cell">No team members yet.</td></tr><?php endif; ?>
+  <?php if (!$rows): ?><tr><td colspan="5" class="empty-cell"><?= $result['q'] !== '' ? 'No team members match your search.' : 'No team members yet.' ?></td></tr><?php endif; ?>
   </tbody>
 </table>
+<?php render_pagination($result['page'], $result['totalPages']); ?>
 </div>
 
 <?php require __DIR__ . '/layout-bottom.php'; ?>

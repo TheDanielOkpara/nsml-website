@@ -517,23 +517,9 @@ function prop_stats(array $p): array {
       </div>
       <div class="consult-card" data-reveal>
         <div class="consult-inner">
-          <div class="consult-type">Project Consultant</div>
-          <div class="consult-title">Kaduna Marathon</div>
-          <div class="consult-desc">7,000+ runners in 2021 for its first edition. First World Athletics-supervised marathon in Northern Nigeria, with long-term state government and strategic partner commitments.</div>
-        </div>
-      </div>
-      <div class="consult-card" data-reveal>
-        <div class="consult-inner">
           <div class="consult-type">Project &amp; Sponsorship Consultant</div>
           <div class="consult-title">F5WC Football Five World Championship</div>
           <div class="consult-desc">Nigeria representative for the world's first 5-A-Side amateur tournament. 1M+ players across 48 countries. Raised over ₦20M from the private sector locally.</div>
-        </div>
-      </div>
-      <div class="consult-card" data-reveal>
-        <div class="consult-inner">
-          <div class="consult-type">Sponsorship Consultant</div>
-          <div class="consult-title">IAU African Championship Remo 2019</div>
-          <div class="consult-desc">5,000+ participants. Secured backing from Value Jet Airline, Keystone Bank, Bet9ja, Seven Up, Heritage Bank, and Airtel for the inaugural edition.</div>
         </div>
       </div>
     </div>

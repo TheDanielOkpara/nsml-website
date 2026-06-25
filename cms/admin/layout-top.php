@@ -245,9 +245,27 @@ $navItems = [
   .flash::before { content:''; width:7px; height:7px; border-radius:50%; background:currentColor; flex-shrink:0; }
   .flash.error { background:var(--red-tint); border-color:var(--red-border); color:#922b21; }
 
+  /* ───────────── SEARCH ───────────── */
+  .search-box { position:relative; display:flex; align-items:center; width:280px; max-width:100%; }
+  .search-box svg { position:absolute; left:0.7rem; width:15px; height:15px; color:var(--text-muted); pointer-events:none; }
+  .search-box input { width:100%; padding:0.5rem 2rem 0.5rem 2.1rem; border:1px solid var(--border-strong); border-radius:var(--r-sm); font-size:0.875rem; font-family:inherit; background:var(--surface); color:var(--text); outline:none; transition:border-color 0.16s var(--ease), box-shadow 0.16s var(--ease); }
+  .search-box input:focus { border-color:var(--green); box-shadow:0 0 0 3px var(--green-tint); }
+  .search-box .search-clear { position:absolute; right:0.6rem; color:var(--text-muted); text-decoration:none; font-size:1.125rem; line-height:1; padding:0.1rem; }
+  .search-box .search-clear:hover { color:var(--text); }
+
+  /* ───────────── PAGINATION ───────────── */
+  .pagination { display:flex; align-items:center; justify-content:center; gap:1rem; padding:1rem 1.25rem; border-top:1px solid var(--hairline); }
+  .pagination-status { font-size:0.8125rem; color:var(--text-muted); font-weight:500; }
+  .btn.sm.disabled { opacity:0.4; cursor:default; pointer-events:none; }
+
   /* ───────────── MAIL EXPERIENCE (Messages) ───────────── */
   .mail-panel { display:flex; height:min(680px, calc(100vh - 14rem)); }
-  .mail-list { width:320px; flex-shrink:0; border-right:1px solid var(--hairline); overflow-y:auto; }
+  .mail-list { width:320px; flex-shrink:0; border-right:1px solid var(--hairline); display:flex; flex-direction:column; }
+  .mail-list-search { padding:0.75rem; border-bottom:1px solid var(--hairline); flex-shrink:0; }
+  .mail-list-search .search-box { width:100%; }
+  .mail-list-scroll { flex:1; overflow-y:auto; min-height:0; }
+  .mail-list .pagination { padding:0.625rem 0.75rem; }
+  .mail-list .pagination-status { font-size:0.75rem; }
   .mail-list-item { display:block; padding:0.875rem 1.125rem; border-bottom:1px solid var(--hairline); text-decoration:none; color:inherit; transition:background 0.14s var(--ease); }
   .mail-list-item:hover { background:var(--surface-2); }
   .mail-list-item.active { background:var(--green-tint); }

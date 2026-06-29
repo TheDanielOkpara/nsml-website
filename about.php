@@ -352,8 +352,7 @@ function initials_of(string $name): string {
     /* Bio spotlight panel — spans all grid cols, expands below clicked row */
     .bio-panel {
       grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 280px 1fr;
+      display: block;
       background: var(--navy);
       border-radius: var(--r-xl);
       overflow: hidden;
@@ -369,33 +368,6 @@ function initials_of(string $name): string {
       max-height: 440px;
       opacity: 1;
       pointer-events: all;
-    }
-
-    .bio-panel-photo {
-      position: relative;
-      background: linear-gradient(160deg, #0d2545 0%, #1a3460 100%);
-      overflow: hidden;
-    }
-
-    .bio-panel-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .bio-panel-photo .bio-initials-fb {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-d);
-      font-size: 4rem;
-      font-weight: 800;
-      color: var(--green);
-      letter-spacing: -0.04em;
     }
 
     .bio-panel-content {
@@ -454,7 +426,6 @@ function initials_of(string $name): string {
     /* Responsive */
     @media (max-width: 1024px) {
       .team-ceo { grid-template-columns: 260px 1fr; }
-      .bio-panel { grid-template-columns: 220px 1fr; }
     }
 
     @media (max-width: 768px) {
@@ -462,12 +433,7 @@ function initials_of(string $name): string {
       .ceo-photo-wrap { min-height: 300px; }
       .ceo-details { padding: 2rem 1.75rem; }
       .team-grid-outer { grid-template-columns: repeat(2, 1fr); }
-      .bio-panel {
-        grid-template-columns: 1fr;
-        max-height: 0;
-      }
       .bio-panel.open { max-height: 700px; }
-      .bio-panel-photo { height: 220px; }
       .bio-panel-content { padding: 1.75rem; }
     }
 
@@ -591,8 +557,6 @@ function initials_of(string $name): string {
       <div class="tm-card" data-reveal data-index="<?= $i ?>"
            data-name="<?= htmlspecialchars($m['name']) ?>"
            data-role="<?= htmlspecialchars($m['role'] ?? '') ?>"
-           data-photo="<?= htmlspecialchars($m['photo'] ?: '') ?>"
-           data-initials="<?= htmlspecialchars(initials_of($m['name'])) ?>"
            data-bio="<?= htmlspecialchars($m['bio'] ?? '') ?>">
         <div class="tm-hint">View Bio</div>
         <div class="tm-photo-wrap">
@@ -612,10 +576,6 @@ function initials_of(string $name): string {
 
     <!-- Bio panel template (moved into grid via JS) -->
     <div class="bio-panel" id="bioPanelTpl" style="display:none">
-      <div class="bio-panel-photo" id="bioPanelPhoto">
-        <img id="bioPanelImg" src="" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
-        <div class="bio-initials-fb" id="bioPanelInitials"></div>
-      </div>
       <div class="bio-panel-content" style="position:relative;">
         <button class="bio-panel-close" id="bioPanelClose" aria-label="Close bio">&#x2715;</button>
         <div class="bio-panel-role" id="bioPanelRole"></div>
@@ -776,37 +736,21 @@ function initials_of(string $name): string {
       panel.style.display = '';
       panel.classList.add('bio-panel');
 
-      const photo    = card.dataset.photo;
       const name     = card.dataset.name;
       const role     = card.dataset.role;
       const bio      = card.dataset.bio;
-      const initials = card.dataset.initials;
 
-      const panelImg      = panel.querySelector('#bioPanelImg');
-      const panelInitials = panel.querySelector('#bioPanelInitials');
       const panelRole     = panel.querySelector('#bioPanelRole');
       const panelName     = panel.querySelector('#bioPanelName');
       const panelText     = panel.querySelector('#bioPanelText');
       const panelClose    = panel.querySelector('#bioPanelClose');
 
       // Remove template IDs to avoid duplicates
-      [panelImg, panelInitials, panelRole, panelName, panelText, panelClose].forEach(el => { if(el) el.removeAttribute('id'); });
+      [panelRole, panelName, panelText, panelClose].forEach(el => { if(el) el.removeAttribute('id'); });
 
-      if (photo) {
-        panelImg.src = photo;
-        panelImg.alt = name;
-        panelImg.style.display = 'block';
-        panelInitials.style.display = 'none';
-        panelImg.onerror = () => { panelImg.style.display = 'none'; panelInitials.style.display = 'flex'; };
-      } else {
-        panelImg.style.display = 'none';
-        panelInitials.style.display = 'flex';
-      }
-
-      panelInitials.textContent = initials;
-      panelRole.textContent     = role;
-      panelName.textContent     = name;
-      panelText.textContent     = bio;
+      panelRole.textContent = role;
+      panelName.textContent = name;
+      panelText.textContent = bio;
 
       panelClose.addEventListener('click', closeBio);
 

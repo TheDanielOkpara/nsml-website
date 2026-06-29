@@ -848,20 +848,27 @@ function initials_of(string $name): string {
     // Close bio on Escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBio(); });
 
-    // Reposition panel on resize (column count may change)
+    // Reposition panel on resize — but only when the column count actually
+    // changes. Mobile browsers fire `resize` when the address bar
+    // collapses/expands during scroll, so without this guard the panel
+    // would get torn down and reinserted on every scroll.
     let resizeTimer;
+    let lastCols = COLS();
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
+        const cols = COLS();
+        if (cols === lastCols) return;
+        lastCols = cols;
         if (activePanel && activeIndex >= 0) {
           const card = document.querySelector(`.tm-card[data-index="${activeIndex}"]`);
           if (card) {
-            activePanel.parentNode.removeChild(activePanel);
-            activePanel = null;
-            const cols    = COLS();
+            const panel = activePanel;
+            panel.parentNode.removeChild(panel);
             const cards   = Array.from(document.querySelectorAll('.tm-card'));
             const rowEnd  = Math.min(Math.floor(activeIndex / cols) * cols + cols - 1, cards.length - 1);
-            cards[rowEnd].after(activePanel = document.getElementById('bioPanel') || activePanel);
+            cards[rowEnd].after(panel);
+            activePanel = panel;
           }
         }
       }, 200);

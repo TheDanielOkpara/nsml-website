@@ -52,7 +52,6 @@ function ensure_partner_logos_table(): void {
     $count = (int) db()->query('SELECT COUNT(*) FROM partner_logos')->fetchColumn();
     if ($count === 0) {
         $row1 = [
-            ['images/partners/web/world-athletics.png', 'World Athletics'],
             ['images/partners/web/pngroyale.com-access-bank-plc-logo.png', 'Access Bank'],
             ['images/partners/web/premium-trust-logo-colour-png.png', 'PremiumTrust Bank'],
             ['images/partners/web/airtel-logo.png', 'Airtel Nigeria'],

@@ -451,7 +451,7 @@ function news_date(array $p): string {
       <div class="footer-top">
         <div>
           <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
-          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.</div>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. Home of the Access Bank Lagos City Marathon.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
@@ -501,7 +501,7 @@ function news_date(array $p): string {
             <div class="footer-bottom">
         <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
         <a href="http://designthngs.com/" target="_blank" rel="noopener" class="f-credit">Built by Design Things Studio</a>
-        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+
       </div>
     </div>
   </footer>

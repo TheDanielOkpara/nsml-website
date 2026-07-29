@@ -449,9 +449,9 @@
   <div class="prop-content">
     <div class="prop-body" data-reveal>
       <div class="section-tag">About This Property</div>
-      <p>The Enugu City International Marathon made a stunning debut on 3 May 2025, drawing over 13,000 runners and spectators in its first edition. The event marked the arrival of a World Athletics-supervised international marathon in South-East Nigeria — opening a new chapter in the region's sporting history.</p>
+      <p>The Enugu City International Marathon made a stunning debut on 3 May 2025, drawing over 13,000 runners and spectators in its first edition. The event marked the arrival of an internationally supervised marathon in South-East Nigeria — opening a new chapter in the region's sporting history.</p>
     <p>NSML serves as Project Consultant for the Enugu City Marathon, delivering the same standard of excellence that has made the Lagos City Marathon Africa's Strongest Marathon Brand. The event is backed by major Nigerian and international sponsors committed to its long-term growth.</p>
-    <p>The maiden edition attracted strong sponsor support from Pinnacle Oil, Air Peace, Three Crowns, and key bodies including World Athletics and the Athletics Federation of Nigeria — signalling serious institutional backing for the event's future.</p>
+    <p>The maiden edition attracted strong sponsor support from Pinnacle Oil, Air Peace, Three Crowns, and key bodies including the Athletics Federation of Nigeria — signalling serious institutional backing for the event's future.</p>
       
         <div class="prop-next">
           <span class="eyebrow-dot"></span>
@@ -580,7 +580,7 @@
       <div class="footer-top">
         <div>
           <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
-          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
@@ -618,7 +618,7 @@
       <div class="footer-bottom">
         <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
         <a href="http://designthngs.com/" target="_blank" rel="noopener" class="f-credit">Built by Design Things Studio</a>
-        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+
       </div>
     </div>
   </footer>

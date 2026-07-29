@@ -405,7 +405,7 @@
     <div class="prop-hero-overlay"></div>
     <div class="prop-hero-inner">
       <a href="properties" class="prop-back">← All Properties</a>
-      <span class="prop-page-badge">World Athletics Supervised</span>
+      <span class="prop-page-badge">Internationally Supervised</span>
       <div class="event-logo-wrap">
         <img src="images/events/yc1km.png" alt="Event Logo" class="event-logo">
       </div>
@@ -436,7 +436,7 @@
         </div>
         <div class="prop-stat-item">
           <div class="prop-stat-val">1st</div>
-          <div class="prop-stat-lbl">World Athletics Race in Southern Nigeria</div>
+          <div class="prop-stat-lbl">Internationally Supervised Race in Southern Nigeria</div>
         </div>
         <div class="prop-stat-item">
           <div class="prop-stat-val">2027</div>
@@ -449,9 +449,9 @@
   <div class="prop-content">
     <div class="prop-body" data-reveal>
       <div class="section-tag">About This Property</div>
-      <p>The Yenagoa City International 10KM Race made history in 2026 as the first World Athletics-supervised road race in Southern Nigeria. With over 5,000 runners and spectators in its debut edition, the event established Bayelsa State as a new frontier for competitive road racing in Nigeria.</p>
+      <p>The Yenagoa City International 10KM Race made history in 2026 as the first internationally supervised road race in Southern Nigeria. With over 5,000 runners and spectators in its debut edition, the event established Bayelsa State as a new frontier for competitive road racing in Nigeria.</p>
     <p>NSML serves as Project Consultant, bringing its decade-long track record of delivering world-class sporting events to the Niger Delta region. The event is backed by the Bayelsa State Government and strategic partners committed to making it a recurring landmark event.</p>
-    <p>As the first World Athletics-supervised race south of the Niger Bridge, the Yenagoa City International 10KM Race is both a sporting and cultural landmark — opening the door for mass-participation athletics in one of Nigeria's most dynamic regions.</p>
+    <p>As the first internationally supervised race south of the Niger Bridge, the Yenagoa City International 10KM Race is both a sporting and cultural landmark — opening the door for mass-participation athletics in one of Nigeria's most dynamic regions.</p>
       
         <div class="prop-next">
           <span class="eyebrow-dot"></span>
@@ -580,7 +580,7 @@
       <div class="footer-top">
         <div>
           <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
-          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
@@ -618,7 +618,7 @@
       <div class="footer-bottom">
         <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
         <a href="http://designthngs.com/" target="_blank" rel="noopener" class="f-credit">Built by Design Things Studio</a>
-        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+
       </div>
     </div>
   </footer>

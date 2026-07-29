@@ -9,19 +9,19 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nilayo Sports Management — Africa's Sports Authority</title>
-  <meta name="description" content="Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.">
+  <meta name="description" content="Africa's leading sports marketing, brand management and procurement agency. Home of the Access Bank Lagos City Marathon.">
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nilayosports.com/">
   <meta property="og:title" content="Nilayo Sports Management — Africa's Sports Authority">
-  <meta property="og:description" content="Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.">
+  <meta property="og:description" content="Africa's leading sports marketing, brand management and procurement agency. Home of the Access Bank Lagos City Marathon.">
   <meta property="og:image" content="https://nilayosports.com/images/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Nilayo Sports Management — Africa's Sports Authority">
-  <meta name="twitter:description" content="Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.">
+  <meta name="twitter:description" content="Africa's leading sports marketing, brand management and procurement agency.">
   <meta name="twitter:image" content="https://nilayosports.com/images/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -519,7 +519,7 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
       <div class="hero-content">
         <div class="eyebrow-pill hero-eyebrow" id="heroEyebrow">
           <span class="eyebrow-dot"></span>
-          World Athletics Certified — Africa's Strongest Marathon Brand 2025
+          Africa's Strongest Marathon Brand 2025
         </div>
         <h1 class="hero-h1">
           <span class="hero-line" id="hl1">Africa's Strongest</span>
@@ -537,7 +537,6 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
         </div>
         <div class="hero-trust" id="heroTrust">
           <span class="trust-label">Trusted by</span>
-          <span class="trust-item">World Athletics</span><span class="trust-sep"></span>
           <span class="trust-item">CAA</span><span class="trust-sep"></span>
           <span class="trust-item">NFF</span><span class="trust-sep"></span>
           <span class="trust-item">AFN</span><span class="trust-sep"></span>
@@ -555,7 +554,6 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
       <div class="ticker-set">
         <span class="tick hi">Lagos City Marathon</span><span class="tick-dot"></span>
         <span class="tick">440,000+ Participants</span><span class="tick-dot"></span>
-        <span class="tick hi">World Athletics Certified</span><span class="tick-dot"></span>
         <span class="tick">Africa's Strongest Marathon Brand 2025</span><span class="tick-dot"></span>
         <span class="tick hi">Abuja City Half Marathon</span><span class="tick-dot"></span>
         <span class="tick">Copa Lagos Beach Soccer</span><span class="tick-dot"></span>
@@ -568,7 +566,6 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
       <div class="ticker-set" aria-hidden="true">
         <span class="tick hi">Lagos City Marathon</span><span class="tick-dot"></span>
         <span class="tick">440,000+ Participants</span><span class="tick-dot"></span>
-        <span class="tick hi">World Athletics Certified</span><span class="tick-dot"></span>
         <span class="tick">Africa's Strongest Marathon Brand 2025</span><span class="tick-dot"></span>
         <span class="tick hi">Abuja City Half Marathon</span><span class="tick-dot"></span>
         <span class="tick">Copa Lagos Beach Soccer</span><span class="tick-dot"></span>
@@ -625,7 +622,7 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
       <div class="teaser-text">
         <div class="section-tag">Who We Are</div>
         <h2 class="sec-h2">Transforming Sports<br>Across <span class="hi">Africa</span></h2>
-        <p>We are a sports marketing, brand management, and procurement agency that thrives on dynamism and innovation. With deep relationships with World Athletics, NFF, CAA, and AFN, we promote sporting activities from grassroots to international fame — creating lasting legacies that inspire generations.</p>
+        <p>We are a sports marketing, brand management, and procurement agency that thrives on dynamism and innovation. With deep relationships with NFF, CAA, and AFN, we promote sporting activities from grassroots to international fame — creating lasting legacies that inspire generations.</p>
         <a href="about" class="btn btn-fill btn-sm">
           <span>Our Story</span>
           <span class="btn-icon">↗</span>
@@ -696,14 +693,13 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
 
         <!-- Lagos City Marathon — featured wide card -->
         <div class="prop-card prop-card-lg" data-reveal>
-          <span class="prop-badge">World Athletics</span>
           <div class="prop-img-wrap">
             <img class="prop-img" src="images/events/lagos/lagos-card.jpg" alt="Access Bank Lagos City Marathon runners" loading="lazy">
           </div>
           <div class="prop-body">
             <div class="prop-tag">Flagship Property</div>
             <div class="prop-title">Access Bank Lagos City Marathon</div>
-            <div class="prop-desc">Africa's Strongest Marathon Brand 2025 — a World Athletics Global Certification. 10th anniversary edition delivered in 2025 with 440,000+ participants since 2016, raising over ₦3 billion annually from the private sector.</div>
+            <div class="prop-desc">Africa's Strongest Marathon Brand 2025. 10th anniversary edition delivered in 2025 with 440,000+ participants since 2016, raising over ₦3 billion annually from the private sector.</div>
             <a href="lagos-marathon" class="btn btn-fill btn-sm">
               <span>View Property</span>
               <span class="btn-icon">↗</span>
@@ -735,7 +731,7 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
             <div class="prop-body">
               <div class="prop-tag">International</div>
               <div class="prop-title">PremiumTrust Bank Abuja City Marathon</div>
-              <div class="prop-desc">50,000+ participants. First World Athletics-supervised half marathon in Nigeria's capital. Next edition November 2026.</div>
+              <div class="prop-desc">50,000+ participants. Internationally supervised half marathon in Nigeria's capital. Next edition November 2026.</div>
               <a href="abuja-marathon" class="btn btn-fill btn-sm">
                 <span>View Property</span>
                 <span class="btn-icon">↗</span>
@@ -852,7 +848,7 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
       <div class="footer-top">
         <div>
           <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
-          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified. Home of the Access Bank Lagos City Marathon.</div>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. Home of the Access Bank Lagos City Marathon.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
@@ -903,7 +899,6 @@ $eventBanners = db()->query('SELECT * FROM event_banners WHERE is_active = 1 ORD
             <div class="footer-bottom">
         <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
         <a href="http://designthngs.com/" target="_blank" rel="noopener" class="f-credit">Built by Design Things Studio</a>
-        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
       </div>
     </div>
   </footer>

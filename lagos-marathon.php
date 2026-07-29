@@ -405,7 +405,7 @@
     <div class="prop-hero-overlay"></div>
     <div class="prop-hero-inner">
       <a href="properties" class="prop-back">← All Properties</a>
-      <span class="prop-page-badge">World Athletics Certified</span>
+      <span class="prop-page-badge">Africa's Strongest Marathon Brand</span>
       <div class="event-logo-wrap">
         <img src="images/events/ablcm-logo-[no-year].png" alt="Event Logo" class="event-logo">
       </div>
@@ -449,8 +449,8 @@
   <div class="prop-content">
     <div class="prop-body" data-reveal>
       <div class="section-tag">About This Property</div>
-      <p>The Access Bank Lagos City Marathon is Africa's premier road race — and Africa's Strongest Marathon Brand 2025 as certified by World Athletics. Since its inaugural edition in 2016, the event has grown into the continent's most impactful mass-participation sporting experience, drawing runners, sponsors, and spectators from across Nigeria and beyond.</p>
-    <p>As Project Consultants and Patent Owners, Nilayo Sports Management has driven the marathon's growth from a promising debut to a globally recognised event with World Athletics global certification. The 10th anniversary edition in 2025 marked a decade of building what has become the defining marathon of African sport.</p>
+      <p>The Access Bank Lagos City Marathon is Africa's premier road race — and Africa's Strongest Marathon Brand 2025. Since its inaugural edition in 2016, the event has grown into the continent's most impactful mass-participation sporting experience, drawing runners, sponsors, and spectators from across Nigeria and beyond.</p>
+    <p>As Project Consultants and Patent Owners, Nilayo Sports Management has driven the marathon's growth from a promising debut to a globally recognised event a globally recognised event with world-class road race standards. The 10th anniversary edition in 2025 marked a decade of building what has become the defining marathon of African sport.</p>
     <p>The marathon raises over ₦3 billion annually from the private sector, with long-term commitments from Access Bank (title sponsor), KIA Motors, Seven Up, Aquafina, Airtel, and more than 30 national and global brands.</p>
       
         <div class="prop-next">
@@ -578,7 +578,7 @@
       <div class="footer-top">
         <div>
           <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
-          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
@@ -616,7 +616,7 @@
       <div class="footer-bottom">
         <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
         <a href="http://designthngs.com/" target="_blank" rel="noopener" class="f-credit">Built by Design Things Studio</a>
-        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+
       </div>
     </div>
   </footer>

@@ -436,7 +436,7 @@
         </div>
         <div class="prop-stat-item">
           <div class="prop-stat-val">1st</div>
-          <div class="prop-stat-lbl">World Athletics-Supervised Race in Abuja</div>
+          <div class="prop-stat-lbl">Internationally Supervised Race in Abuja</div>
         </div>
         <div class="prop-stat-item">
           <div class="prop-stat-val">Nov 2026</div>
@@ -449,7 +449,7 @@
   <div class="prop-content">
     <div class="prop-body" data-reveal>
       <div class="section-tag">About This Property</div>
-      <p>The PremiumTrust Bank Abuja City International Half Marathon is Nigeria's capital city's premier long-distance race. The maiden edition was held on 20 April 2024, making it the first World Athletics-supervised half marathon in Abuja — bringing international road racing standards to the heart of Nigeria.</p>
+      <p>The PremiumTrust Bank Abuja City International Half Marathon is Nigeria's capital city's premier long-distance race. The maiden edition was held on 20 April 2024, making it the first internationally supervised half marathon in Abuja — bringing international road racing standards to the heart of Nigeria.</p>
     <p>With 50,000+ participants in its debut year, the Abuja City Marathon established itself immediately as a major event on the national sporting calendar. NSML serves as Project Consultant, managing sponsorship, brand, and event delivery.</p>
     <p>Long-term sponsorship commitments from PremiumTrust Bank (title sponsor), Dana Airlines, Seven Up, Aquafina, and the Athletics Federation of Nigeria underpin the event's growth as it heads into its next edition in November 2026.</p>
       
@@ -580,7 +580,7 @@
       <div class="footer-top">
         <div>
           <a href="/" class="f-logo"><img src="images/logo.png" alt="Nilayo Sports Management Ltd" class="f-logo-img"></a>
-          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency. World Athletics Certified.</div>
+          <div class="f-tagline">Africa's leading sports marketing, brand management and procurement agency.</div>
         </div>
         <div>
           <div class="f-col-title">Navigate</div>
@@ -618,7 +618,7 @@
       <div class="footer-bottom">
         <div class="f-copy">&copy; 2025 Nilayo Sports Management Ltd. All rights reserved.</div>
         <a href="http://designthngs.com/" target="_blank" rel="noopener" class="f-credit">Built by Design Things Studio</a>
-        <div class="f-cert-pill"><span class="eyebrow-dot"></span>World Athletics Certified 2025</div>
+
       </div>
     </div>
   </footer>
